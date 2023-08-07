@@ -17,22 +17,22 @@
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="构造函数定义类时，它的构造函数可以写成如下形式： 1234567class complex&amp;#123;private:    double re,im;public:    complex(double i,double j)        :re(i),im(j)&amp;#123;&amp;#125;&#x2F;&#x2F;initialization list&amp;#125;;  此外，可以将构造函数放入private下： 123">
+  <meta name="description" content="构造函数定义类时，它的构造函数可以写成如下形式：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="class">
 <meta property="og:url" content="http://example.com/2023/07/23/%E7%B1%BB/index.html">
 <meta property="og:site_name" content="任我行">
-<meta property="og:description" content="构造函数定义类时，它的构造函数可以写成如下形式： 1234567class complex&amp;#123;private:    double re,im;public:    complex(double i,double j)        :re(i),im(j)&amp;#123;&amp;#125;&#x2F;&#x2F;initialization list&amp;#125;;  此外，可以将构造函数放入private下： 123">
+<meta property="og:description" content="构造函数定义类时，它的构造函数可以写成如下形式：">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="e:\C++ code\notes\object oriented\pictures\%E6%B7%B1%E6%B5%85%E6%8B%B7%E8%B4%9D.png">
 <meta property="og:image" content="e:\C++ code\notes\object oriented\pictures\%E6%9E%90%E6%9E%84.png">
 <meta property="og:image" content="e:\C++ code\notes\object oriented\pictures\%E6%8B%B7%E8%B4%9D%E5%A4%8D%E5%88%B6.png">
 <meta property="og:image" content="e:\C++ code\notes\object oriented\pictures\%E8%87%AA%E6%88%91%E8%B5%8B%E5%80%BC.png">
 <meta property="article:published_time" content="2023-07-23T12:33:34.961Z">
-<meta property="article:modified_time" content="2023-07-25T15:10:09.761Z">
+<meta property="article:modified_time" content="2023-08-07T08:52:27.612Z">
 <meta property="article:author" content="阿怪">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="object oriented">
@@ -144,11 +144,6 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
-        <li class="menu-item menu-item-resources">
-
-    <a href="/resources/" rel="section"><i class="download fa-fw"></i>resources</a>
-
-  </li>
   </ul>
 </nav>
 
@@ -207,7 +202,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-07-25 23:10:09" itemprop="dateModified" datetime="2023-07-25T23:10:09+08:00">2023-07-25</time>
+                <time title="修改时间：2023-08-07 16:52:27" itemprop="dateModified" datetime="2023-08-07T16:52:27+08:00">2023-08-07</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -231,6 +226,8 @@
 
       
         <h1 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h1><p>定义类时，它的构造函数可以写成如下形式：</p>
+<span id="more"></span>
+
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">complex</span>&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">double</span> re,im;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">complex</span>(<span class="type">double</span> i,<span class="type">double</span> j)</span><br><span class="line">        :<span class="built_in">re</span>(i),<span class="built_in">im</span>(j)&#123;&#125;<span class="comment">//initialization list</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <p>此外，可以将构造函数放入private下：</p>
@@ -324,6 +321,16 @@
 
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;testClass.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">addtest&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(<span class="number">22</span>,<span class="number">11</span>)</span></span>;</span><br><span class="line">    cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line">    <span class="function">addtest&lt;<span class="type">int</span>&gt; <span class="title">b</span><span class="params">(<span class="number">11</span>,<span class="number">21</span>)</span></span>;</span><br><span class="line">    a += b;</span><br><span class="line">    cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line">    a.<span class="built_in">set_a</span>(<span class="number">30</span>);</span><br><span class="line">    a.<span class="built_in">updateSum</span>();</span><br><span class="line">    cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line">    a.<span class="built_in">set_b</span>(<span class="number">30</span>);</span><br><span class="line">    cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line">    a.<span class="built_in">updateSum</span>();</span><br><span class="line">    cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//main.cpp</span></span><br></pre></td></tr></table></figure>
 
+<h1 id="pointer-like-class"><a href="#pointer-like-class" class="headerlink" title="pointer-like class"></a>pointer-like class</h1><h1 id="vptr-vtbl"><a href="#vptr-vtbl" class="headerlink" title="vptr&amp;vtbl"></a>vptr&amp;vtbl</h1><p>静态绑定：</p>
+<p>动态绑定：</p>
+<ol>
+<li>指针调用</li>
+<li>upcast</li>
+<li>调用的虚函数</li>
+</ol>
+<h1 id="const"><a href="#const" class="headerlink" title="const"></a>const</h1><p>考虑如下类:</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">test</span><span class="params">(String&amp; B)</span></span>&#123;B = Aa+<span class="string">&quot;!&quot;</span>;&#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">test</span><span class="params">(String&amp; B)</span> <span class="type">const</span> </span>&#123;B = Aa;&#125;</span><br><span class="line">    <span class="comment">//const 属于签名的一部分，即以上两个函数不发生冲突。</span></span><br><span class="line">    <span class="comment">//两个函数采用了重写机制，当像这样的成员函数的const和non-const版本同时存在时，</span></span><br><span class="line">    <span class="comment">//const object调用const版本，</span></span><br><span class="line">    <span class="comment">//non-const object 调用 non-const版本    </span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    String Aa;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -408,7 +415,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92"><span class="nav-number">2.</span> <span class="nav-text">参数传递</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8B%E5%85%83%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">友元函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%B4%E6%97%B6%E5%AF%B9%E8%B1%A1"><span class="nav-number">5.</span> <span class="nav-text">临时对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="nav-number">6.</span> <span class="nav-text">操作符重载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%C2%B7-%E5%85%A8%E5%B1%80%E5%87%BD%E6%95%B0%E5%86%99%E6%B3%95"><span class="nav-number">6.1.</span> <span class="nav-text">· 全局函数写法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%C2%B7-%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E5%86%99%E6%B3%95"><span class="nav-number">6.2.</span> <span class="nav-text">· 成员函数写法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E5%A4%A7%E5%87%BD%E6%95%B0"><span class="nav-number">7.</span> <span class="nav-text">三大函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A0%86%E6%A0%88"><span class="nav-number">8.</span> <span class="nav-text">堆栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#new"><span class="nav-number">8.1.</span> <span class="nav-text">new</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#delete"><span class="nav-number">8.2.</span> <span class="nav-text">delete</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E4%B8%AD%E5%A3%B0%E6%98%8E%E6%97%B6%E5%8A%A0static"><span class="nav-number">9.</span> <span class="nav-text">类中声明时加static</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF"><span class="nav-number">10.</span> <span class="nav-text">模板</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF"><span class="nav-number">10.1.</span> <span class="nav-text">函数模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E6%A8%A1%E6%9D%BF"><span class="nav-number">10.2.</span> <span class="nav-text">类模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">10.3.</span> <span class="nav-text">例子</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92"><span class="nav-number">2.</span> <span class="nav-text">参数传递</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8B%E5%85%83%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">友元函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%B4%E6%97%B6%E5%AF%B9%E8%B1%A1"><span class="nav-number">5.</span> <span class="nav-text">临时对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="nav-number">6.</span> <span class="nav-text">操作符重载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%C2%B7-%E5%85%A8%E5%B1%80%E5%87%BD%E6%95%B0%E5%86%99%E6%B3%95"><span class="nav-number">6.1.</span> <span class="nav-text">· 全局函数写法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%C2%B7-%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E5%86%99%E6%B3%95"><span class="nav-number">6.2.</span> <span class="nav-text">· 成员函数写法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E5%A4%A7%E5%87%BD%E6%95%B0"><span class="nav-number">7.</span> <span class="nav-text">三大函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A0%86%E6%A0%88"><span class="nav-number">8.</span> <span class="nav-text">堆栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#new"><span class="nav-number">8.1.</span> <span class="nav-text">new</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#delete"><span class="nav-number">8.2.</span> <span class="nav-text">delete</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E4%B8%AD%E5%A3%B0%E6%98%8E%E6%97%B6%E5%8A%A0static"><span class="nav-number">9.</span> <span class="nav-text">类中声明时加static</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF"><span class="nav-number">10.</span> <span class="nav-text">模板</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF"><span class="nav-number">10.1.</span> <span class="nav-text">函数模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E6%A8%A1%E6%9D%BF"><span class="nav-number">10.2.</span> <span class="nav-text">类模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">10.3.</span> <span class="nav-text">例子</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pointer-like-class"><span class="nav-number">11.</span> <span class="nav-text">pointer-like class</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vptr-vtbl"><span class="nav-number">12.</span> <span class="nav-text">vptr&amp;vtbl</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#const"><span class="nav-number">13.</span> <span class="nav-text">const</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -422,20 +429,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">11</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">4</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

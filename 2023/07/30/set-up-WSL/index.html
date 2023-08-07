@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="WSL的安装介绍WSL（Windows Subsystem for Linux）是一种由微软开发的技术，它允许在 Windows 操作系统上运行一个本地的 Linux 环境。简单来说，WSL 是一个用于在 Windows 上运行 Linux 发行版的兼容层。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="set up WSL">
+<meta property="og:url" content="http://example.com/2023/07/30/set-up-WSL/index.html">
+<meta property="og:site_name" content="任我行">
+<meta property="og:description" content="WSL的安装介绍WSL（Windows Subsystem for Linux）是一种由微软开发的技术，它允许在 Windows 操作系统上运行一个本地的 Linux 环境。简单来说，WSL 是一个用于在 Windows 上运行 Linux 发行版的兼容层。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/wslInstall.png">
+<meta property="og:image" content="http://example.com/images/UbuntuInstall.png">
+<meta property="og:image" content="http://example.com/images/repair.png">
+<meta property="og:image" content="http://example.com/images/Manu.png">
+<meta property="og:image" content="http://example.com/images/WSL.png">
+<meta property="og:image" content="http://example.com/images/clionSetting.png">
+<meta property="og:image" content="http://example.com/images/clionSetting1.png">
+<meta property="og:image" content="http://example.com/images/clionSetting2.png">
+<meta property="article:published_time" content="2023-07-30T13:06:25.000Z">
+<meta property="article:modified_time" content="2023-08-07T08:53:13.274Z">
+<meta property="article:author" content="阿怪">
+<meta property="article:tag" content="WSL">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="cion">
+<meta property="article:tag" content="environment set up">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/wslInstall.png">
+
+<link rel="canonical" href="http://example.com/2023/07/30/set-up-WSL/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>set up WSL | 任我行</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">任我行</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/30/set-up-WSL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          set up WSL
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-07-30 21:06:25" itemprop="dateCreated datePublished" datetime="2023-07-30T21:06:25+08:00">2023-07-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-08-07 16:53:13" itemprop="dateModified" datetime="2023-08-07T16:53:13+08:00">2023-08-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/WSL/" itemprop="url" rel="index"><span itemprop="name">WSL</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="WSL的安装"><a href="#WSL的安装" class="headerlink" title="WSL的安装"></a>WSL的安装</h1><h3 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h3><p>WSL（Windows Subsystem for Linux）是一种由微软开发的技术，它允许在 Windows 操作系统上运行一个本地的 Linux 环境。简单来说，WSL 是一个用于在 Windows 上运行 Linux 发行版的兼容层。</p>
+<span id="more"></span>
+
+<p>使用WSL，相比于虚拟级，使用WSL更轻量级且集成度更高。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h4 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h4><p>使用管理员打开powershell，输入以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wsl --installl</span><br></pre></td></tr></table></figure>
+
+<p>如下图示：</p>
+<p><img src="/../images/wslInstall.png"></p>
+<blockquote>
+<p>必须运行 Windows 10 版本 2004 及更高版本（内部版本 19041 及更高版本）或 Windows 11 才能使用以上命令。</p>
+</blockquote>
+<blockquote>
+<p><strong>访问网址获取更多的帮助：<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/install">https://learn.microsoft.com/zh-cn/windows/wsl/install</a></strong></p>
+</blockquote>
+<p>安装完毕后按提示重启电脑</p>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><ol>
+<li><p>重启计算机后会弹出窗口，静待它安装。安装可能会出错，图示：</p>
+<p><img src="/../images/UbuntuInstall.png"></p>
+</li>
+<li><p>尝试在powershell使用下列命令：</p>
+<p><code>Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux </code></p>
+<p>然后重启再次尝试</p>
+<p><img src="/../images/repair.png"></p>
+<blockquote>
+<p>详情参阅：<a target="_blank" rel="noopener" href="https://github.com/Microsoft/WSL/issues/2851">WSL Ubuntu error 0x80004002 · Issue #2851 · microsoft&#x2F;WSL (github.com)</a></p>
+</blockquote>
+</li>
+<li><p>安装完毕后你需要配置用户名和密码。首先在开始菜单找到Ubuntu。如果没有的话直接搜索Ubuntu，建议固定到开始菜单栏，方便打开，如下图：</p>
+<p><img src="/../images/Manu.png"></p>
+<p><img src="/../images/WSL.png"></p>
+</li>
+</ol>
+<h1 id="在clion上配置WSL"><a href="#在clion上配置WSL" class="headerlink" title="在clion上配置WSL"></a>在clion上配置WSL</h1><h2 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h2><p>安装完WSL后，相当于在window中内嵌了一个Linux，但此时，Linux还没配置环境，因此clion不能直接配置到WSL。根据官网的指示，将对WSL进行一些配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://raw.githubusercontent.com/JetBrains/clion-wsl/master/ubuntu_setup_env.sh &amp;&amp; bash ubuntu_setup_env.sh</span><br></pre></td></tr></table></figure>
+
+<p>执行上述命令从官网下载脚本并执行。如果因为网络原因无法下载，我从官网复制下述源代码，可以直接在WSL中创建文件复制进去。最后再执行即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">set</span> -e</span><br><span class="line"></span><br><span class="line">SSHD_LISTEN_ADDRESS=127.0.0.1</span><br><span class="line"></span><br><span class="line">SSHD_PORT=2222</span><br><span class="line">SSHD_FILE=/etc/ssh/sshd_config</span><br><span class="line">SUDOERS_FILE=/etc/sudoers</span><br><span class="line">  </span><br><span class="line"><span class="comment"># 0. update package lists</span></span><br><span class="line">sudo apt-get update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 0.1. reinstall sshd (workaround for initial version of WSL)</span></span><br><span class="line">sudo apt remove -y --purge openssh-server</span><br><span class="line">sudo apt install -y openssh-server</span><br><span class="line"></span><br><span class="line"><span class="comment"># 0.2. install basic dependencies</span></span><br><span class="line">sudo apt install -y cmake ninja-build gcc clang gdb valgrind build-essential</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1.1. configure sshd</span></span><br><span class="line">sudo <span class="built_in">cp</span> <span class="variable">$SSHD_FILE</span> <span class="variable">$&#123;SSHD_FILE&#125;</span>.`<span class="built_in">date</span> <span class="string">&#x27;+%Y-%m-%d_%H-%M-%S&#x27;</span>`.back</span><br><span class="line">sudo sed -i <span class="string">&#x27;/^Port/ d&#x27;</span> <span class="variable">$SSHD_FILE</span></span><br><span class="line">sudo sed -i <span class="string">&#x27;/^ListenAddress/ d&#x27;</span> <span class="variable">$SSHD_FILE</span></span><br><span class="line">sudo sed -i <span class="string">&#x27;/^UsePrivilegeSeparation/ d&#x27;</span> <span class="variable">$SSHD_FILE</span></span><br><span class="line">sudo sed -i <span class="string">&#x27;/^PasswordAuthentication/ d&#x27;</span> <span class="variable">$SSHD_FILE</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;# configured by CLion&quot;</span>      | sudo <span class="built_in">tee</span> -a <span class="variable">$SSHD_FILE</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;ListenAddress <span class="variable">$&#123;SSHD_LISTEN_ADDRESS&#125;</span>&quot;</span>	| sudo <span class="built_in">tee</span> -a <span class="variable">$SSHD_FILE</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Port <span class="variable">$&#123;SSHD_PORT&#125;</span>&quot;</span>          | sudo <span class="built_in">tee</span> -a <span class="variable">$SSHD_FILE</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;UsePrivilegeSeparation no&quot;</span>  | sudo <span class="built_in">tee</span> -a <span class="variable">$SSHD_FILE</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;PasswordAuthentication yes&quot;</span> | sudo <span class="built_in">tee</span> -a <span class="variable">$SSHD_FILE</span></span><br><span class="line"><span class="comment"># 1.2. apply new settings</span></span><br><span class="line">sudo service ssh --full-restart</span><br><span class="line">  </span><br><span class="line"><span class="comment"># 2. autostart: run sshd </span></span><br><span class="line">sed -i <span class="string">&#x27;/^sudo service ssh --full-restart/ d&#x27;</span> ~/.bashrc</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;%sudo ALL=(ALL) NOPASSWD: /usr/sbin/service ssh --full-restart&quot;</span> | sudo <span class="built_in">tee</span> -a <span class="variable">$SUDOERS_FILE</span></span><br><span class="line"><span class="built_in">cat</span> &lt;&lt; <span class="string">&#x27;EOF&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line">sshd_status=$(service ssh status)</span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$sshd_status</span> = *<span class="string">&quot;is not running&quot;</span>* ]]; <span class="keyword">then</span></span><br><span class="line">  sudo service ssh --full-restart</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line">EOF</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line"><span class="comment"># summary: SSHD config info</span></span><br><span class="line"><span class="built_in">echo</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;SSH server parameters (<span class="variable">$SSHD_FILE</span>):&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;ListenAddress <span class="variable">$&#123;SSHD_LISTEN_ADDRESS&#125;</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Port <span class="variable">$&#123;SSHD_PORT&#125;</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;UsePrivilegeSeparation no&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;PasswordAuthentication yes&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="clion上配置"><a href="#clion上配置" class="headerlink" title="clion上配置"></a>clion上配置</h2><p>打开File&gt;&gt;settings&gt;&gt;Build,Execution,Deployment&gt;&gt;Toolchains，如图所示：</p>
+<p><img src="/../images/clionSetting.png"></p>
+<p><img src="/../images/clionSetting1.png"></p>
+<p>点击+号，选择WSL。不出意外的话，clion会自动检测到相应工具，但如果需要特别指定（比如指定clang作为编译器），就需要从指定的文件中找到，并选中。一般在 <code>usr/bin</code>这个文件中。</p>
+<p>最后，将WSL设置为默认，如图：</p>
+<p><img src="/../images/clionSetting2.png"></p>
+<p>至此，就可以在clion上以Linux环境的状态编写和调试代码。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/WSL/" rel="tag"># WSL</a>
+              <a href="/tags/linux/" rel="tag"># linux</a>
+              <a href="/tags/cion/" rel="tag"># cion</a>
+              <a href="/tags/environment-set-up/" rel="tag"># environment set up</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/07/30/CMU-15445/" rel="prev" title="CMU-15445">
+      <i class="fa fa-chevron-left"></i> CMU-15445
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/08/04/mount/" rel="next" title="WSL2:read-only file system error--mount">
+      WSL2:read-only file system error--mount <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#WSL%E7%9A%84%E5%AE%89%E8%A3%85"><span class="nav-number">1.</span> <span class="nav-text">WSL的安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.0.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85"><span class="nav-number">1.0.2.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE"><span class="nav-number">1.0.2.2.</span> <span class="nav-text">配置</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8clion%E4%B8%8A%E9%85%8D%E7%BD%AEWSL"><span class="nav-number">2.</span> <span class="nav-text">在clion上配置WSL</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%8E%AF%E5%A2%83"><span class="nav-number">2.1.</span> <span class="nav-text">配置环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#clion%E4%B8%8A%E9%85%8D%E7%BD%AE"><span class="nav-number">2.2.</span> <span class="nav-text">clion上配置</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">阿怪</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿怪</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
