@@ -27,17 +27,17 @@
 <meta property="og:site_name" content="任我行">
 <meta property="og:description" content="构造函数定义类时，它的构造函数可以写成如下形式：">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="e:\C++ code\notes\object oriented\pictures\%E6%B7%B1%E6%B5%85%E6%8B%B7%E8%B4%9D.png">
-<meta property="og:image" content="e:\C++ code\notes\object oriented\pictures\%E6%9E%90%E6%9E%84.png">
-<meta property="og:image" content="e:\C++ code\notes\object oriented\pictures\%E6%8B%B7%E8%B4%9D%E5%A4%8D%E5%88%B6.png">
-<meta property="og:image" content="e:\C++ code\notes\object oriented\pictures\%E8%87%AA%E6%88%91%E8%B5%8B%E5%80%BC.png">
+<meta property="og:image" content="http://example.com/2023/07/23/images/%E6%B7%B1%E6%B5%85%E6%8B%B7%E8%B4%9D.png">
+<meta property="og:image" content="http://example.com/2023/07/23/images/%E6%9E%90%E6%9E%84.png">
+<meta property="og:image" content="http://example.com/2023/07/23/images/%E6%8B%B7%E8%B4%9D%E5%A4%8D%E5%88%B6.png">
+<meta property="og:image" content="http://example.com/2023/07/23/images/%E8%87%AA%E6%88%91%E8%B5%8B%E5%80%BC.png">
 <meta property="article:published_time" content="2023-07-23T12:33:34.961Z">
-<meta property="article:modified_time" content="2023-08-16T08:51:00.855Z">
+<meta property="article:modified_time" content="2023-08-18T02:46:51.929Z">
 <meta property="article:author" content="阿怪">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="object oriented">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="e:\C++ code\notes\object oriented\pictures\%E6%B7%B1%E6%B5%85%E6%8B%B7%E8%B4%9D.png">
+<meta name="twitter:image" content="http://example.com/2023/07/23/images/%E6%B7%B1%E6%B5%85%E6%8B%B7%E8%B4%9D.png">
 
 <link rel="canonical" href="http://example.com/2023/07/23/%E7%B1%BB/">
 
@@ -202,7 +202,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-16 16:51:00" itemprop="dateModified" datetime="2023-08-16T16:51:00+08:00">2023-08-16</time>
+                <time title="修改时间：2023-08-18 10:46:51" itemprop="dateModified" datetime="2023-08-18T10:46:51+08:00">2023-08-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -276,20 +276,20 @@
 <li>析构</li>
 </ol>
 <p>如果类中不声明这三个函数，编译器会自动生成。当类中属性含有指针类型时，也即他们指向的内存不包含在类中，这样就需要重写三大函数。以防浅拷贝和内存泄漏。</p>
-<p>浅拷贝会把左值指针指向右值所指的位置</p>
+<h2 id="深浅拷贝"><a href="#深浅拷贝" class="headerlink" title="深浅拷贝"></a>深浅拷贝</h2><p>浅拷贝会把左值指针指向右值所指的位置</p>
 <p>深拷贝则是左值的指针指向不变，将右值所指的值赋给左值所指的空间。如下图：</p>
-<img src="E:\C++ code\notes\object oriented\pictures\深浅拷贝.png" style="zoom:67%;" />
+<img src="..\images\深浅拷贝.png" style="zoom:67%;" />
 
 <p>类中含有指针时，如果不重写析构函数则：</p>
-<img src="E:\C++ code\notes\object oriented\pictures\析构.png" style="zoom:67%;" />
+<img src="..\images\析构.png" style="zoom:67%;" />
 
 <p>重载&#x3D;操作符用做拷贝复制时需要注意的点是，在复制前要判定是不是自我赋值，如果是自我赋值的话则直接返回自己，不做其他操作。如下程序：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> String&amp; String::opertor=(<span class="type">const</span> String&amp; str)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">this</span> == &amp;str)&#123;</span><br><span class="line">        <span class="keyword">return</span> *<span class="keyword">this</span>;<span class="comment">//如果是自我赋值，则直接返回，不然会出错</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">delete</span>[] m_data;</span><br><span class="line">    m_data = <span class="keyword">new</span> <span class="type">char</span>[<span class="built_in">strlen</span>(str.m_data) + <span class="number">1</span>];</span><br><span class="line">    <span class="built_in">strcpy</span>(m_data,str.m_data);</span><br><span class="line">    <span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<img src="E:\C++ code\notes\object oriented\pictures\拷贝复制.png" style="zoom:67%;" />
+<img src="..\images\拷贝复制.png" style="zoom:67%;" />
 
 <p>如果没有判定自我赋值那一步，可能的后果为：</p>
-<img src="E:\C++ code\notes\object oriented\pictures\自我赋值.png" style="zoom:67%;" />
+<img src="..\images\自我赋值.png" style="zoom:67%;" />
 
 <h1 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h1><p>栈存储临时的变量，每个函数都有自己的栈，在该函数声明定义的非静态变量将会存储在栈中。其生命周期为自其声明定义开始到所在函数结束。</p>
 <p>堆存储的变量由编程者自定义生命周期，由new出来开始，delete时结束。</p>
@@ -394,7 +394,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92"><span class="nav-number">2.</span> <span class="nav-text">参数传递</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8B%E5%85%83%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">友元函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%B4%E6%97%B6%E5%AF%B9%E8%B1%A1"><span class="nav-number">5.</span> <span class="nav-text">临时对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="nav-number">6.</span> <span class="nav-text">操作符重载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%C2%B7-%E5%85%A8%E5%B1%80%E5%87%BD%E6%95%B0%E5%86%99%E6%B3%95"><span class="nav-number">6.1.</span> <span class="nav-text">· 全局函数写法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%C2%B7-%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E5%86%99%E6%B3%95"><span class="nav-number">6.2.</span> <span class="nav-text">· 成员函数写法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E5%A4%A7%E5%87%BD%E6%95%B0"><span class="nav-number">7.</span> <span class="nav-text">三大函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A0%86%E6%A0%88"><span class="nav-number">8.</span> <span class="nav-text">堆栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#new"><span class="nav-number">8.1.</span> <span class="nav-text">new</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#delete"><span class="nav-number">8.2.</span> <span class="nav-text">delete</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E4%B8%AD%E5%A3%B0%E6%98%8E%E6%97%B6%E5%8A%A0static"><span class="nav-number">9.</span> <span class="nav-text">类中声明时加static</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF"><span class="nav-number">10.</span> <span class="nav-text">模板</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E4%BC%A0%E9%80%92"><span class="nav-number">2.</span> <span class="nav-text">参数传递</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="nav-number">3.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8B%E5%85%83%E5%87%BD%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">友元函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%B4%E6%97%B6%E5%AF%B9%E8%B1%A1"><span class="nav-number">5.</span> <span class="nav-text">临时对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD"><span class="nav-number">6.</span> <span class="nav-text">操作符重载</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%C2%B7-%E5%85%A8%E5%B1%80%E5%87%BD%E6%95%B0%E5%86%99%E6%B3%95"><span class="nav-number">6.1.</span> <span class="nav-text">· 全局函数写法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%C2%B7-%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E5%86%99%E6%B3%95"><span class="nav-number">6.2.</span> <span class="nav-text">· 成员函数写法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E5%A4%A7%E5%87%BD%E6%95%B0"><span class="nav-number">7.</span> <span class="nav-text">三大函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B1%E6%B5%85%E6%8B%B7%E8%B4%9D"><span class="nav-number">7.1.</span> <span class="nav-text">深浅拷贝</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A0%86%E6%A0%88"><span class="nav-number">8.</span> <span class="nav-text">堆栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#new"><span class="nav-number">8.1.</span> <span class="nav-text">new</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#delete"><span class="nav-number">8.2.</span> <span class="nav-text">delete</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E4%B8%AD%E5%A3%B0%E6%98%8E%E6%97%B6%E5%8A%A0static"><span class="nav-number">9.</span> <span class="nav-text">类中声明时加static</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF"><span class="nav-number">10.</span> <span class="nav-text">模板</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -408,20 +408,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-count">16</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
