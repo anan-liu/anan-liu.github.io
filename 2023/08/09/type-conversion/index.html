@@ -28,7 +28,7 @@
 <meta property="og:description" content="类型转换隐式转换 整型提升：  如果某个操作数的类型是有符号整数类型，而另一个操作数的类型是无符号整数类型，那么无符号操作数的类型会被转换为有符号操作数的类型。 如果某个操作数的类型是 int 类型，而另一个操作数的类型是带符号或无符号的 char、short 或 bool 类型，那么 char、short 或 bool 类型会被转换为 int 类型。 在某些情况下，操作数的类型会被提升为更大的类">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-08-08T16:22:23.000Z">
-<meta property="article:modified_time" content="2023-08-11T07:30:10.334Z">
+<meta property="article:modified_time" content="2023-08-23T17:32:37.190Z">
 <meta property="article:author" content="阿怪">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="conversion">
@@ -139,6 +139,11 @@
     <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
 
   </li>
+        <li class="menu-item menu-item-resources">
+
+    <a href="/resources/" rel="section"><i class="download fa-fw"></i>resources</a>
+
+  </li>
   </ul>
 </nav>
 
@@ -197,7 +202,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-11 15:30:10" itemprop="dateModified" datetime="2023-08-11T15:30:10+08:00">2023-08-11</time>
+                <time title="修改时间：2023-08-24 01:32:37" itemprop="dateModified" datetime="2023-08-24T01:32:37+08:00">2023-08-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -239,7 +244,7 @@
 </li>
 <li><p>转换为常量：</p>
 <p>指向T类型的指针能转换为指向T类型的常量指针</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">10</span>;</span><br><span class="line">	<span class="type">const</span> <span class="type">int</span> ci = <span class="number">20</span>;</span><br><span class="line">	<span class="type">int</span>* p = &amp;i;</span><br><span class="line">	cout &lt;&lt; *p &lt;&lt; endl;<span class="comment">//10</span></span><br><span class="line">	<span class="type">const</span> <span class="type">int</span>* cp = &amp;ci;</span><br><span class="line">	cout &lt;&lt; *cp &lt;&lt; endl;<span class="comment">//20</span></span><br><span class="line">	cp = p;<span class="comment">//p将转换为const int*</span></span><br><span class="line">	cout &lt;&lt; *cp &lt;&lt; endl;<span class="comment">//10</span></span><br></pre></td></tr></table></figure></li>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> i = <span class="number">10</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> ci = <span class="number">20</span>;</span><br><span class="line"><span class="type">int</span>* p = &amp;i;</span><br><span class="line">cout &lt;&lt; *p &lt;&lt; endl;<span class="comment">//10</span></span><br><span class="line"><span class="type">const</span> <span class="type">int</span>* cp = &amp;ci;</span><br><span class="line">cout &lt;&lt; *cp &lt;&lt; endl;<span class="comment">//20</span></span><br><span class="line">cp = p;<span class="comment">//p将转换为const int*</span></span><br><span class="line">cout &lt;&lt; *cp &lt;&lt; endl;<span class="comment">//10</span></span><br></pre></td></tr></table></figure></li>
 </ol>
 <h2 id="显式转换"><a href="#显式转换" class="headerlink" title="显式转换"></a>显式转换</h2><p>强制转换具有如下形式：<code>cast_name&lt;type&gt;(expression)</code></p>
 <h3 id="static-cast"><a href="#static-cast" class="headerlink" title="static_cast"></a>static_cast</h3><p>使用这个cast可以转换任何类型，除了底层const。</p>
@@ -247,7 +252,7 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> b = <span class="number">20.55</span>;</span><br><span class="line"><span class="type">float</span> f = <span class="number">18.33</span>;</span><br><span class="line">f = <span class="built_in">static_cast</span>&lt;<span class="type">float</span>&gt;(b) + f;<span class="comment">//此时b会损失一些精度，如果是隐式转换，不能很明显地便显出损失精度。</span></span><br></pre></td></tr></table></figure>
 
 <p>使用显示转换，可以使void*转换为它原来的类型。如：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> b = <span class="number">40.22</span>;</span><br><span class="line">	<span class="type">void</span>* vp = &amp;b;</span><br><span class="line">	<span class="comment">//cout &lt;&lt; *vp &lt;&lt; endl;</span></span><br><span class="line">	cout &lt;&lt; *<span class="built_in">static_cast</span>&lt;<span class="type">double</span>*&gt;(vp) &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">double</span> b = <span class="number">40.22</span>;</span><br><span class="line"><span class="type">void</span>* vp = &amp;b;</span><br><span class="line"><span class="comment">//cout &lt;&lt; *vp &lt;&lt; endl;</span></span><br><span class="line">cout &lt;&lt; *<span class="built_in">static_cast</span>&lt;<span class="type">double</span>*&gt;(vp) &lt;&lt; endl;</span><br></pre></td></tr></table></figure>
 
 
 
