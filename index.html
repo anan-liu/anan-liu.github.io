@@ -196,7 +196,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-27 18:05:05" itemprop="dateModified" datetime="2023-08-27T18:05:05+08:00">2023-08-27</time>
+                <time title="修改时间：2023-08-27 18:10:22" itemprop="dateModified" datetime="2023-08-27T18:10:22+08:00">2023-08-27</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -219,74 +219,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="入门cmake"><a href="#入门cmake" class="headerlink" title="入门cmake"></a>入门cmake</h1><h2 id="一、构建一个基础项目"><a href="#一、构建一个基础项目" class="headerlink" title="一、构建一个基础项目"></a>一、构建一个基础项目</h2><p>构建之前，先介绍一些基本的语法和变量。</p>
-<ul>
-<li><p><code>cmake_minimum_required()</code>:用来指定cmake的版本。每个项目必须有这一项。</p>
-</li>
-<li><p><code>project()</code>:用来设置项目名字，在<code>cmake_minimum_required()</code>设置后设置。</p>
-</li>
-<li><p><code>add_executable()</code>指定某个源代码文件，将其告诉cmake，令cmake创建对应的可执行文件</p>
-</li>
-</ul>
-<p>创建一个目录</p>
-<p><code>mkdir step1</code></p>
-<p>在此目录下编写一个简单的cpp文件：</p>
-<p><code>vim main.cpp</code></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    cout&lt;&lt;<span class="string">&quot;Hello World!&quot;</span>&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在同一个目录下创建一个CMakeLists.txt 并编写如下代码:</p>
-<p><code>vim CMakeLists.txt</code></p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.10</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">project</span>(<span class="keyword">test</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">add_executable</span>(<span class="keyword">test</span> main.cpp)</span><br></pre></td></tr></table></figure>
-
-<p>返回上一层目录并重新创建一个目录step1_test</p>
-<p><code>cd ..</code></p>
-<p><code>mkdir step1_test</code></p>
-<p><code>cd step1_test</code></p>
-<p>在step_test中创建本地build system</p>
-<p><code>cmake ../step1</code></p>
-<p><code>cmake --build .</code></p>
-<p>此时项目构建好了，并生成了一个可执行文件，运行它即可得到结果。</p>
-<p>这个小项目的文件树如下图所示：</p>
-<img src="/2023/08/21/Cmake1/directory.png" class="" title="文件树">
-
-<p>各个阶段产生的文件如下图所示：</p>
-<img src="/2023/08/21/Cmake1/file.png" class="">
-
-<h2 id="二、指定C-标准"><a href="#二、指定C-标准" class="headerlink" title="二、指定C++标准"></a>二、指定C++标准</h2><p>cmake中有一些特殊的变量，它们起着各种各样的作用。可以利用<code>set()</code>来设置他们的值，使他们生效。</p>
-<p>有两个变量用来指定项目所用的C++标准：</p>
-<ul>
-<li><code>CMAKE_CXX_STANDARD</code>：指定C++的版本</li>
-<li>&#96;&#96;CMAKE_CXX_STANDARD_REQUIRED<code>：说明</code>CMAKE_CXX_STANDARD&#96;是不是必须被设置</li>
-</ul>
-<p>将下面的两段代码写入前文中已经编好的<code>CMakeLists.txt</code>中</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD_REQUIRED <span class="keyword">True</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">11</span>)</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>对于没有C++标准观念的编译器而言，这个变量将不会起作用</p>
-</blockquote>
-<p>​	</p>
-<h2 id="三、配置头文件"><a href="#三、配置头文件" class="headerlink" title="三、配置头文件"></a>三、配置头文件</h2><p>有时候，在CMakeList.txt中定义变量，然后在源代码中使用是十分有用的。实现这种方式的方法之一就是使用配置头文件，在配置头文件中定义变量，并使用<code>configure_file()</code>将配置头文件输出成头文件。</p>
-<p>为了完成以上所述的功能，需要借助一些变量和函数：</p>
-<ol>
-<li><code>&lt;PROJECT-NAME&gt;_VERSION_MAJOR</code>:项目版本号的第一位</li>
-<li><code>&lt;PROJECT_NAME&gt;_VERSION_MINOR</code>:项目版本号的第二位</li>
-<li><code>configure_file()</code>:这个函数有两个必须的参数，第一位是输入文件，第二位是输出文件，输入文件中的<code>@VAR@</code>变量将被替换成确切值然后放进输出文件中。如果<code>@VAR@</code>没有被定义则被替换成空值</li>
-<li><code>target_include_directories()</code>:指定某个目录，使它对于将被编译的目标文件可用</li>
-</ol>
-<p>因此继续向前文中编好的<code>CMakeLists.txt</code>中继续追加内容如下：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">project</span>(tutorial VERSION <span class="number">1.2</span>)//此处是替换前文中相应的函数。</span><br><span class="line">//此处VERSION 后面的版本号的首位就是前面提到的*_VERSION_MAJOR,后一位就是*VERSION_MINOR.</span><br><span class="line"><span class="keyword">configure_file</span>(TutorialConfig.h.in TutorialConfig.h)</span><br><span class="line"><span class="keyword">target_include_directories</span>(tutorial PUBLIC </span><br><span class="line">                            <span class="string">&quot;$&#123;PROJECT_BINARY_DIR&#125;&quot;</span>)//需要导入这个目录的原因是：<span class="keyword">configure_file</span>()将会把输出文件放													   //入二进制目录中，因此需要导入二进制目录</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>详情参考:</p>
-</blockquote>
-<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//CMakeLists.txt</span><br><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.10</span>)</span><br><span class="line"><span class="keyword">project</span>(tutorial VERSION <span class="number">1.1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD <span class="number">11</span>)</span><br><span class="line"><span class="keyword">set</span>(CMAKE_CXX_STANDARD_REQUIRED <span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">configure_file</span>(TutorialConfig.h.in TutorialConfig.h)</span><br><span class="line"><span class="keyword">add_executable</span>(tutorial tutorial.cpp)</span><br><span class="line"><span class="keyword">target_include_directories</span>(tutorial PUBLIC </span><br><span class="line">                            <span class="string">&quot;$&#123;PROJECT_BINARY_DIR&#125;&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 计算算术平方根的简易程序</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;cmath&gt;</span></span></span><br><span class="line"><span class="comment">//#include &lt;cstdlib&gt; </span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;TutorialConfig.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (argc &lt; <span class="number">2</span>) &#123;</span><br><span class="line">      <span class="comment">//两个变量均定义在TutorialConfig.h中，这个头文件在cmake文件中由configure_file()输出</span></span><br><span class="line">    std::cout &lt;&lt; argv[<span class="number">0</span>]&lt;&lt;<span class="string">&quot;Version:&quot;</span> &lt;&lt; Tutorial_VERSION_MAJOR &lt;&lt; <span class="string">&quot;.&quot;</span> </span><br><span class="line">        	  &lt;&lt; Tutorial_VERSION_MINOR &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Usage: &quot;</span> &lt;&lt; argv[<span class="number">0</span>] &lt;&lt; <span class="string">&quot; number&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 将输入值转换为double类型</span></span><br><span class="line">  <span class="comment">//const double inputValue = atof(argv[1]);  这是C语言的函数，包含在&lt;stdlib.h&gt;中</span></span><br><span class="line">  <span class="type">const</span> <span class="type">double</span> inputValue = std::<span class="built_in">stod</span>(argv[<span class="number">1</span>]);</span><br><span class="line">  <span class="comment">// 计算</span></span><br><span class="line">  <span class="type">const</span> <span class="type">double</span> outputValue = <span class="built_in">sqrt</span>(inputValue);</span><br><span class="line">  std::cout &lt;&lt; <span class="string">&quot;The square root of &quot;</span> &lt;&lt; inputValue &lt;&lt; <span class="string">&quot; is &quot;</span> &lt;&lt; outputValue</span><br><span class="line">            &lt;&lt; std::endl;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//TutorialConfig.h.in</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Tutorial_VERSION_MAJOR @tutorial_VERSION_MAJOR@</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> Tutorial_VERSION_MINOR @tutorial_VERSION_MINOR@</span></span><br></pre></td></tr></table></figure>
-
-<p>将上述示例代码放入同一个目录下，参考步骤一进行cmake构造编译后即可运行。</p>
-
+          <h1 id="入门cmake"><a href="#入门cmake" class="headerlink" title="入门cmake"></a>入门cmake</h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/08/21/Cmake1/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
