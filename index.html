@@ -271,7 +271,7 @@ leetcode 一题</p>
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-01 14:54:03" itemprop="dateModified" datetime="2023-09-01T14:54:03+08:00">2023-09-01</time>
+                <time title="修改时间：2023-09-01 14:56:14" itemprop="dateModified" datetime="2023-09-01T14:56:14+08:00">2023-09-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -295,35 +295,14 @@ leetcode 一题</p>
 
       
           <h1 id="创建库"><a href="#创建库" class="headerlink" title="创建库"></a>创建库</h1><p>cmake中有几个命令，可以使源代码分布于不同的子目录并且正常运行。比如可以把库单独放于同一个目录，并在此目录中新建一个<code>CMakeList.txt</code>文件，在<code>CMakeLists.txt</code>中使用<code>add_library()</code>指定将要被做成库的代码文件，然后在其他目录使用<code>add_subdirectory()</code>指定这个目录以便于使用。</p>
-<ul>
-<li><code>add_library()</code>:<code>CMakeLists.txt</code>使用这个命令后，cmake就知道这个目录下有些指定的文件要被做成库。括号中第一个参数是库名，之后的参数是要集合到这个库的一系列源代码文件。</li>
-<li><code>add_subdirctory()</code>:指定一个子目录去build，这个目录中包含有<code>CMakeLists.txt</code>和源代码文件</li>
-<li><code>target_include_directories()</code>:第一参数是要编译的目标，目标文件名必须由<code>add_executable()</code>或者<code>add_library()</code>创建。之后的参数是编译目标会用到的目录。其中：<code>$&#123;PROJECT_BINARY_DIR&#125;</code>代表二进制文件的目录,<code>$&#123;PROJECT_SOURCE_DIR&#125;</code>代表源代码文件目录。</li>
-<li><code>target_link_libraries()</code>:第一参数是要链接的目标，目标文件名必须由<code>add_executable()</code>或者<code>add_library()</code>创建。之后的参数是链接所要用到的库文件并且这些库文件必须由<code>add_library()</code>创建或者是一个外部导入的库文件。</li>
-</ul>
-<h1 id="增加option"><a href="#增加option" class="headerlink" title="增加option"></a>增加option</h1><p>可以使用一些技巧，使得在满足不同的条件下执行不同的语句。</p>
-<ul>
-<li><p><code>if()</code>:类似于编程语言的if语句，它的形式如下：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(condition)</span><br><span class="line">&lt;commands&gt;</span><br><span class="line"><span class="keyword">elseif</span>(condition)</span><br><span class="line">&lt;commands&gt;</span><br><span class="line"><span class="keyword">else</span>()</span><br><span class="line">&lt;commands&gt;</span><br><span class="line"><span class="keyword">endif</span>() </span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>if() 和 endif() 是成对出现的</p>
-</blockquote>
-</li>
-<li><p><code>option()</code>:提供一个用户布尔可选项，默认值是<code>OF</code>。形式如下：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">option</span>(&lt;variable&gt; <span class="string">&quot;&lt;有帮助的文本&gt;&quot;</span> [value])</span><br></pre></td></tr></table></figure>
-
-<p>如果<code>variable</code>已经被设置为正常或者是缓存变量，则这条命令不起作用</p>
-</li>
-<li><p><code>target_compile_definitions</code>: 是CMake中的一个命令，用于为目标（例如可执行文件、库）添加编译定义。允许在编译过程中向目标添加预定义的宏定义。形式如下：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">target_compile_definitions</span>(target_name</span><br><span class="line">    PRIVATE|PUBLIC|INTERFACE</span><br><span class="line">    &lt;definition1&gt; [&lt;definition2&gt; ...]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>详情参考:</p>
-</blockquote>
-</li>
-</ul>
-<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/08/27/Cmake2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 

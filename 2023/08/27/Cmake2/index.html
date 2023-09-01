@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="创建库cmake中有几个命令，可以使源代码分布于不同的子目录并且正常运行。比如可以把库单独放于同一个目录，并在此目录中新建一个CMakeList.txt文件，在CMakeLists.txt中使用add_library()指定将要被做成库的代码文件，然后在其他目录使用add_subdirectory()指定这个目录以便于使用。  add_library():CMakeLists.txt使用这个命令后">
+  <meta name="description" content="创建库cmake中有几个命令，可以使源代码分布于不同的子目录并且正常运行。比如可以把库单独放于同一个目录，并在此目录中新建一个CMakeList.txt文件，在CMakeLists.txt中使用add_library()指定将要被做成库的代码文件，然后在其他目录使用add_subdirectory()指定这个目录以便于使用。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Cmake2">
 <meta property="og:url" content="http://example.com/2023/08/27/Cmake2/index.html">
 <meta property="og:site_name" content="任我行">
-<meta property="og:description" content="创建库cmake中有几个命令，可以使源代码分布于不同的子目录并且正常运行。比如可以把库单独放于同一个目录，并在此目录中新建一个CMakeList.txt文件，在CMakeLists.txt中使用add_library()指定将要被做成库的代码文件，然后在其他目录使用add_subdirectory()指定这个目录以便于使用。  add_library():CMakeLists.txt使用这个命令后">
+<meta property="og:description" content="创建库cmake中有几个命令，可以使源代码分布于不同的子目录并且正常运行。比如可以把库单独放于同一个目录，并在此目录中新建一个CMakeList.txt文件，在CMakeLists.txt中使用add_library()指定将要被做成库的代码文件，然后在其他目录使用add_subdirectory()指定这个目录以便于使用。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-08-27T12:16:15.000Z">
-<meta property="article:modified_time" content="2023-09-01T06:54:03.645Z">
+<meta property="article:modified_time" content="2023-09-01T06:56:14.464Z">
 <meta property="article:author" content="阿怪">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="cmake">
@@ -202,7 +202,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-01 14:54:03" itemprop="dateModified" datetime="2023-09-01T14:54:03+08:00">2023-09-01</time>
+                <time title="修改时间：2023-09-01 14:56:14" itemprop="dateModified" datetime="2023-09-01T14:56:14+08:00">2023-09-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -226,6 +226,8 @@
 
       
         <h1 id="创建库"><a href="#创建库" class="headerlink" title="创建库"></a>创建库</h1><p>cmake中有几个命令，可以使源代码分布于不同的子目录并且正常运行。比如可以把库单独放于同一个目录，并在此目录中新建一个<code>CMakeList.txt</code>文件，在<code>CMakeLists.txt</code>中使用<code>add_library()</code>指定将要被做成库的代码文件，然后在其他目录使用<code>add_subdirectory()</code>指定这个目录以便于使用。</p>
+<span id="more"></span>
+
 <ul>
 <li><code>add_library()</code>:<code>CMakeLists.txt</code>使用这个命令后，cmake就知道这个目录下有些指定的文件要被做成库。括号中第一个参数是库名，之后的参数是要集合到这个库的一系列源代码文件。</li>
 <li><code>add_subdirctory()</code>:指定一个子目录去build，这个目录中包含有<code>CMakeLists.txt</code>和源代码文件</li>
