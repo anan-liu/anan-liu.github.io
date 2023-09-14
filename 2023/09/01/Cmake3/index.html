@@ -27,14 +27,14 @@
 <meta property="og:site_name" content="任我行">
 <meta property="og:description" content="在库中增加使用要求在CMake中，usage requirements 是一种用于描述目标（例如库或可执行文件）使用依赖项的要求的机制。它允许在指定目标时对其他目标或库的要求，以确保正确的构建和链接过程。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2023/09/01/Cmake3/directory.png">
+<meta property="og:image" content="http://example.com/.com//09/01/Cmake3/directory.png">
 <meta property="article:published_time" content="2023-09-01T06:56:52.000Z">
 <meta property="article:modified_time" content="2023-09-12T17:45:32.181Z">
 <meta property="article:author" content="阿怪">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="cmake">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/2023/09/01/Cmake3/directory.png">
+<meta name="twitter:image" content="http://example.com/.com//09/01/Cmake3/directory.png">
 
 <link rel="canonical" href="http://example.com/2023/09/01/Cmake3/">
 
@@ -244,7 +244,7 @@
 <li><code>CMAKE_CURRENT_SOURCE_DIR</code>:这是一个变量，用于指定当前的工作源目录</li>
 </ul>
 <p>构建step3项目的文件树如下图：</p>
-<img src="/2023/09/01/Cmake3/directory.png" class="">
+<img src="/.com//09/01/Cmake3/directory.png" class>
 
 <p>在<code>MathFunction</code>目录中的<code>CMakeLists.txt</code>文件使用<code>target_include_directories()</code>将当前工作目录<code>CMAKE_CURRENT_SOURCE_DIR</code>包含进目标库中：<code>target_include_directories(MathFunctions INTERFACE &quot;$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;&quot;)</code>：当使用了这条命令，使用 <code>MathFunctions</code> 库的目标可以直接访问 <code>MathFunctions</code> 目录中的头文件。</p>
 <p>此时在Cmake2步骤中，主目录下的CMakeLists.txt文件<code>target_include_directories</code>中的<code> &quot;$&#123;PROJECT_SOURCE_DIR&#125;/MathFunctions&quot;</code>可以删除，且当构建项目时不会因为找不到MathFunctions而报错。</p>
@@ -366,7 +366,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">21</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
