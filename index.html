@@ -233,6 +233,81 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/15/Redis/datastructure/list/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/15/Redis/datastructure/list/" class="post-title-link" itemprop="url">Redis-list</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-15 16:05:58" itemprop="dateCreated datePublished" datetime="2023-09-15T16:05:58+08:00">2023-09-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-09-16 01:46:08" itemprop="dateModified" datetime="2023-09-16T01:46:08+08:00">2023-09-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><p>链表在redis中的作用之一是作为列表键的数据结构，是一个双向列表。</p>
+<p><img src="/.com//list.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/14/Redis/datastructure/string/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -264,7 +339,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-16 01:24:06" itemprop="dateModified" datetime="2023-09-16T01:24:06+08:00">2023-09-16</time>
+                <time title="修改时间：2023-09-16 01:46:34" itemprop="dateModified" datetime="2023-09-16T01:46:34+08:00">2023-09-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -289,25 +364,14 @@
       
           <h1 id="Redis字符串"><a href="#Redis字符串" class="headerlink" title="Redis字符串"></a>Redis字符串</h1><h2 id="c字符串"><a href="#c字符串" class="headerlink" title="c字符串"></a>c字符串</h2><p>传统的c字符串是以空字符串结尾的字符数组，真实的长度是字符个数+1 </p>
 <h2 id="SDS"><a href="#SDS" class="headerlink" title="SDS"></a>SDS</h2><p>redis中，字符串类型是抽象类型<em>SDS</em>，结构体如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sdshdr</span> &#123;</span></span><br><span class="line"><span class="comment">//记录buf数组中已使用字节的数量,等于SDS所保存字符串的长度</span></span><br><span class="line">    <span class="type">int</span> len;</span><br><span class="line"><span class="comment">//记录buf数组中未使用字节的数量</span></span><br><span class="line">    <span class="type">int</span> <span class="built_in">free</span>; </span><br><span class="line"><span class="comment">//字节数组，用于保存字符串</span></span><br><span class="line">    <span class="type">char</span> buf[];</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>由于<code>len</code>的存在，获取字符串的长度不需要遍历一遍，此时的时间复杂的为O(1)</li>
-<li>在c语言中，使用<code>strcat()</code>可能导致内存错误，SDS的<code>sdscat()</code>会检查缓冲区是否足够容纳新增的字符串，不够时将拓展</li>
-<li>为了能复用c标准库的字符串函数，SDS中的字符串也以空字符串结尾。</li>
-</ul>
-<h2 id="减少因修改字符串而导致的内存重分配"><a href="#减少因修改字符串而导致的内存重分配" class="headerlink" title="减少因修改字符串而导致的内存重分配"></a>减少因修改字符串而导致的内存重分配</h2><h3 id="空间预分配"><a href="#空间预分配" class="headerlink" title="空间预分配"></a>空间预分配</h3><p>如果一个字符串因为增加了内容导致长度超过了buf[]，则会根据以下两条规则分配更多的内存：</p>
-<p>先假设：len &#x3D; len+字符串超出的长度，</p>
-<ol>
-<li><p>如果此时len&lt;1MB,则拓展后buf的大小应为 len &#x3D; len * 2 + 1 。其中1代表了空字符。</p>
-<p>例如：此时buf的长度为4，len的大小也为4，当另外增加了4个字节时，buf的长度应为: len &#x3D; 8*2 + 1 &#x3D; 17 。此时各个成员变量的值为：<code>len = 8;</code> <code>free = 9;</code> <code>buf = &quot;/%字符串值%/&quot;;</code></p>
-</li>
-<li><p>如果此时len&gt;1MB,则拓展后buf的大小应为len &#x3D; len + 1MB + 1。</p>
-</li>
-</ol>
-<h3 id="惰性空间释放"><a href="#惰性空间释放" class="headerlink" title="惰性空间释放"></a>惰性空间释放</h3><p>SDS缩短时，已分配的空间不立即回收，而是留做下次字符增加时使用。同时SDS提供API去释放由于惰性空间释放机制而不释放的内存空间。</p>
-<h3 id="二进制安全"><a href="#二进制安全" class="headerlink" title="二进制安全"></a>二进制安全</h3><p>SDS的buf[]可以存去二进制文件，不会因为空字符而导致读取中断，存进去是什么样的取出来就是什么样的。</p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/09/14/Redis/datastructure/string/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -883,87 +947,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/27/Cmake2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/08/27/Cmake2/" class="post-title-link" itemprop="url">Cmake2</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-08-27 20:16:15" itemprop="dateCreated datePublished" datetime="2023-08-27T20:16:15+08:00">2023-08-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-04 02:58:33" itemprop="dateModified" datetime="2023-09-04T02:58:33+08:00">2023-09-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cmake/" itemprop="url" rel="index"><span itemprop="name">cmake</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="创建库"><a href="#创建库" class="headerlink" title="创建库"></a>创建库</h1><p>cmake中有几个命令，可以使源代码分布于不同的子目录并且正常运行。比如可以把库单独放于同一个目录，并在此目录中新建一个<code>CMakeList.txt</code>文件，在<code>CMakeLists.txt</code>中使用<code>add_library()</code>指定将要被做成库的代码文件，然后在其他目录使用<code>add_subdirectory()</code>指定这个目录以便于使用。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/08/27/Cmake2/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1033,7 +1016,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">24</span>
+          <span class="site-state-item-count">25</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
