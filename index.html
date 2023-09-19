@@ -165,6 +165,161 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/19/Algorithm/backtrace/N-queens/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/19/Algorithm/backtrace/N-queens/" class="post-title-link" itemprop="url">N-queens</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-09-19 08:34:33 / 修改时间：23:02:32" itemprop="dateCreated datePublished" datetime="2023-09-19T08:34:33+08:00">2023-09-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Algorithm/" itemprop="url" rel="index"><span itemprop="name">Algorithm</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="N-queens"><a href="#N-queens" class="headerlink" title="N-queens"></a>N-queens</h1><p>N皇后问题，在一个棋盘上，皇后棋子所在的位，它的左斜、右斜、所在列、所在行都只能存在一个棋子。给定一个n*n棋盘，求有多少种方式，令n个棋子恰好落入其中且不与其规则冲突。</p>
+<p>此处使用二维数组表示棋盘，’.’ 表示该坐标没有棋子的棋格，’Q’表示皇后棋子在该坐标之上。如：</p>
+<p>&#96;</p>
+<p><code>[[&quot;.Q..&quot;</code></p>
+<p>​    <code>   &quot;...Q&quot;</code></p>
+<p>​    <code>  &quot;Q...&quot;</code></p>
+<p>​    <code>   &quot;..Q.&quot;]]</code></p>
+<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>使用回溯法来解决n皇后问题，从首行开始，找到合适的坐标后进入下一行。判定是否为合适的目标通过以下三个辅助变量：</p>
+<ul>
+<li><code>vector&lt;bool&gt; ldiag(2*n-1, false)</code>:当某个坐标安插了’Q’后，将ldiag的对应位设为true，如此这个新安插了’Q’的坐标其左斜将不会被安插’Q’。</li>
+<li><code>vector&lt;bool&gt; rdiag(2*n-1, false)</code>:同上，但左斜更改为右斜。</li>
+<li><code>vector&lt;bool&gt; column(n, false)</code>:如果某个坐标安插了’Q’,则该变量使其所在列不会被安插’Q’</li>
+</ul>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/n-queens/">51. N 皇后 - 力扣（LeetCode）</a></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;string&gt;&gt; <span class="built_in">solveNQueens</span>(<span class="type">int</span> n) &#123;</span><br><span class="line">        vector&lt;vector&lt;string&gt;&gt; ans;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>) <span class="keyword">return</span> ans;</span><br><span class="line">        <span class="function">vector&lt;string&gt; <span class="title">board</span><span class="params">(n,string(n,<span class="string">&#x27;.&#x27;</span>))</span></span>;<span class="comment">//每种解法以此种形式存储</span></span><br><span class="line"></span><br><span class="line">        <span class="function">vector&lt;<span class="type">bool</span>&gt; <span class="title">column</span><span class="params">(n,<span class="literal">false</span>)</span></span>;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">bool</span>&gt; <span class="title">ldiag</span><span class="params">(<span class="number">2</span>*n - <span class="number">1</span>, <span class="literal">false</span>)</span>, <span class="title">rdiag</span><span class="params">(<span class="number">2</span>*n <span class="number">-1</span>, <span class="literal">false</span>)</span></span>;</span><br><span class="line">        <span class="built_in">backtrace</span>(<span class="number">0</span>, n, board, column, ldiag, rdiag, ans);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">backtrace</span><span class="params">(<span class="type">int</span> row, <span class="type">int</span> n, vector&lt;string&gt;&amp; board, vector&lt;<span class="type">bool</span>&gt;&amp; column, </span></span></span><br><span class="line"><span class="params"><span class="function">    vector&lt;<span class="type">bool</span>&gt;&amp; ldiag,vector&lt;<span class="type">bool</span>&gt;&amp; rdiag, vector&lt;vector&lt;string&gt;&gt;&amp; ans)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(row == n)</span><br><span class="line">        &#123;</span><br><span class="line">            ans.<span class="built_in">push_back</span>(board);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="comment">//这个判定是判定某个坐标是否能够安插&#x27;Q&#x27;,经过这个判定，才能到达之后的回溯算法。</span></span><br><span class="line">            <span class="keyword">if</span>(ldiag[n - <span class="number">1</span> - row + i] | rdiag[row + i] | column[i])</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">//ldiag[n-1-row+i]使用“n-1-row+i”的缘故是：在当前行安插&#x27;Q&#x27;之后，row+1进入下一行，</span></span><br><span class="line">                <span class="comment">//在下一行中，需要等到i+1时，ldiag[n-1-row+i]才为true,正是上一行的右下角位置                </span></span><br><span class="line">                <span class="comment">//rdiag同理，由于row+1进入下一行，此时需要等待i-1时ldiag[n-1-row+i]才为true。</span></span><br><span class="line">                <span class="comment">//column容易理解，该列所有的位置都不能安插&#x27;Q&#x27;。</span></span><br><span class="line">                           </span><br><span class="line">                <span class="comment">//if(i == n-1) return;  //如果加上这条代码，在力扣中耗时会减少，但不知为何减少，先记着留做日后再看</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//以下代码段逻辑就是回溯算法的基本思想。</span></span><br><span class="line">            <span class="comment">//</span></span><br><span class="line">            ldiag[n - <span class="number">1</span> - row + i] = rdiag[row + i] = column[i] = <span class="literal">true</span>;</span><br><span class="line">            board[row][i] = <span class="string">&#x27;Q&#x27;</span>;</span><br><span class="line">            <span class="built_in">backtrace</span>(row + <span class="number">1</span>, n, board, column, ldiag, rdiag, ans);</span><br><span class="line">            board[row][i] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">            ldiag[n - <span class="number">1</span> - row + i] = rdiag[row + i] = column[i] = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;                   </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/18/Redis/datastructure/skiplist/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/18/Redis/datastructure/skiplist/" class="post-title-link" itemprop="url">redis-skiplist</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-09-18 09:07:54 / 修改时间：10:04:53" itemprop="dateCreated datePublished" datetime="2023-09-18T09:07:54+08:00">2023-09-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="跳跃表"><a href="#跳跃表" class="headerlink" title="跳跃表"></a>跳跃表</h1><p>跳跃表是一个有序数据结构，大多数情况下效率和平衡树相当，用在有序集合键。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>跳跃表由 跳跃表和跳跃表节点构成。</p>
+<p>跳跃表节点(zskiplistNode):</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> &#123;</span></span><br><span class="line">    <span class="comment">// 层</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistLevel</span> &#123;</span></span><br><span class="line">        <span class="comment">// 前进指针</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">forward</span>;</span></span><br><span class="line">        <span class="comment">// 跨度</span></span><br><span class="line">        <span class="type">unsigned</span> <span class="type">int</span> span;</span><br><span class="line">    &#125; level[];</span><br><span class="line">    <span class="comment">// 后退指针</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">backward</span>;</span></span><br><span class="line">    <span class="comment">// 分值</span></span><br><span class="line">    <span class="type">double</span> score;</span><br><span class="line">    <span class="comment">// 成员对象</span></span><br><span class="line">    robj *obj;</span><br><span class="line">&#125; zskiplistNode;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/17/webserver/systemProgramming/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -378,7 +533,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-18 02:30:26" itemprop="dateModified" datetime="2023-09-18T02:30:26+08:00">2023-09-18</time>
+                <time title="修改时间：2023-09-18 08:40:29" itemprop="dateModified" datetime="2023-09-18T08:40:29+08:00">2023-09-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -746,158 +901,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/11/CMake4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/11/CMake4/" class="post-title-link" itemprop="url">CMake4</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-09-11 23:42:43" itemprop="dateCreated datePublished" datetime="2023-09-11T23:42:43+08:00">2023-09-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-13 09:15:22" itemprop="dateModified" datetime="2023-09-13T09:15:22+08:00">2023-09-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cmake/" itemprop="url" rel="index"><span itemprop="name">cmake</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="生成器表达式"><a href="#生成器表达式" class="headerlink" title="生成器表达式"></a>生成器表达式</h1><p><strong>生成器表达式</strong>用于在构建过程中根据条件动态生成值，提供特定的信息给构造配置文件。生成器表达式可以被用来启用条件链接，编译时的条件定义，条件包含目录等功能。它可以在 CMake 脚本中的许多地方使用，例如设置变量、定义目标属性、指定链接库等。生成器表达式使用 <code>$&lt;&gt;</code> 包裹，并可以包含一个或多个关键字和表达式来生成值。</p>
-<p>生成器表达式用得比较广泛的是条件的增加编译标志，比如C++的标准版本或者编译警告</p>
-<ul>
-<li><code>target_compile_options()</code>:给目标设置编译选项。</li>
-<li><code>$&lt;COMPILE_LANG_AND_ID</code>&gt;:一个生成器表达式，用于匹配当前编译器和语言标识符是否与给定的选项匹配。在下述的代码中，如果构建系统监测到相应的编译器，比如检测到了Clang，则<code>COMPILE_LANG_AND_ID</code>为真(true),因此相应的编译选项<code>-Wall;-Wextra;-Wshadow;-Wformat=2;-Wunused</code>将被导入。</li>
-</ul>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(gcc_like_cxx <span class="string">&quot;$&lt;COMPILE_LANG_AND_ID:CXX,ARMClang,AppleClang,Clang,GNU,LCC&gt;&quot;</span>)</span><br><span class="line"><span class="keyword">set</span>(msvc_cxx <span class="string">&quot;$&lt;COMPILE_LANG_AND_ID:CXX,MSVC&gt;&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_compile_options</span>(tutorial_compiler_flags INTERFACE</span><br><span class="line">  <span class="string">&quot;$&lt;$&#123;gcc_like_cxx&#125;:-Wall;-Wextra;-Wshadow;-Wformat=2;-Wunused&gt;&quot;</span></span><br><span class="line">  <span class="string">&quot;$&lt;$&#123;msvc_cxx&#125;:-W3&gt;&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/08/echo-server/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/08/echo-server/" class="post-title-link" itemprop="url">echo server</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-09-08 19:16:21 / 修改时间：19:17:26" itemprop="dateCreated datePublished" datetime="2023-09-08T19:16:21+08:00">2023-09-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/server/" itemprop="url" rel="index"><span itemprop="name">server</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -963,20 +970,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

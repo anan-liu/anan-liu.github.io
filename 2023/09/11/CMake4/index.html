@@ -28,7 +28,7 @@
 <meta property="og:description" content="生成器表达式生成器表达式用于在构建过程中根据条件动态生成值，提供特定的信息给构造配置文件。生成器表达式可以被用来启用条件链接，编译时的条件定义，条件包含目录等功能。它可以在 CMake 脚本中的许多地方使用，例如设置变量、定义目标属性、指定链接库等。生成器表达式使用 $&lt;&gt; 包裹，并可以包含一个或多个关键字和表达式来生成值。 生成器表达式用得比较广泛的是条件的增加编译标志，比如C++的">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-11T15:42:43.000Z">
-<meta property="article:modified_time" content="2023-09-13T01:15:22.180Z">
+<meta property="article:modified_time" content="2023-09-18T07:28:21.028Z">
 <meta property="article:author" content="阿怪">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="cmake">
@@ -202,7 +202,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-13 09:15:22" itemprop="dateModified" datetime="2023-09-13T09:15:22+08:00">2023-09-13</time>
+                <time title="修改时间：2023-09-18 15:28:21" itemprop="dateModified" datetime="2023-09-18T15:28:21+08:00">2023-09-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -233,6 +233,12 @@
 </ul>
 <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(gcc_like_cxx <span class="string">&quot;$&lt;COMPILE_LANG_AND_ID:CXX,ARMClang,AppleClang,Clang,GNU,LCC&gt;&quot;</span>)</span><br><span class="line"><span class="keyword">set</span>(msvc_cxx <span class="string">&quot;$&lt;COMPILE_LANG_AND_ID:CXX,MSVC&gt;&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_compile_options</span>(tutorial_compiler_flags INTERFACE</span><br><span class="line">  <span class="string">&quot;$&lt;$&#123;gcc_like_cxx&#125;:-Wall;-Wextra;-Wshadow;-Wformat=2;-Wunused&gt;&quot;</span></span><br><span class="line">  <span class="string">&quot;$&lt;$&#123;msvc_cxx&#125;:-W3&gt;&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
+<h1 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h1><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># MathFunctions/CMakeList.txt</span></span><br><span class="line"><span class="comment"># create the MathFunctions library</span></span><br><span class="line"><span class="keyword">add_library</span>(MathFunctions MathFunctions.cxx)</span><br><span class="line"></span><br><span class="line"><span class="comment"># state that anybody linking to us needs to include the current source dir</span></span><br><span class="line"><span class="comment"># to find MathFunctions.h, while we don&#x27;t.</span></span><br><span class="line"><span class="keyword">target_include_directories</span>(MathFunctions</span><br><span class="line">                           INTERFACE <span class="variable">$&#123;CMAKE_CURRENT_SOURCE_DIR&#125;</span></span><br><span class="line">                           )</span><br><span class="line"></span><br><span class="line"><span class="comment"># should we use our own math functions</span></span><br><span class="line"><span class="keyword">option</span>(USE_MYMATH <span class="string">&quot;Use tutorial provided math implementation&quot;</span> <span class="keyword">ON</span>)</span><br><span class="line"><span class="keyword">if</span> (USE_MYMATH)</span><br><span class="line">  <span class="keyword">target_compile_definitions</span>(MathFunctions PRIVATE <span class="string">&quot;USE_MYMATH&quot;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="comment"># library that just does sqrt</span></span><br><span class="line">  <span class="keyword">add_library</span>(SqrtLibrary STATIC</span><br><span class="line">              mysqrt.cxx</span><br><span class="line">              )</span><br><span class="line"></span><br><span class="line">  <span class="comment"># link our compiler flags interface library</span></span><br><span class="line">  <span class="keyword">target_link_libraries</span>(SqrtLibrary PUBLIC tutorial_compiler_flags)</span><br><span class="line">  <span class="keyword">target_link_libraries</span>(MathFunctions PUBLIC SqrtLibrary)</span><br><span class="line"><span class="keyword">endif</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># link our compiler flags interface library</span></span><br><span class="line"><span class="keyword">target_link_libraries</span>(MathFunctions PUBLIC tutorial_compiler_flags)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># CMakeList.txt</span></span><br><span class="line"><span class="comment">##cmake_minimum_required(VERSION 3.10) 生成器表达式在CMake 3.15 版本发布</span></span><br><span class="line"><span class="keyword">cmake_minimum_required</span>(VERSION <span class="number">3.15</span>)</span><br><span class="line"><span class="comment"># set the project name and version</span></span><br><span class="line"><span class="keyword">project</span>(Tutorial VERSION <span class="number">1.0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># specify the C++ standard</span></span><br><span class="line"><span class="keyword">add_library</span>(tutorial_compiler_flags INTERFACE)</span><br><span class="line"><span class="keyword">target_compile_features</span>(tutorial_compiler_flags INTERFACE cxx_std_11)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">## set(gcc_like_cxx &quot;$&lt;COMPILE_LANG_AND_ID:CXX,ARMClang, AppleClang, Clang, GNU, LCC&gt;&quot;)</span></span><br><span class="line"><span class="keyword">set</span>(gcc_like_cxx <span class="string">&quot;$&lt;COMPILE_LANG_AND_ID:CXX,ARMClang,AppleClang,Clang,GNU,LCC&gt;&quot;</span>)<span class="comment"># 逗号分隔，之间不能有空格</span></span><br><span class="line"><span class="keyword">set</span>(msvc_cxx <span class="string">&quot;$&lt;COMPILE_LANG_AND_ID:CXX,MSVC&gt;&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 当检测到编译器是gcc_like_cxx中的一项时，将使用相应的编译标志。检测到是msvc_cxx时，同理。</span></span><br><span class="line"><span class="comment">## target_compile_options(tutorial_compiler_flags PRIVATE </span></span><br><span class="line"><span class="comment">#                        &quot;$&lt;$&#123;gcc_like_cxx&#125;:-Wall;-Wextra;-Wshadow;-Wformat=2;-Wunused&gt;&quot;</span></span><br><span class="line"><span class="comment">#                        &quot;$&lt;$&#123;msvc_cxx&#125;:-W3&gt;&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用BUILD_INTERFACE时，只有在构建时才会用到相应的标志。</span></span><br><span class="line"><span class="keyword">target_compile_options</span>(tutorial_compiler_flags INTERFACE</span><br><span class="line">  <span class="string">&quot;$&lt;$&#123;gcc_like_cxx&#125;:$&lt;BUILD_INTERFACE:-Wall;-Wextra;-Wshadow;-Wformat=2;-Wunused&gt;&gt;&quot;</span></span><br><span class="line">  <span class="string">&quot;$&lt;$&#123;msvc_cxx&#125;:$&lt;BUILD_INTERFACE:-W3&gt;&gt;&quot;</span></span><br><span class="line">)</span><br><span class="line"><span class="comment"># configure a header file to pass some of the CMake settings</span></span><br><span class="line"><span class="comment"># to the source code</span></span><br><span class="line"><span class="keyword">configure_file</span>(TutorialConfig.h.in TutorialConfig.h)</span><br><span class="line"></span><br><span class="line"><span class="comment"># add the MathFunctions library</span></span><br><span class="line"><span class="keyword">add_subdirectory</span>(MathFunctions)</span><br><span class="line"></span><br><span class="line"><span class="comment"># add the executable</span></span><br><span class="line"><span class="keyword">add_executable</span>(Tutorial tutorial.cxx)</span><br><span class="line"></span><br><span class="line"><span class="keyword">target_link_libraries</span>(Tutorial PUBLIC MathFunctions tutorial_compiler_flags)</span><br><span class="line"></span><br><span class="line"><span class="comment"># add the binary tree to the search path for include files</span></span><br><span class="line"><span class="comment"># so that we will find TutorialConfig.h</span></span><br><span class="line"><span class="keyword">target_include_directories</span>(Tutorial PUBLIC</span><br><span class="line">                           <span class="string">&quot;$&#123;PROJECT_BINARY_DIR&#125;&quot;</span></span><br><span class="line">                           )</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>重点在于16-19行代码。</p>
+<p><a target="_blank" rel="noopener" href="https://cmake.org/cmake/help/latest/_downloads/4f9b12017b68186aae50924d5037584a/cmake-3.27.4-tutorial-source.zip">源代码下载</a></p>
 
     </div>
 
@@ -252,8 +258,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/09/08/echo-server/" rel="prev" title="echo server">
-      <i class="fa fa-chevron-left"></i> echo server
+    <a href="/2023/09/11/CMake/generator/" rel="prev" title="CMake4">
+      <i class="fa fa-chevron-left"></i> CMake4
     </a></div>
       <div class="post-nav-item">
     <a href="/2023/09/13/class/" rel="next" title="class">
@@ -317,7 +323,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%99%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">生成器表达式</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%99%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">生成器表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">示例代码</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -331,20 +337,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">25</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
