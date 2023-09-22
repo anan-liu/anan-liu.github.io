@@ -753,7 +753,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/13/Cmake5/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/13/class/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -767,7 +767,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/09/13/Cmake5/" class="post-title-link" itemprop="url">Cmake5</a>
+            <a href="/2023/09/13/class/" class="post-title-link" itemprop="url">class</a>
         </h2>
 
         <div class="post-meta">
@@ -777,14 +777,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2023-09-13 09:39:15" itemprop="dateCreated datePublished" datetime="2023-09-13T09:39:15+08:00">2023-09-13</time>
+              <time title="创建时间：2023-09-13 08:55:06" itemprop="dateCreated datePublished" datetime="2023-09-13T08:55:06+08:00">2023-09-13</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-22 18:57:41" itemprop="dateModified" datetime="2023-09-22T18:57:41+08:00">2023-09-22</time>
+                <time title="修改时间：2023-09-17 23:10:55" itemprop="dateModified" datetime="2023-09-17T23:10:55+08:00">2023-09-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -792,7 +792,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cmake/" itemprop="url" rel="index"><span itemprop="name">cmake</span></a>
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
                 </span>
             </span>
 
@@ -807,54 +807,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="安装规则和测试"><a href="#安装规则和测试" class="headerlink" title="安装规则和测试"></a>安装规则和测试</h1><h2 id="安装规则"><a href="#安装规则" class="headerlink" title="安装规则"></a>安装规则</h2><p><code>install()</code>:这个命令有多个选项，此处使用到的功能是指定要安装的文件、目标以及它们应该被安装到的位置。这样，在构建过程完成后，可以使用 CMake 提供的安装命令来执行实际的安装操作，将生成的文件复制到指定路径，以便在用户系统上进行使用或分发。<strong>通过在源代码目录调用install()命令指定的安装规则将在安装时被顺序的执行。</strong></p>
-<p>这个命令有多个选项，如下：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">install</span>(TARGETS &lt;<span class="keyword">target</span>&gt;... [...])</span><br><span class="line"><span class="keyword">install</span>(IMPORTED_RUNTIME_ARTIFACTS &lt;<span class="keyword">target</span>&gt;... [...])</span><br><span class="line"><span class="keyword">install</span>(&#123;FILES | PROGRAMS&#125; &lt;<span class="keyword">file</span>&gt;... [...])</span><br><span class="line"><span class="keyword">install</span>(DIRECTORY &lt;dir&gt;... [...])</span><br><span class="line"><span class="keyword">install</span>(SCRIPT &lt;<span class="keyword">file</span>&gt; [...])</span><br><span class="line"><span class="keyword">install</span>(CODE &lt;code&gt; [...])</span><br><span class="line"><span class="keyword">install</span>(<span class="keyword">EXPORT</span> &lt;<span class="keyword">export</span>-name&gt; [...])</span><br><span class="line"><span class="keyword">install</span>(RUNTIME_DEPENDENCY_SET &lt;<span class="keyword">set</span>-name&gt; [...])</span><br></pre></td></tr></table></figure>
-
-<p>此外，除了上述的选项，还有一些通用选项，比如：</p>
-<ul>
-<li><p><code>DESTINATION</code>:指定一个目录，文件将被安装在这个目录中。可以是相对路径或者绝对路径。如果是相对路径，将被解释成相对于<code>CMAKE_INSTALL_PREFIX</code>这个变量的路径。</p>
-<ul>
-<li><p><code>CMAKE_INSTALL_PREFIX</code>:一个变量，默认值为：<code>/usr/local</code>，在使用命令行安装时可以通过 <code>--prefix</code>选项重新定义值，如：</p>
-<p>  <code>cmake --install . --prefix /my/install/prefix</code></p>
-</li>
-</ul>
-</li>
-<li><p>&#x2F;&#x2F;TODO</p>
-</li>
-</ul>
-<p>此处介绍TARGETS和files选项</p>
-<h2 id="installing-targets"><a href="#installing-targets" class="headerlink" title="installing targets"></a>installing targets</h2><p><code>TARGETS</code>选项将安装目标的规则指定给项目，目标通过安装规则 安装在指定的目录中。如下：</p>
-<p><code>install(TARGETS $&#123;installable_libs&#125; DESTINATION lib)</code></p>
-<h2 id="installing-files"><a href="#installing-files" class="headerlink" title="installing files"></a>installing files</h2><p><code>FILES</code>选项将安装文件的规则指定给项目，命令如下：</p>
-<p><code>install(FILES MathFunctions.h DESTINATION include)</code></p>
-<blockquote>
-<p> <code>target_sources(FILE_SET)</code>可以被考虑用来代替<code>install(FILES ...)</code></p>
-</blockquote>
-<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>CTests使得测试管理变得容易，可以通过<code>add_test()</code>增加，且可以和GTests相容。</p>
-<ul>
-<li><p><code>enable_testing()</code>:使所在目录可以测试，这个命令应该在源根目录下执行，因为ctest期望从根目录中找到测试文件。一般情况下，当CTest模块被包含进来时，这个命令会自动的执行</p>
-</li>
-<li><p><code>add_test()</code>:给项目增加一个测试，运行ctest时执行。格式如下：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_test</span>(NAME &lt;name&gt; <span class="keyword">COMMAND</span> &lt;<span class="keyword">command</span>&gt; [&lt;arg&gt;...]</span><br><span class="line">         [CONFIGURATIONS &lt;config&gt;...]</span><br><span class="line">         [WORKING_DIRECTORY &lt;dir&gt;]</span><br><span class="line">         [COMMAND_EXPAND_LISTS])</span><br><span class="line"><span class="comment"># &lt;name&gt;是创建的项目名，&lt;command&gt;指定测试命令行。如果&lt;command&gt;是可执行目标，在构建时会被自动转换为可执行文件</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">add_test</span>(NAME mytest</span><br><span class="line">         <span class="keyword">COMMAND</span> testDriver --config $&lt;CONFIG&gt;</span><br><span class="line">                            --exe $&lt;TARGET_FILE:myexe&gt;)</span><br><span class="line"><span class="comment"># 创建mytest的测试，使用testDriver工具传配置文件和由myexe生成的可执行文件的路径</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 以下是较旧的版本</span></span><br><span class="line"><span class="keyword">add_test</span>(&lt;name&gt; &lt;<span class="keyword">command</span>&gt; [&lt;arg&gt;...])</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>set_tests_properties()</code>为测试用例设置属性，如果测试用例找不到，则报错。格式如下：</p>
-  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set_tests_properties</span>(test1 [test2...] PROPERTIES prop1 value1 prop2 value2)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>PASS_REGULAR_EXPRESSION</code>:如果<code>set_tests_properties()</code>设置了这个属性，测试用例的输出必须匹配到至少一个正则表达式，否则测试失败。</p>
-</li>
-<li><p><code>function()</code>:用以编写函数的命令，格式如下：</p>
-  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span>(&lt;name&gt; [&lt;arg1&gt; ...])</span><br><span class="line">  &lt;commands&gt;</span><br><span class="line"><span class="keyword">endfunction</span>()</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>name</code>:函数名，后续使用这个函数名调用这个函数，</li>
-<li><code>arg</code>:参数</li>
-</ul>
-<p>  <strong>注意:函数名是大小写不敏感的</strong></p>
-<p>  简单示例如下:</p>
-  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span>(do_test <span class="keyword">target</span> arg result)</span><br><span class="line">  <span class="keyword">add_test</span>(NAME Comp<span class="variable">$&#123;arg&#125;</span> <span class="keyword">COMMAND</span> <span class="variable">$&#123;target&#125;</span> <span class="variable">$&#123;arg&#125;</span>)</span><br><span class="line">  <span class="keyword">set_tests_properties</span>(Comp<span class="variable">$&#123;arg&#125;</span></span><br><span class="line">    PROPERTIES PASS_REGULAR_EXPRESSION <span class="variable">$&#123;result&#125;</span></span><br><span class="line">    )</span><br><span class="line"><span class="keyword">endfunction</span>()</span><br><span class="line"><span class="comment"># 其中do_test是函数名，后续调用这个函数都要用这个函数名，在do_test后面的是参数，在函数中使用传入参数需要加上$&#123;var&#125;。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 这个函数的作用是，创建了一个测试用例，并设置为这个测试用例设置正则表达式匹配规则(由result参数决定)，</span></span><br><span class="line"><span class="comment"># 第一参数和第二参数用以决定可执行文件和给这个可执行文件的参数</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-
+          <h1 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h1><p>定义类时，它的构造函数可以写成如下形式：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/09/13/class/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -873,7 +834,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/13/CMake/CMake-test/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/08/echo-server/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -887,7 +848,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/09/13/CMake/CMake-test/" class="post-title-link" itemprop="url">Cmake5</a>
+            <a href="/2023/09/08/echo-server/" class="post-title-link" itemprop="url">echo server</a>
         </h2>
 
         <div class="post-meta">
@@ -896,23 +857,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2023-09-13 09:39:15" itemprop="dateCreated datePublished" datetime="2023-09-13T09:39:15+08:00">2023-09-13</time>
+              <time title="创建时间：2023-09-08 19:16:21 / 修改时间：19:17:26" itemprop="dateCreated datePublished" datetime="2023-09-08T19:16:21+08:00">2023-09-08</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-22 19:02:44" itemprop="dateModified" datetime="2023-09-22T19:02:44+08:00">2023-09-22</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cmake/" itemprop="url" rel="index"><span itemprop="name">cmake</span></a>
+                  <a href="/categories/server/" itemprop="url" rel="index"><span itemprop="name">server</span></a>
                 </span>
             </span>
 
@@ -927,54 +882,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="安装规则和测试"><a href="#安装规则和测试" class="headerlink" title="安装规则和测试"></a>安装规则和测试</h1><h2 id="安装规则"><a href="#安装规则" class="headerlink" title="安装规则"></a>安装规则</h2><p><code>install()</code>:这个命令有多个选项，此处使用到的功能是指定要安装的文件、目标以及它们应该被安装到的位置。这样，在构建过程完成后，可以使用 CMake 提供的安装命令来执行实际的安装操作，将生成的文件复制到指定路径，以便在用户系统上进行使用或分发。<strong>通过在源代码目录调用install()命令指定的安装规则将在安装时被顺序的执行。</strong></p>
-<p>这个命令有多个选项，如下：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">install</span>(TARGETS &lt;<span class="keyword">target</span>&gt;... [...])</span><br><span class="line"><span class="keyword">install</span>(IMPORTED_RUNTIME_ARTIFACTS &lt;<span class="keyword">target</span>&gt;... [...])</span><br><span class="line"><span class="keyword">install</span>(&#123;FILES | PROGRAMS&#125; &lt;<span class="keyword">file</span>&gt;... [...])</span><br><span class="line"><span class="keyword">install</span>(DIRECTORY &lt;dir&gt;... [...])</span><br><span class="line"><span class="keyword">install</span>(SCRIPT &lt;<span class="keyword">file</span>&gt; [...])</span><br><span class="line"><span class="keyword">install</span>(CODE &lt;code&gt; [...])</span><br><span class="line"><span class="keyword">install</span>(<span class="keyword">EXPORT</span> &lt;<span class="keyword">export</span>-name&gt; [...])</span><br><span class="line"><span class="keyword">install</span>(RUNTIME_DEPENDENCY_SET &lt;<span class="keyword">set</span>-name&gt; [...])</span><br></pre></td></tr></table></figure>
-
-<p>此外，除了上述的选项，还有一些通用选项，比如：</p>
-<ul>
-<li><p><code>DESTINATION</code>:指定一个目录，文件将被安装在这个目录中。可以是相对路径或者绝对路径。如果是相对路径，将被解释成相对于<code>CMAKE_INSTALL_PREFIX</code>这个变量的路径。</p>
-<ul>
-<li><p><code>CMAKE_INSTALL_PREFIX</code>:一个变量，默认值为：<code>/usr/local</code>，在使用命令行安装时可以通过 <code>--prefix</code>选项重新定义值，如：</p>
-<p>  <code>cmake --install . --prefix /my/install/prefix</code></p>
-</li>
-</ul>
-</li>
-<li><p>&#x2F;&#x2F;TODO</p>
-</li>
-</ul>
-<p>此处介绍TARGETS和files选项</p>
-<h2 id="installing-targets"><a href="#installing-targets" class="headerlink" title="installing targets"></a>installing targets</h2><p><code>TARGETS</code>选项将安装目标的规则指定给项目，目标通过安装规则 安装在指定的目录中。如下：</p>
-<p><code>install(TARGETS $&#123;installable_libs&#125; DESTINATION lib)</code></p>
-<h2 id="installing-files"><a href="#installing-files" class="headerlink" title="installing files"></a>installing files</h2><p><code>FILES</code>选项将安装文件的规则指定给项目，命令如下：</p>
-<p><code>install(FILES MathFunctions.h DESTINATION include)</code></p>
-<blockquote>
-<p> <code>target_sources(FILE_SET)</code>可以被考虑用来代替<code>install(FILES ...)</code></p>
-</blockquote>
-<h1 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h1><p>CTests使得测试管理变得容易，可以通过<code>add_test()</code>增加，且可以和GTests相容。</p>
-<ul>
-<li><p><code>enable_testing()</code>:使所在目录可以测试，这个命令应该在源根目录下执行，因为ctest期望从根目录中找到测试文件。一般情况下，当CTest模块被包含进来时，这个命令会自动的执行</p>
-</li>
-<li><p><code>add_test()</code>:给项目增加一个测试，运行ctest时执行。格式如下：</p>
-  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">add_test</span>(NAME &lt;name&gt; <span class="keyword">COMMAND</span> &lt;<span class="keyword">command</span>&gt; [&lt;arg&gt;...]</span><br><span class="line">         [CONFIGURATIONS &lt;config&gt;...]</span><br><span class="line">         [WORKING_DIRECTORY &lt;dir&gt;]</span><br><span class="line">         [COMMAND_EXPAND_LISTS])</span><br><span class="line"><span class="comment"># &lt;name&gt;是创建的项目名，&lt;command&gt;指定测试命令行。如果&lt;command&gt;是可执行目标，在构建时会被自动转换为可执行文件</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">add_test</span>(NAME mytest</span><br><span class="line">         <span class="keyword">COMMAND</span> testDriver --config $&lt;CONFIG&gt;</span><br><span class="line">                            --exe $&lt;TARGET_FILE:myexe&gt;)</span><br><span class="line"><span class="comment"># 创建mytest的测试，使用testDriver工具传配置文件和由myexe生成的可执行文件的路径</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 以下是较旧的版本</span></span><br><span class="line"><span class="keyword">add_test</span>(&lt;name&gt; &lt;<span class="keyword">command</span>&gt; [&lt;arg&gt;...])</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>set_tests_properties()</code>为测试用例设置属性，如果测试用例找不到，则报错。格式如下：</p>
-  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set_tests_properties</span>(test1 [test2...] PROPERTIES prop1 value1 prop2 value2)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>PASS_REGULAR_EXPRESSION</code>:如果<code>set_tests_properties()</code>设置了这个属性，测试用例的输出必须匹配到至少一个正则表达式，否则测试失败。</p>
-</li>
-<li><p><code>function()</code>:用以编写函数的命令，格式如下：</p>
-  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span>(&lt;name&gt; [&lt;arg1&gt; ...])</span><br><span class="line">  &lt;commands&gt;</span><br><span class="line"><span class="keyword">endfunction</span>()</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>name</code>:函数名，后续使用这个函数名调用这个函数，</li>
-<li><code>arg</code>:参数</li>
-</ul>
-<p>  <strong>注意:函数名是大小写不敏感的</strong></p>
-<p>  简单示例如下:</p>
-  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span>(do_test <span class="keyword">target</span> arg result)</span><br><span class="line">  <span class="keyword">add_test</span>(NAME Comp<span class="variable">$&#123;arg&#125;</span> <span class="keyword">COMMAND</span> <span class="variable">$&#123;target&#125;</span> <span class="variable">$&#123;arg&#125;</span>)</span><br><span class="line">  <span class="keyword">set_tests_properties</span>(Comp<span class="variable">$&#123;arg&#125;</span></span><br><span class="line">    PROPERTIES PASS_REGULAR_EXPRESSION <span class="variable">$&#123;result&#125;</span></span><br><span class="line">    )</span><br><span class="line"><span class="keyword">endfunction</span>()</span><br><span class="line"><span class="comment"># 其中do_test是函数名，后续调用这个函数都要用这个函数名，在do_test后面的是参数，在函数中使用传入参数需要加上$&#123;var&#125;。</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 这个函数的作用是，创建了一个测试用例，并设置为这个测试用例设置正则表达式匹配规则(由result参数决定)，</span></span><br><span class="line"><span class="comment"># 第一参数和第二参数用以决定可执行文件和给这个可执行文件的参数</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-
+          
       
     </div>
 
@@ -992,7 +900,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1058,20 +966,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">8</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
