@@ -165,6 +165,87 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/20/CMake/CMake-test/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/20/CMake/CMake-test/" class="post-title-link" itemprop="url">Cmake-test</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-20 09:39:15" itemprop="dateCreated datePublished" datetime="2023-09-20T09:39:15+08:00">2023-09-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-09-23 02:02:26" itemprop="dateModified" datetime="2023-09-23T02:02:26+08:00">2023-09-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cmake/" itemprop="url" rel="index"><span itemprop="name">cmake</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="安装规则和测试"><a href="#安装规则和测试" class="headerlink" title="安装规则和测试"></a>安装规则和测试</h1><h2 id="安装规则"><a href="#安装规则" class="headerlink" title="安装规则"></a>安装规则</h2><p><code>install()</code>:这个命令有多个选项，此处使用到的功能是指定要安装的文件、目标以及它们应该被安装到的位置。这样，在构建过程完成后，可以使用 CMake 提供的安装命令来执行实际的安装操作，将生成的文件复制到指定路径，以便在用户系统上进行使用或分发。<strong>通过在源代码目录调用install()命令指定的安装规则将在安装时被顺序的执行。</strong></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/09/20/CMake/CMake-test/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/19/Algorithm/backtrace/N-queens/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -196,7 +277,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-20 01:02:56" itemprop="dateModified" datetime="2023-09-20T01:02:56+08:00">2023-09-20</time>
+                <time title="修改时间：2023-09-23 02:03:27" itemprop="dateModified" datetime="2023-09-23T02:03:27+08:00">2023-09-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -220,22 +301,14 @@
 
       
           <h1 id="N-queens"><a href="#N-queens" class="headerlink" title="N-queens"></a>N-queens</h1><p>N皇后问题，在一个棋盘上，皇后棋子所在的位，它的左斜、右斜、所在列、所在行都只能存在一个棋子。给定一个n*n棋盘，求有多少种方式，令n个棋子恰好落入其中且不与其规则冲突。</p>
-<p>此处使用二维数组表示棋盘，’.’ 表示该坐标没有棋子的棋格，’Q’表示皇后棋子在该坐标之上。如：</p>
-<p>&#96;</p>
-<p><code>[[&quot;.Q..&quot;</code></p>
-<p>​    <code>   &quot;...Q&quot;</code></p>
-<p>​    <code>  &quot;Q...&quot;</code></p>
-<p>​    <code>   &quot;..Q.&quot;]]</code></p>
-<h1 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h1><p>使用回溯法来解决n皇后问题，从首行开始，找到合适的坐标后进入下一行。判定是否为合适的目标通过以下三个辅助变量：</p>
-<ul>
-<li><code>vector&lt;bool&gt; ldiag(2*n-1, false)</code>:当某个坐标安插了’Q’后，将ldiag的对应位设为true，如此这个新安插了’Q’的坐标其左斜将不会被安插’Q’。</li>
-<li><code>vector&lt;bool&gt; rdiag(2*n-1, false)</code>:同上，但左斜更改为右斜。</li>
-<li><code>vector&lt;bool&gt; column(n, false)</code>:如果某个坐标安插了’Q’,则该变量使其所在列不会被安插’Q’</li>
-</ul>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/n-queens/">51. N 皇后 - 力扣（LeetCode）</a></p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    vector&lt;vector&lt;string&gt;&gt; <span class="built_in">solveNQueens</span>(<span class="type">int</span> n) &#123;</span><br><span class="line">        vector&lt;vector&lt;string&gt;&gt; ans;</span><br><span class="line">        <span class="keyword">if</span>(n == <span class="number">0</span>) <span class="keyword">return</span> ans;</span><br><span class="line">        <span class="function">vector&lt;string&gt; <span class="title">board</span><span class="params">(n,string(n,<span class="string">&#x27;.&#x27;</span>))</span></span>;<span class="comment">//每种解法以此种形式存储</span></span><br><span class="line"></span><br><span class="line">        <span class="function">vector&lt;<span class="type">bool</span>&gt; <span class="title">column</span><span class="params">(n,<span class="literal">false</span>)</span></span>;</span><br><span class="line">        <span class="function">vector&lt;<span class="type">bool</span>&gt; <span class="title">ldiag</span><span class="params">(<span class="number">2</span>*n - <span class="number">1</span>, <span class="literal">false</span>)</span>, <span class="title">rdiag</span><span class="params">(<span class="number">2</span>*n <span class="number">-1</span>, <span class="literal">false</span>)</span></span>;</span><br><span class="line">        <span class="built_in">backtrace</span>(<span class="number">0</span>, n, board, column, ldiag, rdiag, ans);</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">backtrace</span><span class="params">(<span class="type">int</span> row, <span class="type">int</span> n, vector&lt;string&gt;&amp; board, vector&lt;<span class="type">bool</span>&gt;&amp; column, </span></span></span><br><span class="line"><span class="params"><span class="function">    vector&lt;<span class="type">bool</span>&gt;&amp; ldiag,vector&lt;<span class="type">bool</span>&gt;&amp; rdiag, vector&lt;vector&lt;string&gt;&gt;&amp; ans)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(row == n)</span><br><span class="line">        &#123;</span><br><span class="line">            ans.<span class="built_in">push_back</span>(board);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>; i &lt; n; i++)&#123;</span><br><span class="line">            <span class="comment">//这个判定是判定某个坐标是否能够安插&#x27;Q&#x27;,经过这个判定，才能到达之后的回溯算法。</span></span><br><span class="line">            <span class="keyword">if</span>(ldiag[n - <span class="number">1</span> - row + i] | rdiag[row + i] | column[i])</span><br><span class="line">            &#123;</span><br><span class="line">             <span class="comment">//ldiag[n-1-row+i]使用“n-1-row+i”的缘故是：在当前行安插&#x27;Q&#x27;之后，row+1进入下一行，</span></span><br><span class="line">             <span class="comment">//在下一行中，需要等到i+1时，ldiag[n-1-row+i]才为true,正是上一行的右下角位置                </span></span><br><span class="line">             <span class="comment">//rdiag同理，由于row+1进入下一行，此时需要等待i-1时ldiag[n-1-row+i]才为true。</span></span><br><span class="line">             <span class="comment">//column容易理解，该列所有的位置都不能安插&#x27;Q&#x27;。</span></span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//以下代码段逻辑就是回溯算法的基本思想。</span></span><br><span class="line">            <span class="comment">//</span></span><br><span class="line">            ldiag[n - <span class="number">1</span> - row + i] = rdiag[row + i] = column[i] = <span class="literal">true</span>;</span><br><span class="line">            board[row][i] = <span class="string">&#x27;Q&#x27;</span>;</span><br><span class="line">            <span class="built_in">backtrace</span>(row + <span class="number">1</span>, n, board, column, ldiag, rdiag, ans);</span><br><span class="line">            board[row][i] = <span class="string">&#x27;.&#x27;</span>;</span><br><span class="line">            ldiag[n - <span class="number">1</span> - row + i] = rdiag[row + i] = column[i] = <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;                   </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/09/19/Algorithm/backtrace/N-queens/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -730,87 +803,6 @@
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/09/14/Redis/datastructure/string/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/13/CMake/CMake-test/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/13/CMake/CMake-test/" class="post-title-link" itemprop="url">Cmake5</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-09-13 09:39:15" itemprop="dateCreated datePublished" datetime="2023-09-13T09:39:15+08:00">2023-09-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-22 19:03:22" itemprop="dateModified" datetime="2023-09-22T19:03:22+08:00">2023-09-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/cmake/" itemprop="url" rel="index"><span itemprop="name">cmake</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="安装规则和测试"><a href="#安装规则和测试" class="headerlink" title="安装规则和测试"></a>安装规则和测试</h1><h2 id="安装规则"><a href="#安装规则" class="headerlink" title="安装规则"></a>安装规则</h2><p><code>install()</code>:这个命令有多个选项，此处使用到的功能是指定要安装的文件、目标以及它们应该被安装到的位置。这样，在构建过程完成后，可以使用 CMake 提供的安装命令来执行实际的安装操作，将生成的文件复制到指定路径，以便在用户系统上进行使用或分发。<strong>通过在源代码目录调用install()命令指定的安装规则将在安装时被顺序的执行。</strong></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/09/13/CMake/CMake-test/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
