@@ -165,6 +165,264 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/26/C++11/initializer_list/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/26/C++11/initializer_list/" class="post-title-link" itemprop="url">initializer_list</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-09-26 00:22:40 / 修改时间：00:37:15" itemprop="dateCreated datePublished" datetime="2023-09-26T00:22:40+08:00">2023-09-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="initializer-list"><a href="#initializer-list" class="headerlink" title="initializer_list&lt;&gt;"></a>initializer_list&lt;&gt;</h1><p>为了使用这个类，应当：<code>#include&lt;initializer_list&gt;</code></p>
+<p>为了使一个类的构造函数可以接收不定个数的参数（需要相同类型的参数，如果接收不同类型的参数需要使用variadic Template技术），可以在构造函数的函数参数列表中声明一个类型为initializer_list&lt;&gt;的参数，从而当定义一个对象时，传入了多个参数的时候将调用这个构造函数。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyVector</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    std::vector&lt;<span class="type">int</span>&gt; data;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">MyVector</span>(std::initializer_list&lt;<span class="type">int</span>&gt; nums) : <span class="built_in">data</span>(nums) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> num : data) &#123;</span><br><span class="line">            std::cout &lt;&lt; num &lt;&lt; <span class="string">&quot; &quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        std::cout &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    MyVector vec = &#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>&#125;;</span><br><span class="line">    vec.<span class="built_in">print</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>由于initializer_list&lt;&gt;的功能，函数max(),min()也可以通过{}来实现从{}中选取最大值返回的功能。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">int</span> maxValue = std::<span class="built_in">max</span>(&#123;<span class="number">3</span>, <span class="number">9</span>, <span class="number">1</span>, <span class="number">7</span>, <span class="number">5</span>&#125;);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Maximum value: &quot;</span> &lt;&lt; maxValue &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> minValue = std::<span class="built_in">min</span>(&#123;<span class="number">3</span>, <span class="number">9</span>, <span class="number">1</span>, <span class="number">7</span>, <span class="number">5</span>&#125;);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Minimum value: &quot;</span> &lt;&lt; minValue &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="uniform-initialization-aggregate"><a href="#uniform-initialization-aggregate" class="headerlink" title="uniform initialization&amp;aggregate"></a>uniform initialization&amp;aggregate</h1><p>C++11之前，初始化有各种各样的形式，且没有一个可以通用的形式。C++11中，我们可以使用{}来初始化所有变量。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以下的初始化得到的结果一样</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">a</span><span class="params">(<span class="number">0</span>)</span></span>;</span><br><span class="line"><span class="type">int</span> a = <span class="number">0</span>;</span><br><span class="line"><span class="type">int</span> a&#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="type">int</span> a = &#123;<span class="number">0</span>&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>聚合类：用户可以直接访问其成员，且有特殊的初始化格式。一个聚合类需要满足四个条件，才能被乘坐聚合类</p>
+<ul>
+<li>成员都是public属性</li>
+<li>没有定义构造函数</li>
+<li>没有定义类内初始值</li>
+<li>没有基类（父类），也没有virtual函数。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//如果 P是一个聚合类，且类内有成员：string str; int a;则下面代码的初始化成立</span></span><br><span class="line">P p=&#123;<span class="string">&quot;test&quot;</span>, <span class="number">55</span>&#125;;<span class="comment">//注意列表中的值的顺序要和类中成员定义的顺序一致</span></span><br></pre></td></tr></table></figure>
+
+<p>示例代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">aggregateTest1</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="type">int</span> a;</span><br><span class="line">	<span class="type">int</span> b;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123; cout &lt;&lt; a &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; b &lt;&lt; endl; &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">aggregateTest2</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="type">int</span> a;</span><br><span class="line">	<span class="type">int</span> b;</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123; cout &lt;&lt; a &lt;&lt; <span class="string">&quot; &quot;</span> &lt;&lt; b &lt;&lt; endl; &#125;</span><br><span class="line">	<span class="built_in">aggregateTest2</span>(<span class="type">int</span> i) : <span class="built_in">a</span>(i)&#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">P</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="comment">//P(initializer_list&lt;int&gt;);</span></span><br><span class="line">	<span class="function"><span class="keyword">explicit</span> <span class="title">P</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">int</span> c)</span></span>;</span><br><span class="line">	<span class="built_in">P</span>(<span class="type">int</span> a, <span class="type">int</span> b);</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">//P::P(initializer_list&lt;int&gt;)</span></span><br><span class="line"><span class="comment">//&#123;</span></span><br><span class="line"><span class="comment">//	cout &lt;&lt; &quot;initializer_list&lt;int&gt;\n&quot;;</span></span><br><span class="line"><span class="comment">//&#125;</span></span><br><span class="line"></span><br><span class="line">P::<span class="built_in">P</span>(<span class="type">int</span> a, <span class="type">int</span> b, <span class="type">int</span> c) </span><br><span class="line">&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;explicit\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">P::<span class="built_in">P</span>(<span class="type">int</span> a, <span class="type">int</span> b)</span><br><span class="line">&#123;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;routine\n&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	P p1&#123; <span class="number">3</span>,<span class="number">6</span> &#125;;</span><br><span class="line">	P p3 = &#123; <span class="number">6</span>,<span class="number">7</span> &#125;;</span><br><span class="line">	P p2&#123; <span class="number">4</span>,<span class="number">2</span>,<span class="number">5</span> &#125;;</span><br><span class="line">	<span class="comment">//P p4 = &#123; 4,2,5 &#125;;</span></span><br><span class="line">	aggregateTest1 a1&#123; <span class="number">4</span>,<span class="number">6</span> &#125;;</span><br><span class="line">	aggregateTest1 a2 = &#123; <span class="number">4</span>,<span class="number">6</span> &#125;;</span><br><span class="line">	<span class="comment">//aggregateTest2 b1&#123; 4,7 &#125;;</span></span><br><span class="line">	aggregateTest2 b2 = &#123; <span class="number">7</span> &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p>当给一个对象赋值时：</p>
+<ol>
+<li>右值出现{}时，编译器会做隐式转换（即调用对应的构造函数初始化一个临时变量，然后将其赋值给左值）。如代码45行。</li>
+<li>而如果是以代码44行的形式初始化对象的，则直接调用构造函数初始化，不涉及右值以及临时变量。</li>
+</ol>
+<p> 因为这样的区别，所以当一个构造函数被隐式声明成<strong>explicit</strong>的形式时。将不能使用 1 的形式，因为explicit不允许隐式转换。如代码47行所示，这条表达式将不被编译通过。</p>
+</li>
+<li><p>聚合类的赋值</p>
+<p> 如代码48行所示，因为aggregateTest1是一个聚合类，所以直接使用列表初始化。</p>
+<blockquote>
+<p> 此处未体现列表中的值的顺序和类中成员定义的顺序一致</p>
+</blockquote>
+<p> 而aggregateTest2不是一个聚合类，所以无法像聚合类一样直接列表初始化，只能根据构造函数的参数个数来初始化。代码50-51所示。</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/26/C++11/default_delete/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/26/C++11/default_delete/" class="post-title-link" itemprop="url">default_delete</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-09-26 00:12:13 / 修改时间：00:19:51" itemprop="dateCreated datePublished" datetime="2023-09-26T00:12:13+08:00">2023-09-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="default-delete"><a href="#default-delete" class="headerlink" title="&#x3D;default &amp; &#x3D;delete"></a>&#x3D;default &amp; &#x3D;delete</h1><h2 id="default"><a href="#default" class="headerlink" title="&#x3D;default"></a>&#x3D;default</h2><p>只对编译器可以合成的默认构造函数和拷贝控制成员使用</p>
+<h3 id="用于构造函数"><a href="#用于构造函数" class="headerlink" title="用于构造函数"></a>用于构造函数</h3><p>在一般情况下，如果不声明任何的构造函数，编译器会自动创建<strong>默认构造函数</strong>（default constructor | synthesized default constructor）。有一种情况是：类中自定义了构造函数，但此时又需要编译器提供<em>默认构造函数</em>，此时&#x3D;default就起作用了：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TestDe</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="type">int</span> a, b;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">TestDe</span>(<span class="type">int</span> i,<span class="type">int</span> j) : <span class="built_in">a</span>(i),<span class="built_in">b</span>(j)&#123;&#125;</span><br><span class="line">	<span class="built_in">TestDe</span>() = <span class="keyword">default</span>;<span class="comment">//完全等同于合成的默认构造函数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="用于拷贝控制成员"><a href="#用于拷贝控制成员" class="headerlink" title="用于拷贝控制成员"></a>用于拷贝控制成员</h3><p>同构造函数一样，拷贝构造函数也有编译器合成的拷贝构造函数，当类中没有定义任何的拷贝构造函数时编译器就使用这个版本。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">TestDe</span> &#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	<span class="type">int</span> a, b;</span><br><span class="line">	<span class="type">char</span>* arr;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">TestDe</span>(<span class="type">int</span> i,<span class="type">int</span> j,<span class="type">char</span>* str) : <span class="built_in">a</span>(i),<span class="built_in">b</span>(j),<span class="built_in">arr</span>(str) &#123;&#125;</span><br><span class="line">	<span class="built_in">TestDe</span>() = <span class="keyword">default</span>;</span><br><span class="line">	<span class="built_in">TestDe</span>(<span class="type">const</span> TestDe&amp; test) = <span class="keyword">delete</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>其他拷贝控制成员同理。</p>
+<h2 id="delete"><a href="#delete" class="headerlink" title="&#x3D;delete"></a>&#x3D;delete</h2><p>阻止特殊成员函数或其他函数的调用，从而在编译时生成错误，以防止不期望的行为。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/24/CMake/CMake-introspect/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/24/CMake/CMake-introspect/" class="post-title-link" itemprop="url">CMake-introspect</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-24 18:20:27" itemprop="dateCreated datePublished" datetime="2023-09-24T18:20:27+08:00">2023-09-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-09-25 09:06:18" itemprop="dateModified" datetime="2023-09-25T09:06:18+08:00">2023-09-25</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cmake/" itemprop="url" rel="index"><span itemprop="name">cmake</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="增加系统内省"><a href="#增加系统内省" class="headerlink" title="增加系统内省"></a>增加系统内省</h1>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/23/CMake/CMake-include/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -188,8 +446,18 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2023-09-23 17:30:38" itemprop="dateCreated datePublished" datetime="2023-09-23T17:30:38+08:00">2023-09-23</time>
+              <time title="创建时间：2023-09-23 17:30:38 / 修改时间：18:42:01" itemprop="dateCreated datePublished" datetime="2023-09-23T17:30:38+08:00">2023-09-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cmake/" itemprop="url" rel="index"><span itemprop="name">cmake</span></a>
+                </span>
             </span>
 
           
@@ -203,7 +471,30 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          
+          <h1 id="使用CTest-CDash配置测试用例"><a href="#使用CTest-CDash配置测试用例" class="headerlink" title="使用CTest&#x2F;CDash配置测试用例"></a>使用CTest&#x2F;CDash配置测试用例</h1><ul>
+<li><p><code>include()</code>:加载并运行文件或模块</p>
+</li>
+<li><p><code>CTest</code>:在CMake中，<code>CTest</code> 是一个内置模块，用于配置和管理项目的测试。它提供了一组命令和变量，帮助定义和执行测试套件，并生成测试报告。</p>
+  <figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">include</span>(CTest)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><ol>
+<li>顶层目录新建一个<code>CTestConfig.cmake</code>文件，配置如下代码：</li>
+</ol>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>(CTEST_PROJECT_NAME <span class="string">&quot;CMakeTutorial&quot;</span>)</span><br><span class="line"><span class="keyword">set</span>(CTEST_NIGHTLY_START_TIME <span class="string">&quot;00:00:00 EST&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span>(CTEST_DROP_METHOD <span class="string">&quot;http&quot;</span>)</span><br><span class="line"><span class="keyword">set</span>(CTEST_DROP_SITE <span class="string">&quot;my.cdash.org&quot;</span>)</span><br><span class="line"><span class="keyword">set</span>(CTEST_DROP_LOCATION <span class="string">&quot;/submit.php?project=CMakeTutorial&quot;</span>)</span><br><span class="line"><span class="keyword">set</span>(CTEST_DROP_SITE_CDASH <span class="keyword">TRUE</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>之后在顶层目录的<code>CMakeLists.txt</code>文件加入<code>CTest</code>模块：</li>
+</ol>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">include</span>(CTest)</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li><p>运行<code>cmake</code>配置项目但不进行<code>build</code>步骤，取而代之的是：</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctest -D Experimental</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>访问<a target="_blank" rel="noopener" href="https://my.cdash.org/index.php?project=CMakeTutorial">https://my.cdash.org/index.php?project=CMakeTutorial</a></p>
+</li>
+</ol>
+
       
     </div>
 
@@ -407,10 +698,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-09-18 09:07:54 / 修改时间：10:04:53" itemprop="dateCreated datePublished" datetime="2023-09-18T09:07:54+08:00">2023-09-18</time>
+              <time title="创建时间：2023-09-18 09:07:54" itemprop="dateCreated datePublished" datetime="2023-09-18T09:07:54+08:00">2023-09-18</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-09-25 20:55:06" itemprop="dateModified" datetime="2023-09-25T20:55:06+08:00">2023-09-25</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -432,11 +729,36 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="跳跃表"><a href="#跳跃表" class="headerlink" title="跳跃表"></a>跳跃表</h1><p>跳跃表是一个有序数据结构，大多数情况下效率和平衡树相当，用在有序集合键。</p>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>跳跃表由 跳跃表和跳跃表节点构成。</p>
+          <h1 id="跳跃表"><a href="#跳跃表" class="headerlink" title="跳跃表"></a>跳跃表</h1><p>跳跃表是一个有序数据结构，大多数情况下效率和平衡树相当，用在<strong>有序集合键</strong>。</p>
+<h2 id="跳跃表节点"><a href="#跳跃表节点" class="headerlink" title="跳跃表节点"></a>跳跃表节点</h2><p>跳跃表由 跳跃表和跳跃表节点构成。</p>
 <p>跳跃表节点(zskiplistNode):</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> &#123;</span></span><br><span class="line">    <span class="comment">// 层</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistLevel</span> &#123;</span></span><br><span class="line">        <span class="comment">// 前进指针</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">forward</span>;</span></span><br><span class="line">        <span class="comment">// 跨度</span></span><br><span class="line">        <span class="type">unsigned</span> <span class="type">int</span> span;</span><br><span class="line">    &#125; level[];</span><br><span class="line">    <span class="comment">// 后退指针</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">backward</span>;</span></span><br><span class="line">    <span class="comment">// 分值</span></span><br><span class="line">    <span class="type">double</span> score;</span><br><span class="line">    <span class="comment">// 成员对象</span></span><br><span class="line">    robj *obj;</span><br><span class="line">&#125; zskiplistNode;</span><br></pre></td></tr></table></figure>
 
+<ul>
+<li><p><code>层</code>：根据幂次定律生成大小为1~32的层数组，层包含一个前进指针和这个指针的跨度。</p>
+<ul>
+<li><code>前进指针</code>:每个跳跃表节点都有一个指向最后一个节点的指针，每个层拥有一个指针，指向前面的节点，可以跳跃访问</li>
+<li><code>跨度</code>:记录两个节点之间的距离，从开始节点算起，途中经过的节点的跨度之和，就是目标节点在这个跳跃表中的排位</li>
+</ul>
+</li>
+<li><p><code>后退指针</code>:指向前一个节点，因为后退指针不在<code>层</code>之中，每个节点只有指向前一个节点的后退指针，因此不能跳跃后退</p>
+</li>
+<li><p><code>分值</code>:跳跃表节点的顺序按照分值来排序</p>
+</li>
+<li><p><code>对象</code>:是一个字符串对象，保存着一个SDS值。</p>
+</li>
+</ul>
+<h2 id="跳跃表-1"><a href="#跳跃表-1" class="headerlink" title="跳跃表"></a>跳跃表</h2><p>跳跃表(skiplist):</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zskiplist</span> &#123;</span></span><br><span class="line">    <span class="comment">// 表头节点和表尾节点</span></span><br><span class="line">    structz skiplistNode *header, *tail;</span><br><span class="line">    <span class="comment">// 表中节点的数量</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> length;</span><br><span class="line">    <span class="comment">// 表中层数最大的节点的层数</span></span><br><span class="line">    <span class="type">int</span> level;</span><br><span class="line">&#125; zskiplist;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>头尾指针：头指针指向第一个节点，尾指针指向最后一个节点</li>
+</ul>
+<h2 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h2><p>结合上两节的结构，跳跃表的真正结构如下：</p>
+<p><img src="/2023/09/18/Redis/datastructure/skiplist/skiplist.png"></p>
+<blockquote>
+<p>其中虚线部分是从表头遍历整个跳跃表的顺序。</p>
+</blockquote>
 
       
     </div>
@@ -634,255 +956,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/16/Redis/datastructure/dictionary/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/16/Redis/datastructure/dictionary/" class="post-title-link" itemprop="url">redis-dict</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-09-16 14:57:17" itemprop="dateCreated datePublished" datetime="2023-09-16T14:57:17+08:00">2023-09-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-18 08:40:29" itemprop="dateModified" datetime="2023-09-18T08:40:29+08:00">2023-09-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h1><p><strong>字典（Dictionary）</strong>是一种键值对的数据结构，类似于关联数组或者哈希表。字典可以存储多个键值对，每个键都是唯一的且是字符串类型，而值可以是任意类型的数据。<strong>Reids</strong>数据存储使用字典</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/09/16/Redis/datastructure/dictionary/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/15/Redis/datastructure/list/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/15/Redis/datastructure/list/" class="post-title-link" itemprop="url">Redis-list</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-09-15 16:05:58" itemprop="dateCreated datePublished" datetime="2023-09-15T16:05:58+08:00">2023-09-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-16 23:00:51" itemprop="dateModified" datetime="2023-09-16T23:00:51+08:00">2023-09-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><p>链表在redis中的作用之一是作为列表键的数据结构，是一个双向列表。</p>
-<p>redis中的链表由list和listNode两个结构组成，如下：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/09/15/Redis/datastructure/list/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/14/Redis/datastructure/string/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/14/Redis/datastructure/string/" class="post-title-link" itemprop="url">Redis-string</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-09-14 22:12:33" itemprop="dateCreated datePublished" datetime="2023-09-14T22:12:33+08:00">2023-09-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-16 02:12:00" itemprop="dateModified" datetime="2023-09-16T02:12:00+08:00">2023-09-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Redis字符串"><a href="#Redis字符串" class="headerlink" title="Redis字符串"></a>Redis字符串</h1><h2 id="c字符串"><a href="#c字符串" class="headerlink" title="c字符串"></a>c字符串</h2><p>传统的c字符串是以空字符串结尾的字符数组，真实的长度是字符个数+1 </p>
-<h2 id="SDS"><a href="#SDS" class="headerlink" title="SDS"></a>SDS</h2><p>redis中，字符串类型是抽象类型<em>SDS</em>，结构体如下：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/09/14/Redis/datastructure/string/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -948,7 +1025,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
