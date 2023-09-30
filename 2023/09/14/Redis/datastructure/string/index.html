@@ -27,12 +27,14 @@
 <meta property="og:site_name" content="任我行">
 <meta property="og:description" content="Redis字符串c字符串传统的c字符串是以空字符串结尾的字符数组，真实的长度是字符个数+1  SDSredis中，字符串类型是抽象类型SDS，结构体如下：">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2023/09/14/Redis/datastructure/string/SDS.png">
 <meta property="article:published_time" content="2023-09-14T14:12:33.000Z">
-<meta property="article:modified_time" content="2023-09-28T17:01:41.478Z">
+<meta property="article:modified_time" content="2023-09-30T07:34:18.020Z">
 <meta property="article:author" content="阿怪">
 <meta property="article:tag" content="Redis">
 <meta property="article:tag" content="dataStructure">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/09/14/Redis/datastructure/string/SDS.png">
 
 <link rel="canonical" href="http://example.com/2023/09/14/Redis/datastructure/string/">
 
@@ -202,7 +204,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-29 01:01:41" itemprop="dateModified" datetime="2023-09-29T01:01:41+08:00">2023-09-29</time>
+                <time title="修改时间：2023-09-30 15:34:18" itemprop="dateModified" datetime="2023-09-30T15:34:18+08:00">2023-09-30</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -236,6 +238,7 @@
 <li>在c语言中，使用<code>strcat()</code>可能导致内存错误，SDS的<code>sdscat()</code>会检查缓冲区是否足够容纳新增的字符串，不够时将拓展</li>
 <li>为了能复用c标准库的字符串函数，SDS中的字符串也以空字符串结尾。</li>
 </ul>
+<p><img src="/2023/09/14/Redis/datastructure/string/SDS.png"></p>
 <h2 id="减少因修改字符串而导致的内存重分配"><a href="#减少因修改字符串而导致的内存重分配" class="headerlink" title="减少因修改字符串而导致的内存重分配"></a>减少因修改字符串而导致的内存重分配</h2><h3 id="空间预分配"><a href="#空间预分配" class="headerlink" title="空间预分配"></a>空间预分配</h3><p>如果一个字符串因为增加了内容导致长度超过了buf[]，则会根据以下两条规则分配更多的内存：</p>
 <p>先更新len的值：len &#x3D; len+字符串超出的长度，</p>
 <ol>
@@ -345,20 +348,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

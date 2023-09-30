@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://example.com/2023/09/29/Redis/datastructure/ziplist/ziplist.png">
 <meta property="og:image" content="http://example.com/2023/09/29/Redis/datastructure/ziplist/node.png">
 <meta property="article:published_time" content="2023-09-28T17:01:27.000Z">
-<meta property="article:modified_time" content="2023-09-28T19:18:44.873Z">
+<meta property="article:modified_time" content="2023-09-29T09:49:30.320Z">
 <meta property="article:author" content="阿怪">
 <meta property="article:tag" content="Redis">
 <meta property="article:tag" content="dataStructure">
@@ -199,7 +199,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-09-29 01:01:27 / 修改时间：03:18:44" itemprop="dateCreated datePublished" datetime="2023-09-29T01:01:27+08:00">2023-09-29</time>
+              <time title="创建时间：2023-09-29 01:01:27 / 修改时间：17:49:30" itemprop="dateCreated datePublished" datetime="2023-09-29T01:01:27+08:00">2023-09-29</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -230,26 +230,64 @@
 <p>图源：<a target="_blank" rel="noopener" href="http://www.redisbook.com/">www.redisbook.com</a></p>
 </blockquote>
 <ul>
-<li>zlbytes:表示压缩列表所占字节数（十六进制表示）</li>
-<li>zltail:一个偏移量，指向起始地址的指针加上这个偏移量就能指向最后一个节点</li>
-<li>zllen:表示节点的数量</li>
-<li>entry1 - entryn:节点</li>
-<li>zlend:特殊标志，表明这是一个末尾</li>
+<li><code>zlbytes</code>:表示压缩列表所占字节数（十六进制表示）</li>
+<li><code>zltail</code>:一个偏移量，指向起始地址的指针加上这个偏移量就能指向最后一个节点</li>
+<li><code>zllen</code>:表示节点的数量</li>
+<li><code>entry1 - entryn</code>:节点</li>
+<li><code>zlend</code>:特殊标志，表明这是一个末尾</li>
 </ul>
 <h2 id="节点的结构"><a href="#节点的结构" class="headerlink" title="节点的结构"></a>节点的结构</h2><p>放大上一小节提到的<code>entry</code>，他详细的结构如下图：</p>
 <p><img src="/2023/09/29/Redis/datastructure/ziplist/node.png"></p>
 <blockquote>
-<p>图源：<a target="_blank" rel="noopener" href="http://www.redis.com/">www.redis.com</a></p>
+<p>图源：<a target="_blank" rel="noopener" href="http://www.redisbook.com/">www.redisbook.com</a></p>
 </blockquote>
 <ul>
-<li><p>previous_entry_length:上一个节点的长度。其中：如果上一个节点的长度 &lt; 254 bytes，则该区域为1字节，这1字节可以表示上一节点的大小；如果上一个节点的长度 &gt;&#x3D; 254 bytes，则该区域为5字节，其中第一个字节为 0xFE,剩余4个字节表示上一节点的大小。</p>
-<p>  假设有一个指针<code>ptr</code>指向<code>entry4</code>,它可以通过<code>ptr</code> - <code>entry4.previous_entry_length</code>,这样，ptr就指向了<code>ptr3</code>。从表尾遍历到表头就是通过这种机制遍历的。</p>
+<li><p><code>previous_entry_length</code>:<strong>长度为1字节或者5字节</strong>。上一个节点的长度。其中：如果上一个节点的长度 &lt; 254 bytes，则该区域为1字节，这1字节可以表示上一节点的大小；如果上一个节点的长度 &gt;&#x3D; 254 bytes，则该区域为5字节，其中第一个字节为 0xFE,剩余4个字节表示上一节点的大小。</p>
+<p>  假设有一个指针<code>ptr</code>指向<code>entry4</code>,它可以通过<code>ptr - entry4.previous_entry_length</code>,这样，<code>ptr</code>就指向了<code>entry3</code>。从表尾遍历到表头就是通过这种机制遍历的。</p>
 </li>
-<li><p>encoding:</p>
+<li><p><code>encoding</code>:节点的encoding属性记录了节点的content属性所保存数据的类型以及长度</p>
 </li>
-<li><p>content:</p>
+<li><p><code>content</code>:保存着节点的值，这个值的类型要么是一个字节数组，要么是一个整数。可以通过编码判断这个content的类型和长度：</p>
+<table>
+<thead>
+<tr>
+<th align="left">encoding</th>
+<th>类型</th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">00</td>
+<td>字节数组</td>
+<td align="left">记录1字节字节数组</td>
+</tr>
+<tr>
+<td align="left">01</td>
+<td>字节数组</td>
+<td align="left">记录2字节字节数组</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td>字节数组</td>
+<td align="left">记录5字节字节数组</td>
+</tr>
+<tr>
+<td align="left">11</td>
+<td>整数</td>
+<td align="left">记录1字节整数</td>
+</tr>
+</tbody></table>
 </li>
 </ul>
+<h2 id="连锁更新"><a href="#连锁更新" class="headerlink" title="连锁更新"></a>连锁更新</h2><p>在 Redis 的压缩列表中，连锁更新是指在进行插入、删除或更新操作时，需要同时更新涉及到的多个节点，以保持列表的正确性。</p>
+<p>假设节点<code>e1~e7</code>都是长度为250bytes的节点，现在插入一个长度为254bytes的新节点到<code>e1</code>之前，此时<code>e1.previous_entry_length</code>的长度就不够描述这个新节点了，因此需要对其扩展，<code>e1.prevous_entry_length</code>将由1bytes扩展成5bytes，扩展后e1的长度就变为了254bytes，这就导致<code>e2.previous_entry_length</code>不够描述e1，同样需要对<code>e2.previous_entry_length</code>进行扩展，由此类推后续的节点同样需要扩展，这就是<strong>连锁更新</strong>。图例：</p>
+<p>![](.&#x2F;ziplist&#x2F;Chain update1.png)</p>
+<p>![](.&#x2F;ziplist&#x2F;Chain update2.png)</p>
+<p>![](.&#x2F;ziplist&#x2F;Chain update.png)</p>
+<blockquote>
+<p>图源：<a target="_blank" rel="noopener" href="http://www.redisbook.com/">www.redisbook.com</a></p>
+</blockquote>
+<p><strong>删除节点也会导致连锁更新发生</strong></p>
 
     </div>
 
@@ -272,7 +310,10 @@
     <a href="/2023/09/28/Redis/datastructure/intset/" rel="prev" title="intset">
       <i class="fa fa-chevron-left"></i> intset
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/09/29/Redis/object/object/" rel="next" title="redis-object">
+      redis-object <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -331,7 +372,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E5%88%97%E8%A1%A8"><span class="nav-number">1.</span> <span class="nav-text">压缩列表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.1.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">节点的结构</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8E%8B%E7%BC%A9%E5%88%97%E8%A1%A8"><span class="nav-number">1.</span> <span class="nav-text">压缩列表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.1.</span> <span class="nav-text">实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.</span> <span class="nav-text">节点的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%9E%E9%94%81%E6%9B%B4%E6%96%B0"><span class="nav-number">1.3.</span> <span class="nav-text">连锁更新</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -345,20 +386,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">39</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
