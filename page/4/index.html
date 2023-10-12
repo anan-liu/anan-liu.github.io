@@ -165,6 +165,251 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/15/Redis/datastructure/list/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/15/Redis/datastructure/list/" class="post-title-link" itemprop="url">Redis-list</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-15 16:05:58" itemprop="dateCreated datePublished" datetime="2023-09-15T16:05:58+08:00">2023-09-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-09-16 23:00:51" itemprop="dateModified" datetime="2023-09-16T23:00:51+08:00">2023-09-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><p>链表在redis中的作用之一是作为列表键的数据结构，是一个双向列表。</p>
+<p>redis中的链表由list和listNode两个结构组成，如下：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/09/15/Redis/datastructure/list/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/14/Redis/datastructure/string/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/14/Redis/datastructure/string/" class="post-title-link" itemprop="url">Redis-string</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-14 22:12:33" itemprop="dateCreated datePublished" datetime="2023-09-14T22:12:33+08:00">2023-09-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-09-30 15:34:18" itemprop="dateModified" datetime="2023-09-30T15:34:18+08:00">2023-09-30</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Redis字符串"><a href="#Redis字符串" class="headerlink" title="Redis字符串"></a>Redis字符串</h1><h2 id="c字符串"><a href="#c字符串" class="headerlink" title="c字符串"></a>c字符串</h2><p>传统的c字符串是以空字符串结尾的字符数组，真实的长度是字符个数+1 </p>
+<h2 id="SDS"><a href="#SDS" class="headerlink" title="SDS"></a>SDS</h2><p>redis中，字符串类型是抽象类型<em>SDS</em>，结构体如下：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/09/14/Redis/datastructure/string/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/13/class/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/13/class/" class="post-title-link" itemprop="url">class</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-13 08:55:06" itemprop="dateCreated datePublished" datetime="2023-09-13T08:55:06+08:00">2023-09-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-10 22:27:45" itemprop="dateModified" datetime="2023-10-10T22:27:45+08:00">2023-10-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h1><p>定义类时，它的构造函数可以写成如下形式：</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/09/13/class/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/11/CMake/generator/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -721,262 +966,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/09/template/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/08/09/template/" class="post-title-link" itemprop="url">C++11下的模板</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-08-09 16:07:10" itemprop="dateCreated datePublished" datetime="2023-08-09T16:07:10+08:00">2023-08-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-03 03:12:00" itemprop="dateModified" datetime="2023-10-03T03:12:00+08:00">2023-10-03</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h1><p>当遇到需要同一个行为处理数据，但数据是不同的类型时，以往需要定义多个函数或结构体。使用模板，先不声明数据的类型，等到需要到特定的类型时，再将类型传给模板，如此就可以将同一个代码框架运用到不同的情况。模板分为函数模板和类模板：</p>
-<h2 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h2><p>形式如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">example</span><span class="params">(T a)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>函数模板传参的时候无需特别说明参数类型，编译器会自动推断出类型。</p>
-<h2 id="类模板"><a href="#类模板" class="headerlink" title="类模板"></a>类模板</h2><p>形式如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">test</span>&#123;</span><br><span class="line">  <span class="keyword">private</span>:</span><br><span class="line">    T a;</span><br><span class="line">    T b;</span><br><span class="line">  <span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">setA</span><span class="params">(<span class="type">const</span> T&amp; x)</span></span>&#123;a = x;&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">ifndef</span> TEST_TESTCLASS_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> TEST_TESTCLASS_H</span></span><br><span class="line"><span class="comment">//注意：模板的声明和定义要放在同一文件下</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">addtest</span>&#123;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    T a;</span><br><span class="line">    T b;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    T sum;</span><br><span class="line">    <span class="built_in">addtest</span>(T x,T y):<span class="built_in">a</span>(x), <span class="built_in">b</span>(y)&#123;sum = a + b;&#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">set_a</span><span class="params">(<span class="type">const</span> T&amp; x)</span></span>&#123;a = x;&#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">set_b</span><span class="params">(T y)</span></span>&#123;b = y;&#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">updateSum</span><span class="params">()</span></span>&#123;sum = a + b;&#125;</span><br><span class="line">    addtest <span class="keyword">operator</span> = (<span class="type">const</span> addtest&lt;T&gt;&amp; a1) &#123;a = a1.a;&#125;</span><br><span class="line">    <span class="type">void</span> <span class="keyword">operator</span> += (<span class="type">const</span> addtest&lt;T&gt;&amp; a1) &#123;sum += a1.sum; a += a1.a; b += a1.b;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line">std::ostream&amp; <span class="keyword">operator</span> &lt;&lt; (std::ostream&amp; ostream, <span class="type">const</span> addtest&lt;T&gt;&amp; a1)&#123;<span class="keyword">return</span> ostream &lt;&lt; a1.sum;&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span> <span class="comment">//TEST_TESTCLASS_H</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//testClass.h</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;testClass.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="function">addtest&lt;<span class="type">int</span>&gt; <span class="title">a</span><span class="params">(<span class="number">22</span>,<span class="number">11</span>)</span></span>;</span><br><span class="line">    cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line">    <span class="function">addtest&lt;<span class="type">int</span>&gt; <span class="title">b</span><span class="params">(<span class="number">11</span>,<span class="number">21</span>)</span></span>;</span><br><span class="line">    a += b;</span><br><span class="line">    cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line">    a.<span class="built_in">set_a</span>(<span class="number">30</span>);</span><br><span class="line">    a.<span class="built_in">updateSum</span>();</span><br><span class="line">    cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line">    a.<span class="built_in">set_b</span>(<span class="number">30</span>);</span><br><span class="line">    cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line">    a.<span class="built_in">updateSum</span>();</span><br><span class="line">    cout&lt;&lt;a&lt;&lt;endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//main.cpp</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="pointer-like-class"><a href="#pointer-like-class" class="headerlink" title="pointer-like class"></a>pointer-like class</h1><h1 id="const"><a href="#const" class="headerlink" title="const"></a>const</h1><p>考虑如下类:</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">A</span>&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">test</span><span class="params">(String&amp; B)</span></span>&#123;B = Aa+<span class="string">&quot;!&quot;</span>;&#125;</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">test</span><span class="params">(String&amp; B)</span> <span class="type">const</span> </span>&#123;B = Aa;&#125;</span><br><span class="line">    <span class="comment">//const 属于签名的一部分，即以上两个函数不发生冲突。</span></span><br><span class="line">    <span class="comment">//两个函数采用了重写机制，当像这样的成员函数的const和non-const版本同时存在时，</span></span><br><span class="line">    <span class="comment">//const object调用const版本，</span></span><br><span class="line">    <span class="comment">//non-const object 调用 non-const版本    </span></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    String Aa;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/09/type-conversion/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/08/09/type-conversion/" class="post-title-link" itemprop="url">type conversion</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-08-09 00:22:23" itemprop="dateCreated datePublished" datetime="2023-08-09T00:22:23+08:00">2023-08-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-24 01:32:37" itemprop="dateModified" datetime="2023-08-24T01:32:37+08:00">2023-08-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h1><h2 id="隐式转换"><a href="#隐式转换" class="headerlink" title="隐式转换"></a>隐式转换</h2><ol>
-<li><p>整型提升：</p>
-<ul>
-<li>如果某个操作数的类型是有符号整数类型，而另一个操作数的类型是无符号整数类型，那么无符号操作数的类型会被转换为有符号操作数的类型。</li>
-<li>如果某个操作数的类型是 <code>int</code> 类型，而另一个操作数的类型是带符号或无符号的 <code>char</code>、<code>short</code> 或 <code>bool</code> 类型，那么 <code>char</code>、<code>short</code> 或 <code>bool</code> 类型会被转换为 <code>int</code> 类型。</li>
-<li>在某些情况下，操作数的类型会被提升为更大的类型，以确保运算结果不会失去精度。例如，<code>char</code> 和 <code>short</code> 类型在进行算术运算时会被提升为 <code>int</code> 类型。</li>
-</ul></li></ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/08/09/type-conversion/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/06/array/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/08/06/array/" class="post-title-link" itemprop="url">array</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-08-06 23:03:37" itemprop="dateCreated datePublished" datetime="2023-08-06T23:03:37+08:00">2023-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-08-08 18:00:03" itemprop="dateModified" datetime="2023-08-08T18:00:03+08:00">2023-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><p><strong>数组不允许拷贝和赋值</strong></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/08/06/array/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1046,14 +1035,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">

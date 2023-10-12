@@ -165,6 +165,234 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/13/Redis/object/memory/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/13/Redis/object/memory/" class="post-title-link" itemprop="url">memory</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-10-13 01:33:48 / 修改时间：02:49:36" itemprop="dateCreated datePublished" datetime="2023-10-13T01:33:48+08:00">2023-10-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="内存回收"><a href="#内存回收" class="headerlink" title="内存回收"></a>内存回收</h1><p>当共享对象的<strong>引用次数</strong>为0时，Redis服务器会自动回收共享对象。</p>
+<h2 id="对象共享"><a href="#对象共享" class="headerlink" title="对象共享"></a>对象共享</h2><p>当多个键的值相同时，这几个键指向相同的存放值的内存，为了性能，只在值为整数值时才使用。</p>
+<p>redis初始化化时，会创建多个字符串对象保存多个整数值，当有键需要时，将指向这些整数值而不是重新创建。</p>
+<h2 id="引用次数"><a href="#引用次数" class="headerlink" title="引用次数"></a>引用次数</h2><p>对象共享允许多个键指向同一个值，有多少个键指向这个值对象，那么这个对象就有多少个引用次数。</p>
+<p>在程序中，这个属性为<code> int refcount;</code></p>
+<h2 id="空转时长"><a href="#空转时长" class="headerlink" title="空转时长"></a>空转时长</h2><p>加上之前的属性，对象的属性有5个，为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisObject</span> &#123;</span></span><br><span class="line">    <span class="comment">// 类型</span></span><br><span class="line">    <span class="type">unsigned</span> type:<span class="number">4</span>;</span><br><span class="line">    <span class="comment">// 编码</span></span><br><span class="line">    <span class="type">unsigned</span> encoding:<span class="number">4</span>;</span><br><span class="line">    <span class="comment">// 指向底层实现数据结构的指针</span></span><br><span class="line">    <span class="type">void</span> *ptr;</span><br><span class="line">    <span class="comment">// 引用计数</span></span><br><span class="line">    <span class="type">int</span> refcount;</span><br><span class="line">    <span class="comment">// 空转时长</span></span><br><span class="line">    <span class="type">unsigned</span> lru:<span class="number">22</span>;</span><br><span class="line">&#125; robj;</span><br></pre></td></tr></table></figure>
+
+<p><code>lru</code>属性记录了对象最后一次被命令程序访问的时间，因此当使用命令<code>OBJECT IDLETIME msg</code>时，将打印出他最后一次使用时间距离现在的时间长度。</p>
+<p>当服务器打开了<code>maxmemory</code>选项时，当内存超过指定数额，空转时长高的键被回收。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/12/Redis/object/typeAndCmd/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/12/Redis/object/typeAndCmd/" class="post-title-link" itemprop="url">typeAndCmd</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-12 22:17:17" itemprop="dateCreated datePublished" datetime="2023-10-12T22:17:17+08:00">2023-10-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-13 01:24:37" itemprop="dateModified" datetime="2023-10-13T01:24:37+08:00">2023-10-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="类型检查"><a href="#类型检查" class="headerlink" title="类型检查"></a>类型检查</h1><p>操作键的命令类型有两种：1、通用类型；2、特定类型。</p>
+<p>执行一个特定类型的命令时，先检查给定的键是否符合要求，再考虑是否执行这个命令。</p>
+<h1 id="命令多态"><a href="#命令多态" class="headerlink" title="命令多态"></a>命令多态</h1><p>当经过类型检查后，命令会根据对象的编码(编码决定了对象的底层结构)调用不同的API。</p>
+<h1 id="图示"><a href="#图示" class="headerlink" title="图示"></a>图示</h1><p><img src="/2023/10/12/Redis/object/typeAndCmd/pict.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/09/C++/function/functionType/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/09/C++/function/functionType/" class="post-title-link" itemprop="url">functionType</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-10-09 03:48:20 / 修改时间：03:59:17" itemprop="dateCreated datePublished" datetime="2023-10-09T03:48:20+08:00">2023-10-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="函数类型"><a href="#函数类型" class="headerlink" title="函数类型"></a>函数类型</h1><p>函数的类型由返回类型和形参类型共同决定，例如，由如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">bol <span class="title">lengthCompare</span><span class="params">(<span class="type">const</span> string &amp;, <span class="type">const</span> string &amp;)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>则它的函数类型为<code>bool(const string &amp;, const string &amp;)</code></p>
+<h1 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h1><p>指向函数的指针与其他指针一样需要一个类型。因此如果令一个指针指向上述函数，可以：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bool</span> (*pf)(<span class="type">const</span> string &amp;, <span class="type">const</span> string &amp;);<span class="comment">//未初始化</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/07/Redis/object/setObject/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -357,17 +585,23 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-10-05 00:02:33 / 修改时间：03:14:35" itemprop="dateCreated datePublished" datetime="2023-10-05T00:02:33+08:00">2023-10-05</time>
+              <time title="创建时间：2023-10-05 00:02:33" itemprop="dateCreated datePublished" datetime="2023-10-05T00:02:33+08:00">2023-10-05</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-09 03:29:56" itemprop="dateModified" datetime="2023-10-09T03:29:56+08:00">2023-10-09</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                  <a href="/categories/C-11/" itemprop="url" rel="index"><span itemprop="name">C++11</span></a>
                 </span>
             </span>
 
@@ -504,7 +738,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-04 15:37:14" itemprop="dateModified" datetime="2023-10-04T15:37:14+08:00">2023-10-04</time>
+                <time title="修改时间：2023-10-12 02:45:50" itemprop="dateModified" datetime="2023-10-12T02:45:50+08:00">2023-10-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -660,7 +894,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-04 02:35:20" itemprop="dateModified" datetime="2023-10-04T02:35:20+08:00">2023-10-04</time>
+                <time title="修改时间：2023-10-12 01:18:18" itemprop="dateModified" datetime="2023-10-12T01:18:18+08:00">2023-10-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -668,7 +902,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                  <a href="/categories/C-11/" itemprop="url" rel="index"><span itemprop="name">C++11</span></a>
                 </span>
             </span>
 
@@ -683,253 +917,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h1><p><strong>智能指针</strong>用于管理动态分配的内存的智能工具。在对象不再需要时会自动释放内存，以此避免内存泄漏和提高代码的安全性。</p>
+          <h1 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h1><p><strong>智能指针</strong>用于管理动态分配的内存的智能工具。在对象不再需要时会自动释放内存，以此避免内存泄漏和提高代码的安全性。下文三种指针均存放于<code>&lt;memory&gt;</code>中</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/2023/10/01/C++11/smartPoint/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/30/Redis/object/hashObject/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/30/Redis/object/hashObject/" class="post-title-link" itemprop="url">hashObject</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-09-30 16:48:20" itemprop="dateCreated datePublished" datetime="2023-09-30T16:48:20+08:00">2023-09-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-08 00:58:33" itemprop="dateModified" datetime="2023-10-08T00:58:33+08:00">2023-10-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="哈希对象"><a href="#哈希对象" class="headerlink" title="哈希对象"></a>哈希对象</h1><blockquote>
-<p>Redis对象有三个主要属性：type、encoding、ptr。哈希对象type的类型就是哈希对象：REDIS_HASH</p>
-</blockquote>
-<p>哈希的编码有：1、ziplist；2、hashtable。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/09/30/Redis/object/hashObject/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/30/Redis/datastructure/datastructure/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/30/Redis/datastructure/datastructure/" class="post-title-link" itemprop="url">datastructure</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-09-30 15:19:09 / 修改时间：23:46:21" itemprop="dateCreated datePublished" datetime="2023-09-30T15:19:09+08:00">2023-09-30</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h1><p>记录Redis的数据结构</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/09/30/Redis/datastructure/datastructure/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/30/Redis/object/listObject/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/09/30/Redis/object/listObject/" class="post-title-link" itemprop="url">listObject</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-09-30 15:09:34" itemprop="dateCreated datePublished" datetime="2023-09-30T15:09:34+08:00">2023-09-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-08 00:58:39" itemprop="dateModified" datetime="2023-10-08T00:58:39+08:00">2023-10-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="列表对象"><a href="#列表对象" class="headerlink" title="列表对象"></a>列表对象</h1><blockquote>
-<p>Redis对象有三个主要属性：type、encoding、ptr。列表对象type的类型就是字符串：REDIS_LIST</p>
-</blockquote>
-<p>列表的编码有：1、ziplist；2、linkedlist。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/09/30/Redis/object/listObject/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1018,14 +1009,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">

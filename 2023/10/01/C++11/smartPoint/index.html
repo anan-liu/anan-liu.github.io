@@ -20,21 +20,22 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="智能指针智能指针用于管理动态分配的内存的智能工具。在对象不再需要时会自动释放内存，以此避免内存泄漏和提高代码的安全性。">
+  <meta name="description" content="智能指针智能指针用于管理动态分配的内存的智能工具。在对象不再需要时会自动释放内存，以此避免内存泄漏和提高代码的安全性。下文三种指针均存放于&lt;memory&gt;中">
 <meta property="og:type" content="article">
 <meta property="og:title" content="smartPoint">
 <meta property="og:url" content="http://example.com/2023/10/01/C++11/smartPoint/index.html">
 <meta property="og:site_name" content="任我行">
-<meta property="og:description" content="智能指针智能指针用于管理动态分配的内存的智能工具。在对象不再需要时会自动释放内存，以此避免内存泄漏和提高代码的安全性。">
+<meta property="og:description" content="智能指针智能指针用于管理动态分配的内存的智能工具。在对象不再需要时会自动释放内存，以此避免内存泄漏和提高代码的安全性。下文三种指针均存放于&lt;memory&gt;中">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-30T18:45:04.000Z">
-<meta property="article:modified_time" content="2023-10-03T18:35:20.500Z">
+<meta property="article:modified_time" content="2023-10-11T17:18:18.182Z">
 <meta property="article:author" content="阿怪">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="C++ 11">
 <meta property="article:tag" content="shared_ptr">
 <meta property="article:tag" content="unique_ptr">
 <meta property="article:tag" content="weak_ptr">
+<meta property="article:tag" content="memory">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="http://example.com/2023/10/01/C++11/smartPoint/">
@@ -205,7 +206,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-04 02:35:20" itemprop="dateModified" datetime="2023-10-04T02:35:20+08:00">2023-10-04</time>
+                <time title="修改时间：2023-10-12 01:18:18" itemprop="dateModified" datetime="2023-10-12T01:18:18+08:00">2023-10-12</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -213,7 +214,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                  <a href="/categories/C-11/" itemprop="url" rel="index"><span itemprop="name">C++11</span></a>
                 </span>
             </span>
 
@@ -228,7 +229,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h1><p><strong>智能指针</strong>用于管理动态分配的内存的智能工具。在对象不再需要时会自动释放内存，以此避免内存泄漏和提高代码的安全性。</p>
+        <h1 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h1><p><strong>智能指针</strong>用于管理动态分配的内存的智能工具。在对象不再需要时会自动释放内存，以此避免内存泄漏和提高代码的安全性。下文三种指针均存放于<code>&lt;memory&gt;</code>中</p>
 <span id="more"></span>
 
 <p>有如下三种智能指针：</p>
@@ -262,7 +263,7 @@
 <li>swap(p,q)</li>
 <li>p.unique()：是否为唯一指向某个内存的智能指针，返回bool</li>
 <li>p.use_count()：p指向的内存对象的智能指针个数，用于调试</li>
-<li>p.reset([q],[d]):q，d参数是可选的，如果传递内置指针q，那么p将指向q；如果传递了d，那么将用可调用对象d代替delete来释放q。</li>
+<li>p.reset(q,d):q，d参数是可选的，如果传递内置指针q，那么p将指向q；如果传递了d，那么将用可调用对象d代替delete来释放q。</li>
 <li>shared_ptr<T> p(q, d):q，d参数是可选的，如果指定了q，那么将使用q初始化p；如果传递了d，那么将用可调用对象d代替delete。</T></li>
 </ul>
 <p>其中reset和unique配套使用可以完成以下逻辑代码：</p>
@@ -275,9 +276,23 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//SP.cpp</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> std::vector;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> std::string;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> std::make_shared; <span class="keyword">using</span> std::shared_ptr;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> std::istream; <span class="keyword">using</span> std::ostream; </span><br><span class="line"><span class="keyword">using</span> std::cin; <span class="keyword">using</span> std::cout; <span class="keyword">using</span> std::endl;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;Foo.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// factory returns a shared_ptr to a dynamically allocated object </span></span><br><span class="line"><span class="function">shared_ptr&lt;Foo&gt; <span class="title">factory</span><span class="params">(T arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="comment">// process arg as appropriate</span></span><br><span class="line">	<span class="comment">// shared_ptr will take care of deleting this memory</span></span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">make_shared</span>&lt;Foo&gt;(arg); </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">shared_ptr&lt;Foo&gt; <span class="title">use_factory</span><span class="params">(T arg)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">//1、调用factory()函数时返回一个shared_ptr对象，</span></span><br><span class="line">    <span class="comment">//赋值给变量p。此时计数 = 1</span></span><br><span class="line">	shared_ptr&lt;Foo&gt; p = <span class="built_in">factory</span>(arg);</span><br><span class="line">	<span class="built_in">print</span>(cout, *p);</span><br><span class="line">	cout &lt;&lt; endl;</span><br><span class="line">	<span class="comment">// use p</span></span><br><span class="line">    <span class="comment">// 2、由于函数的返回机制，此时p先被复制给一个临时对象，因此计数 +1</span></span><br><span class="line">    <span class="comment">// 然后p是use_factory()的临时变量，调用完该函数后就销毁了，计数 -1</span></span><br><span class="line">    <span class="comment">// 此时引用计数 = 1，factory()创建的对象还不会被销毁。</span></span><br><span class="line">	<span class="keyword">return</span> p;  <span class="comment">// reference count is incremented when we return p</span></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    shared_ptr&lt;<span class="type">int</span>&gt; test1;</span><br><span class="line">	T arg;</span><br><span class="line">	<span class="keyword">while</span> (cin &gt;&gt; arg)</span><br><span class="line">		<span class="built_in">use_factory</span>(arg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="unique-ptr"><a href="#unique-ptr" class="headerlink" title="unique_ptr"></a>unique_ptr</h2><p>unique_ptr绑定一个使用new分配的内存对象，当对应的unique_ptr销毁时或者指向其他地方时，将回收内存对象空间。</p>
+<p>和<code>shared_ptr</code>一样，由于构造函数被设定为explicit，因此无法隐式转换，故只能使用直接初始化。</p>
 <p>其中，unique_ptr不支持拷贝或赋值给另外一个unique_ptr指针，但是可以通过一些特有的操作指向其他的unique_ptr。如：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">unique_ptr&lt;string&gt; <span class="title">p1</span><span class="params">(<span class="keyword">new</span> string(<span class="string">&quot;test&quot;</span>))</span></span>;</span><br><span class="line"><span class="function">unique_ptr&lt;string&gt; <span class="title">p2</span><span class="params">(<span class="keyword">new</span> string(<span class="string">&quot;Hello&quot;</span>))</span></span>;</span><br><span class="line"><span class="function">unique_ptr&lt;string&gt; <span class="title">p3</span><span class="params">(<span class="keyword">new</span> string(<span class="string">&quot;World&quot;</span>))</span></span>;</span><br><span class="line"></span><br><span class="line">p1.<span class="built_in">reset</span>(p2.<span class="built_in">release</span>())</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">unique_ptr&lt;string&gt; <span class="title">p1</span><span class="params">(<span class="keyword">new</span> string(<span class="string">&quot;test&quot;</span>))</span></span>;</span><br><span class="line"><span class="function">unique_ptr&lt;string&gt; <span class="title">p2</span><span class="params">(<span class="keyword">new</span> string(<span class="string">&quot;Hello&quot;</span>))</span></span>;</span><br><span class="line"><span class="function">unique_ptr&lt;string&gt; <span class="title">p3</span><span class="params">(<span class="keyword">new</span> string(<span class="string">&quot;World&quot;</span>))</span></span>;</span><br><span class="line"><span class="comment">//release()返回一个指针，并将调用它的unique指针置为空。</span></span><br><span class="line"><span class="comment">//reset()由参数决定功能，如果没有参数，则将调用它的unique指针置为空；</span></span><br><span class="line"><span class="comment">//如果有参数（内置指针），则将调用它的unique指针指向这个参数。</span></span><br><span class="line">p1.<span class="built_in">reset</span>(p2.<span class="built_in">release</span>());</span><br></pre></td></tr></table></figure>
 
+<h3 id="拷贝-赋值-1"><a href="#拷贝-赋值-1" class="headerlink" title="拷贝&amp;赋值"></a>拷贝&amp;赋值</h3><p><code>unique_ptr</code>不能拷贝和赋值，但有例外:当一个<code>unique_ptr</code>即将被销毁时，它可以被拷贝或赋值。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">unique_ptr&lt;<span class="type">int</span>&gt; <span class="title">clone</span><span class="params">(<span class="type">int</span> p)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">unique_ptr</span>&lt;<span class="type">int</span>&gt;(<span class="keyword">new</span> <span class="built_in">int</span>(p));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">unique_ptr&lt;string&gt; <span class="title">clone</span><span class="params">(string p)</span></span>&#123;</span><br><span class="line">    <span class="function">unique_ptr&lt;string&gt; <span class="title">ret</span><span class="params">(<span class="keyword">new</span> string (p))</span></span>;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="删除器-1"><a href="#删除器-1" class="headerlink" title="删除器"></a>删除器</h3><p>与<code>shared_ptr</code>不同，<code>unique_ptr</code>传递删除器时，需要指定删除器的类型。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">unique_ptr&lt;T, D&gt; <span class="title">u</span><span class="params">(d)</span></span>;<span class="comment">//其中T是指针的类型，D是删除器的类型</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="weak-ptr"><a href="#weak-ptr" class="headerlink" title="weak_ptr"></a>weak_ptr</h2><p><code>std::weak_ptr</code> 是 C++ 标准库中的一个智能指针类，用于协助管理共享指针（<code>std::shared_ptr</code>）所管理的资源。</p>
+<ul>
+<li><code>weak_ptr&lt;T&gt; w(sp)</code>:指向sp所指向的对象，但不增加该对象的引用计数。(sp为shared_ptr类对象)</li>
+<li><code>w.lock()</code>:如果指向的对象没有共享指针引用，则返回空shared_ptr;否则返回一个指向该对象 的shared_ptr。</li>
+<li><code>w.use_count()</code></li>
+<li><code>w.expired()</code></li>
+</ul>
 
     </div>
 
@@ -292,6 +307,7 @@
               <a href="/tags/shared-ptr/" rel="tag"># shared_ptr</a>
               <a href="/tags/unique-ptr/" rel="tag"># unique_ptr</a>
               <a href="/tags/weak-ptr/" rel="tag"># weak_ptr</a>
+              <a href="/tags/memory/" rel="tag"># memory</a>
           </div>
 
         
@@ -365,7 +381,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="nav-number">1.</span> <span class="nav-text">智能指针</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#shared-ptr"><span class="nav-number">1.1.</span> <span class="nav-text">shared_ptr</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%8C%87%E9%92%88%E5%8F%82%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="nav-number">1.1.1.</span> <span class="nav-text">使用指针参数初始化智能指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E6%8C%87%E9%92%88%E5%92%8C%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="nav-number">1.1.2.</span> <span class="nav-text">普通指针和智能指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#make-shared"><span class="nav-number">1.1.3.</span> <span class="nav-text">make_shared</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D-%E8%B5%8B%E5%80%BC"><span class="nav-number">1.1.4.</span> <span class="nav-text">拷贝&amp;赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shared-ptr%E6%93%8D%E4%BD%9C"><span class="nav-number">1.1.5.</span> <span class="nav-text">shared_ptr操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%99%A8"><span class="nav-number">1.1.6.</span> <span class="nav-text">删除器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">1.1.7.</span> <span class="nav-text">示例代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#unique-ptr"><span class="nav-number">1.2.</span> <span class="nav-text">unique_ptr</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="nav-number">1.</span> <span class="nav-text">智能指针</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#shared-ptr"><span class="nav-number">1.1.</span> <span class="nav-text">shared_ptr</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%8C%87%E9%92%88%E5%8F%82%E6%95%B0%E5%88%9D%E5%A7%8B%E5%8C%96%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="nav-number">1.1.1.</span> <span class="nav-text">使用指针参数初始化智能指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E6%8C%87%E9%92%88%E5%92%8C%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="nav-number">1.1.2.</span> <span class="nav-text">普通指针和智能指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#make-shared"><span class="nav-number">1.1.3.</span> <span class="nav-text">make_shared</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D-%E8%B5%8B%E5%80%BC"><span class="nav-number">1.1.4.</span> <span class="nav-text">拷贝&amp;赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shared-ptr%E6%93%8D%E4%BD%9C"><span class="nav-number">1.1.5.</span> <span class="nav-text">shared_ptr操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%99%A8"><span class="nav-number">1.1.6.</span> <span class="nav-text">删除器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B%E4%BB%A3%E7%A0%81"><span class="nav-number">1.1.7.</span> <span class="nav-text">示例代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#unique-ptr"><span class="nav-number">1.2.</span> <span class="nav-text">unique_ptr</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%B7%E8%B4%9D-%E8%B5%8B%E5%80%BC-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">拷贝&amp;赋值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%99%A8-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">删除器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#weak-ptr"><span class="nav-number">1.3.</span> <span class="nav-text">weak_ptr</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -379,14 +395,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-count">11</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
