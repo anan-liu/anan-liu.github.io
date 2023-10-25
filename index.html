@@ -165,6 +165,305 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/26/Git/undoing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/26/Git/undoing/" class="post-title-link" itemprop="url">undoing</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-26 00:05:49" itemprop="dateCreated datePublished" datetime="2023-10-26T00:05:49+08:00">2023-10-26</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/24/Git/log/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/10/24/Git/log/" class="post-title-link" itemprop="url">log</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-10-24 16:45:34" itemprop="dateCreated datePublished" datetime="2023-10-24T16:45:34+08:00">2023-10-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-10-26 00:04:11" itemprop="dateModified" datetime="2023-10-26T00:04:11+08:00">2023-10-26</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="git-日志"><a href="#git-日志" class="headerlink" title="git 日志"></a>git 日志</h1><p>使用<code>git log</code>命令以及一些选项打印日志信息,如下表：</p>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-p</code></td>
+<td align="left">按补丁格式显示每个提交引入的差异。</td>
+</tr>
+<tr>
+<td align="left"><code>--stat</code></td>
+<td align="left">显示每次提交的文件修改统计信息。</td>
+</tr>
+<tr>
+<td align="left"><code>--shortstat</code></td>
+<td align="left">只显示 –stat 中最后的行数修改添加移除统计。</td>
+</tr>
+<tr>
+<td align="left"><code>--name-only</code></td>
+<td align="left">仅在提交信息后显示已修改的文件清单。</td>
+</tr>
+<tr>
+<td align="left"><code>--name-status</code></td>
+<td align="left">显示新增、修改、删除的文件清单。</td>
+</tr>
+<tr>
+<td align="left"><code>--abbrev-commit</code></td>
+<td align="left">仅显示 SHA-1 校验和所有 40 个字符中的前几个字符。</td>
+</tr>
+<tr>
+<td align="left"><code>--relative-date</code></td>
+<td align="left">使用较短的相对时间而不是完整格式显示日期（比如“2 weeks ago”）。</td>
+</tr>
+<tr>
+<td align="left"><code>--graph</code></td>
+<td align="left">在日志旁以 ASCII 图形显示分支与合并历史。</td>
+</tr>
+<tr>
+<td align="left"><code>--pretty</code></td>
+<td align="left">使用其他格式显示历史提交信息。可用的选项包括 oneline、short、full、fuller 和 format（用来定义自己的格式）。</td>
+</tr>
+<tr>
+<td align="left"><code>--oneline</code></td>
+<td align="left"><code>--pretty=oneline --abbrev-commit</code> 合用的简写。</td>
+</tr>
+</tbody></table>
+<h2 id="–pretty"><a href="#–pretty" class="headerlink" title="–pretty"></a>–pretty</h2><p>这个选项可以打印出自定义格式的日志,格式为：<code>git log -pretty=&lt;&gt;</code>。&lt;&gt;中可填入以下的选项</p>
+<ul>
+<li><code>oneline</code></li>
+<li><code>short</code></li>
+<li><code>full</code></li>
+<li><code>fuller</code></li>
+<li><code>format</code></li>
+</ul>
+<p>其中format的用法如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$git</span> <span class="built_in">log</span> --pretty=format:<span class="string">&quot;%h - %an, %ar : %s&quot;</span></span><br><span class="line">eca0687 - anan-liu, 2 days ago : forth commit</span><br><span class="line">8262fd0 - anan-liu, 2 days ago : third commit</span><br><span class="line">7cbed8a - anan-liu, 8 days ago : second commit</span><br><span class="line">e0702ed - anan-liu, 8 days ago : initial project version</span><br></pre></td></tr></table></figure>
+
+<p><code>git log --pretty=format:</code>的一些常用选项如下所示：</p>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>%H</code></td>
+<td align="left">提交的完整哈希值</td>
+</tr>
+<tr>
+<td align="left"><code>%h</code></td>
+<td align="left">提交的简写哈希值</td>
+</tr>
+<tr>
+<td align="left"><code>%T</code></td>
+<td align="left">树的完整哈希值</td>
+</tr>
+<tr>
+<td align="left"><code>%t</code></td>
+<td align="left">树的简写哈希值</td>
+</tr>
+<tr>
+<td align="left"><code>%P</code></td>
+<td align="left">父提交的完整哈希值</td>
+</tr>
+<tr>
+<td align="left"><code>%p</code></td>
+<td align="left">父提交的简写哈希值</td>
+</tr>
+<tr>
+<td align="left"><code>%an</code></td>
+<td align="left">作者名字</td>
+</tr>
+<tr>
+<td align="left"><code>%ae</code></td>
+<td align="left">作者的电子邮件地址</td>
+</tr>
+<tr>
+<td align="left"><code>%ad</code></td>
+<td align="left">作者修订日期（可以用 –date&#x3D;选项 来定制格式）</td>
+</tr>
+<tr>
+<td align="left"><code>%ar</code></td>
+<td align="left">作者修订日期，按多久以前的方式显示</td>
+</tr>
+<tr>
+<td align="left"><code>%cn</code></td>
+<td align="left">提交者的名字</td>
+</tr>
+<tr>
+<td align="left"><code>%ce</code></td>
+<td align="left">提交者的电子邮件地址</td>
+</tr>
+<tr>
+<td align="left"><code>%cd</code></td>
+<td align="left">提交日期</td>
+</tr>
+<tr>
+<td align="left"><code>%cr</code></td>
+<td align="left">提交日期（距今多长时间）</td>
+</tr>
+<tr>
+<td align="left"><code>%s</code></td>
+<td align="left">提交说明</td>
+</tr>
+</tbody></table>
+<h2 id="限制输出"><a href="#限制输出" class="headerlink" title="限制输出"></a>限制输出</h2><p>可以使用一些限制选项打印日志，使得打印精简且有用的日志信息</p>
+<table>
+<thead>
+<tr>
+<th align="left">选项</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>-&lt;n&gt;</code></td>
+<td align="left">仅显示最近的 n 条提交。</td>
+</tr>
+<tr>
+<td align="left"><code>--since</code>, <code>--after</code></td>
+<td align="left">仅显示指定时间之后的提交。</td>
+</tr>
+<tr>
+<td align="left"><code>--until</code>, <code>--before</code></td>
+<td align="left">仅显示指定时间之前的提交。</td>
+</tr>
+<tr>
+<td align="left"><code>--author</code></td>
+<td align="left">仅显示作者匹配指定字符串的提交。</td>
+</tr>
+<tr>
+<td align="left"><code>--committer</code></td>
+<td align="left">仅显示提交者匹配指定字符串的提交。</td>
+</tr>
+<tr>
+<td align="left"><code>--grep</code></td>
+<td align="left">仅显示提交说明中包含指定字符串的提交。</td>
+</tr>
+<tr>
+<td align="left"><code>-S</code></td>
+<td align="left">仅显示添加或删除内容匹配指定字符串的提交。</td>
+</tr>
+</tbody></table>
+<p>示例：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --pretty=<span class="string">&quot;%h - %s&quot;</span> --author=<span class="string">&#x27;anan-liu&#x27;</span> --since=<span class="string">&quot;2023-10-01&quot;</span> --before=<span class="string">&quot;2023-11-01&quot;</span>           eca0687 - forth commit</span><br><span class="line">8262fd0 - third commit</span><br><span class="line">7cbed8a - second commit</span><br><span class="line">e0702ed - initial project version</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/22/glob/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -784,162 +1083,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/03/C++/memory/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/03/C++/memory/" class="post-title-link" itemprop="url">memory</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-03 15:03:59" itemprop="dateCreated datePublished" datetime="2023-10-03T15:03:59+08:00">2023-10-03</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-12 02:45:50" itemprop="dateModified" datetime="2023-10-12T02:45:50+08:00">2023-10-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="堆栈"><a href="#堆栈" class="headerlink" title="堆栈"></a>堆栈</h1><p>栈存储临时的变量，每个函数都有自己的栈，在该函数声明定义的非静态变量将会存储在栈中。其生命周期为自其声明定义开始到所在函数结束。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/03/C++/memory/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/02/C++/function/return/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/02/C++/function/return/" class="post-title-link" itemprop="url">return</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-10-02 03:02:56 / 修改时间：15:18:05" itemprop="dateCreated datePublished" datetime="2023-10-02T03:02:56+08:00">2023-10-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h1><h2 id="返回值的步骤"><a href="#返回值的步骤" class="headerlink" title="返回值的步骤"></a>返回值的步骤</h2><p>如果一个函数内的值，一般情况都是形如：<code>return var;</code>。此时他的内部机制将这样处理它：1、返回的值用以初始化一个<strong>临时变量</strong>；2、接收这个返回值的变量将被这个临时变量赋值。这样就完成了返回值的操作。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> result = <span class="built_in">add</span>(<span class="number">3</span>, <span class="number">6</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//上述函数返回步骤等价于：</span></span><br><span class="line"><span class="type">int</span> temp = a + b;</span><br><span class="line"><span class="type">int</span> result = temp;</span><br></pre></td></tr></table></figure>
-
-<h3 id="返回引用"><a href="#返回引用" class="headerlink" title="返回引用"></a>返回引用</h3><p>需要注意的点：如果返回类型是一个引用，那么临时变量将被这个引用初始化，结果就是和这个引用一样，仅仅是某个变量的别名：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a = <span class="number">44</span>;</span><br><span class="line"><span class="function"><span class="type">int</span>&amp; <span class="title">echo</span><span class="params">(<span class="type">int</span>&amp; e)</span></span>&#123;</span><br><span class="line">    std::cout&lt;&lt;e&lt;&lt;std::endl;</span><br><span class="line">    <span class="keyword">return</span> e;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> &amp;b = <span class="built_in">echo</span>(a);</span><br><span class="line"></span><br><span class="line"><span class="comment">//上述函数返回步骤等价于：</span></span><br><span class="line"><span class="type">int</span>&amp; temp = e;</span><br><span class="line"><span class="type">int</span> &amp;b = temp;</span><br></pre></td></tr></table></figure>
-
-<p>指针同理</p>
-<p>还需注意的是，如果返回的是一个局部对象的引用或指针，那么将出错，因为局部对象在调用函数完成后将销毁，此时引用的是一个无效的内存区域。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1009,7 +1152,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">51</span>
+          <span class="site-state-item-count">53</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1022,7 +1165,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">30</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
