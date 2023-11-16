@@ -165,6 +165,297 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/11/webserver/ECF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/11/webserver/ECF/" class="post-title-link" itemprop="url">Exceptional Control Flow</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-11 16:41:55" itemprop="dateCreated datePublished" datetime="2023-11-11T16:41:55+08:00">2023-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-12 15:37:16" itemprop="dateModified" datetime="2023-11-12T15:37:16+08:00">2023-11-12</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webserver/" itemprop="url" rel="index"><span itemprop="name">webserver</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="异常控制流"><a href="#异常控制流" class="headerlink" title="异常控制流"></a>异常控制流</h1><p>在程序执行过程中由于出现异常情况而引发的控制流变化，涉及异常，进程，系统调用，进程控制，信号等</p>
+<h2 id="1、异常"><a href="#1、异常" class="headerlink" title="1、异常"></a>1、异常</h2><table>
+<thead>
+<tr>
+<th>类别</th>
+<th>原因</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>中断</td>
+<td>来自I&#x2F;O设备的信号</td>
+</tr>
+<tr>
+<td>陷阱</td>
+<td>有意的异常</td>
+</tr>
+<tr>
+<td>故障</td>
+<td>可回复的错误</td>
+</tr>
+<tr>
+<td>终止</td>
+<td>不可恢复的错误</td>
+</tr>
+</tbody></table>
+<p>其中陷阱也即是系统调用</p>
+<h2 id="2、进程"><a href="#2、进程" class="headerlink" title="2、进程"></a>2、进程</h2><p><strong>进程</strong>是正在执行中的程序的实例。每个进程都有自己的地址空间、内存、文件描述符和系统资源。进程是计算机系统中实现并发的基本单位，多个进程可以在同一时间并行执行。</p>
+<h3 id="2-1、上下文切换"><a href="#2-1、上下文切换" class="headerlink" title="2.1、上下文切换"></a>2.1、上下文切换</h3><p>上下文：由一些对象的值组成，对象包括通用目的寄存器、浮点寄存器、程序计数器、用户栈、状态寄存器、内核栈和各种内核数据结构。</p>
+<p>在执行某些进程时，内核可以决定另外一个进程来取代当前进程。称为<strong>调度</strong>。此时控制的转移由<strong>上下文切换</strong>这种机制来实现。</p>
+<h2 id="3、系统调用"><a href="#3、系统调用" class="headerlink" title="3、系统调用"></a>3、系统调用</h2><p>系统调用是操作系统提供给应用程序的一组接口，允许应用程序请求操作系统内核执行特权操作，例如文件操作、进程控制、网络通信等。应用程序通过系统调用与底层操作系统进行交互，访问底层系统资源。</p>
+<p>系统级函数遇到错误时，将返回-1，设置全局整数变量<code>errno</code>表示什么出错。<code>errno</code>表示的是一个整数，可以使用<code>strerror(errno);</code>，这个函数返回一个字符串，描述相对应的错误。</p>
+<h2 id="4、进程控制"><a href="#4、进程控制" class="headerlink" title="4、进程控制"></a>4、进程控制</h2><p>系统调用用来操作进程，以下是一些系统调用的函数清单</p>
+<h3 id="4-1-进程ID"><a href="#4-1-进程ID" class="headerlink" title="4.1 进程ID"></a>4.1 进程ID</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">getpid</span><span class="params">()</span>; <span class="comment">//返回当前进程的PID</span></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">getppid</span><span class="params">()</span>; <span class="comment">//返回当前进程的父进程的PID</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-2-创建和终止进程"><a href="#4-2-创建和终止进程" class="headerlink" title="4.2  创建和终止进程"></a>4.2  创建和终止进程</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">exit</span><span class="params">(<span class="type">int</span> status)</span>; <span class="comment">//以status退出状态终止进程</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">fork</span><span class="params">()</span>; 创建子进程</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-回收子进程"><a href="#4-3-回收子进程" class="headerlink" title="4.3 回收子进程"></a>4.3 回收子进程</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">waitpid</span><span class="params">(<span class="type">pid_t</span> pid, <span class="type">int</span> *statusp, <span class="type">int</span> options)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">wait</span><span class="params">(<span class="type">int</span> *statusp)</span>;</span><br><span class="line">    <span class="comment">//&lt;=&gt;</span></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">waitpid</span><span class="params">(<span class="number">-1</span>, status, <span class="number">0</span>)</span>;    </span><br></pre></td></tr></table></figure>
+
+<p>watipid返回时，导致它返回的此时有一个_等待集合_，存放进程，具体的进程由pid参数指定。</p>
+<ol>
+<li><p>pid</p>
+<ul>
+<li>pid&gt;0:等待集合的进程为进程号为pid的进程</li>
+<li>pid&#x3D;-1:等待集合为所有的子进程</li>
+</ul>
+</li>
+<li><p>*statusp</p>
+<p> 导致waitpid返回的子进程的状态信息会被写入*statusp中。</p>
+</li>
+<li><p>options</p>
+<p> 有常量如下：</p>
+<ul>
+<li>WNOHANG:等待集合没有任何子进程终止，立即返回，返回值为0.</li>
+<li>WUNTRACED:挂起调用进程，直到有子进程被终止，此时终止子进程的pid就是函数返回值。</li>
+<li>WCONTINUED:挂起调用进程，直到有子进程终止，或者有一个被停止的子进程又重新开始执行。</li>
+</ul>
+</li>
+</ol>
+<p>有示例如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;errno.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> N 3</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">unix_error</span><span class="params">(<span class="type">char</span> *msg)</span> &#123;</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;%s\n&quot;</span>, msg);</span><br><span class="line">    <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> status, i;</span><br><span class="line">    <span class="type">pid_t</span> pid;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Parent creates N children */</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> ((pid = fork()) == <span class="number">0</span>) &#123;  <span class="comment">/* Child */</span></span><br><span class="line">            <span class="comment">// Child process code</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;Child %d created\n&quot;</span>, getpid());</span><br><span class="line">            <span class="built_in">exit</span>(<span class="number">100</span> + i);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (pid &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            unix_error(<span class="string">&quot;Fork error&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Parent reaps N children in the order they were created */</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">        pid = waitpid(<span class="number">-1</span>, &amp;status, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (pid &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (WIFEXITED(status))</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;Child %d terminated normally with exit status=%d\n&quot;</span>,</span><br><span class="line">                       pid, WEXITSTATUS(status));</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;Child %d terminated abnormally\n&quot;</span>, pid);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (pid &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            unix_error(<span class="string">&quot;Waitpid error&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>程序输出如下：</p>
+<p><img src="/2023/11/11/webserver/ECF/waitpid1.png"></p>
+<p>如程序的31行所示，status接收导致返回的子进程的状态信息。可以使用以下几个宏用以解释status：</p>
+<ul>
+<li>**<code>WIFEXITED(status)</code>**：<ul>
+<li>用于测试子进程是否正常终止。</li>
+<li>返回非零值表示子进程正常终止，可以使用 <code>WEXITSTATUS(status)</code> 获取其退出状态。</li>
+</ul>
+</li>
+<li>**<code>WEXITSTATUS(status)</code>**：<ul>
+<li>用于获取子进程正常终止时的退出状态。</li>
+<li>只有在 <code>WIFEXITED(status)</code> 返回非零值的情况下调用该宏才是有效的。</li>
+</ul>
+</li>
+<li>**<code>WIFSIGNALED(status)</code>**：<ul>
+<li>用于测试子进程是否因信号而终止。</li>
+<li>返回非零值表示子进程因信号而终止，可以使用 <code>WTERMSIG(status)</code> 获取导致终止的信号编号。</li>
+</ul>
+</li>
+<li>**<code>WTERMSIG(status)</code>**：<ul>
+<li>用于获取导致子进程终止的信号编号。</li>
+<li>只有在 <code>WIFSIGNALED(status)</code> 返回非零值的情况下调用该宏才是有效的。</li>
+</ul>
+</li>
+<li>**<code>WIFSTOPPED(status)</code>**：<ul>
+<li>用于测试子进程是否停止。</li>
+<li>返回非零值表示子进程当前已停止，可以使用 <code>WSTOPSIG(status)</code> 获取导致停止的信号编号。</li>
+</ul>
+</li>
+<li>**<code>WSTOPSIG(status)</code>**：<ul>
+<li>用于获取导致子进程停止的信号编号。</li>
+<li>只有在 <code>WIFSTOPPED(status)</code> 返回非零值的情况下调用该宏才是有效的。</li>
+</ul>
+</li>
+<li>**<code>WIFCONTINUED(status)</code>**：<ul>
+<li>用于测试子进程是否已经被继续。</li>
+<li>返回非零值表示子进程已经被继续。</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-4-进程休眠"><a href="#4-4-进程休眠" class="headerlink" title="4.4 进程休眠"></a>4.4 进程休眠</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">unsigned</span> <span class="type">int</span> <span class="title function_">sleep</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> secs)</span>; <span class="comment">//休眠指定的秒数或收到一个信号中断。</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">pause</span><span class="params">(<span class="type">void</span>)</span>; <span class="comment">//直到收到信号才返回。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-5-加载并运行程序"><a href="#4-5-加载并运行程序" class="headerlink" title="4.5 加载并运行程序"></a>4.5 加载并运行程序</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">execve</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *filename, <span class="type">const</span> <span class="type">char</span> *argv[], <span class="type">const</span> <span class="type">char</span> *envp[])</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>filename:可执行文件的路径</li>
+<li>argc:可执行文件的名字和参数存储在这个数组。默认argv[0]为可执行文件。</li>
+<li>*envp[]:每个数组项都是char *类型的字符串。存储”name&#x3D;value”形式的环境</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以下几组函数用以操作环境数组。环境变量的形式： &quot;name=value&quot;</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 得到&quot;name&quot;相对应的&quot;value&quot;</span></span><br><span class="line"><span class="type">char</span> *<span class="title function_">getenv</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *name)</span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">//给&quot;name&quot;设置&quot;newvalue&quot;,如果没有oldvalue,则把&quot;name=newvalue&quot;添加到数组中</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">setenv</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *name, <span class="type">const</span> <span class="type">char</span> *newvalue, <span class="type">int</span> overwrite)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果环境数组中存在一个对应的&quot;name&quot;，则删除它</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">unsetenv</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *name)</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5、信号"><a href="#5、信号" class="headerlink" title="5、信号"></a>5、信号</h2><h3 id="5-1-会话-进程组及相关函数"><a href="#5-1-会话-进程组及相关函数" class="headerlink" title="5.1 会话&amp;&amp;进程组及相关函数"></a>5.1 会话&amp;&amp;进程组及相关函数</h3><p>会话包含一系列的进程组，进程组包含一系列的进程</p>
+<p>当进程组最后一个进程退出进程组后，进程组死亡。进程组的生命周期就是从进程组创建到进程组中最后一个进程退出。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">getpgrp</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="comment">//行为：获得当前进程的进程组id，并作为返回值</span></span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">getpgid</span><span class="params">(<span class="type">pid_t</span> pid)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">setpgid</span><span class="params">(<span class="type">pid_t</span> pid, <span class="type">pid_t</span> pgid)</span>;</span><br><span class="line"><span class="comment">//行为：改变指定进程的进程组ID，如果pid是0，则指定当前进程；如果pgid是0，就用当前进程id作为进程组id。</span></span><br><span class="line"><span class="comment">//返回：成功返回0，失败为-1</span></span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">getsid</span><span class="params">(<span class="type">pid_t</span> pid)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">setsid</span><span class="params">(<span class="type">void</span>)</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-2-kill-raise-abort"><a href="#5-2-kill-raise-abort" class="headerlink" title="5.2 kill()&amp;&amp;raise()&amp;&amp;abort"></a>5.2 kill()&amp;&amp;raise()&amp;&amp;abort</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">kill</span><span class="params">(<span class="type">pid_t</span> pid, <span class="type">int</span> sig)</span>;</span><br><span class="line"><span class="comment">//行为：向指定的进程发送指定的信号。</span></span><br><span class="line"><span class="comment">//返回：成功返回0，失败返回-1.</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">raise</span><span class="params">(<span class="type">int</span> sig)</span>;</span><br><span class="line"><span class="comment">//行为：给当前的进程发送指定的信号</span></span><br><span class="line"><span class="comment">//返回：成功返回0，失败返回非0.</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">abort</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="comment">//行为：给当前进程发送一个SIGABRT信号，杀死当前进程</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-3-alarm"><a href="#5-3-alarm" class="headerlink" title="5.3 alarm()"></a>5.3 alarm()</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">unsigned</span> <span class="type">int</span> <span class="title function_">alarm</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> secs)</span>;</span><br><span class="line"><span class="comment">//行为：如果调用alarm时有待处理的闹钟，则取消待处理的闹钟，待处理闹钟的剩余秒数将被作为返回值。如果没有待处理闹钟，返回0.</span></span><br><span class="line"><span class="comment">//secs如果为0，则不安排新的闹钟。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-4-setitimer"><a href="#5-4-setitimer" class="headerlink" title="5.4 setitimer()"></a>5.4 setitimer()</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/time.h&gt;</span></span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">setitimer</span><span class="params">(<span class="type">int</span> which, <span class="type">const</span> <span class="keyword">struct</span> itimerval *new_value,</span></span><br><span class="line"><span class="params">                        <span class="keyword">struct</span> itimerval *old_value)</span>;</span><br><span class="line">    </span><br><span class="line"><span class="comment">/* - 功能：设置定时器（闹钟）。可以替代alarm函数。精度微妙us，可以实现周期性定时</span></span><br><span class="line"><span class="comment"> - 参数：</span></span><br><span class="line"><span class="comment">     - which : 定时器以什么时间计时</span></span><br><span class="line"><span class="comment">       ITIMER_REAL: 真实时间，时间到达，发送 SIGALRM </span></span><br><span class="line"><span class="comment">       ITIMER_VIRTUAL: 用户时间，时间到达，发送 SIGVTALRM</span></span><br><span class="line"><span class="comment">       ITIMER_PROF: 以该进程在用户态和内核态下所消耗的时间来计算，时间到达，发送 SIGPROF</span></span><br><span class="line"><span class="comment">     - new_value: 设置定时器的属性 */</span></span><br><span class="line">            </span><br><span class="line">                <span class="class"><span class="keyword">struct</span> <span class="title">itimerval</span> &#123;</span>      <span class="comment">// 定时器的结构体</span></span><br><span class="line">                <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">it_interval</span>;</span>  <span class="comment">// 每个阶段的时间，间隔时间</span></span><br><span class="line">                <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">it_value</span>;</span>     <span class="comment">// 延迟多长时间执行定时器</span></span><br><span class="line">                &#125;;</span><br><span class="line"></span><br><span class="line">                <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> &#123;</span>        <span class="comment">// 时间的结构体</span></span><br><span class="line">                    <span class="type">time_t</span>      tv_sec;     <span class="comment">//  秒数     </span></span><br><span class="line">                    <span class="type">suseconds_t</span> tv_usec;    <span class="comment">//  微秒    </span></span><br><span class="line">                &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*      过10秒后，每个2秒定时一次</span></span><br><span class="line"><span class="comment">     </span></span><br><span class="line"><span class="comment">      - old_value ：记录上一次的定时的时间参数，一般不使用，指定NULL</span></span><br><span class="line"><span class="comment">  </span></span><br><span class="line"><span class="comment">  - 返回值：</span></span><br><span class="line"><span class="comment">      成功 0</span></span><br><span class="line"><span class="comment">      失败 -1 并设置错误号 */</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="5-5接收信号"><a href="#5-5接收信号" class="headerlink" title="5.5接收信号"></a>5.5接收信号</h3><p>信号有默认行为，比如SIGCHLD的默认行为是忽略，SIGKILL是终止进程。</p>
+<p>除了SIGKILL,SIGSTOP这两个信号，其他信号的默认行为都可以被修改。通过调用signal()修改</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span><span class="params">(*<span class="type">sighandler_t</span>)</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="type">sighandler_t</span> <span class="title function_">signal</span><span class="params">(<span class="type">int</span> signum, <span class="type">sighandler_t</span>, handler)</span>;</span><br><span class="line"><span class="comment">//行为：指定一个信号，当这个信号发送给进程时，进程根据handler的内容去处理这个信号。</span></span><br><span class="line"><span class="comment">//handler有三种类型：</span></span><br><span class="line"><span class="comment">//1.SIG_IGN:忽略该信号</span></span><br><span class="line"><span class="comment">//2.SIG_DFL:恢复该信号的默认行为</span></span><br><span class="line"><span class="comment">//3.用户定义的函数：当收到这个信号时，去执行这个函数，函数称为：信号处理程序。</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-6-阻塞信号-解除阻塞"><a href="#5-6-阻塞信号-解除阻塞" class="headerlink" title="5.6 阻塞信号&amp;解除阻塞"></a>5.6 阻塞信号&amp;解除阻塞</h3><ul>
+<li><p>隐式阻塞：如果一个进程因为接收了s信号而去执行S信号处理程序，那么后续所有发送给这个进程的信号都将被送进待处理信号中，直到处理程序执行完毕而解除对这个信号的阻塞。</p>
+</li>
+<li><p>显示阻塞：可以调用sigprocmask()函数，明确阻塞指定的信号。</p>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sigprocmask</span><span class="params">(<span class="type">int</span> how, <span class="type">const</span> <span class="type">sigset_t</span> *<span class="built_in">set</span>, <span class="type">sigset_t</span> *oldset)</span>;</span><br><span class="line"><span class="comment">//对何种信号执行操作取决于set，对信号执行何种操作取决于how。</span></span><br><span class="line"><span class="comment">//执行这个函数后，信号集会有新的状态（阻塞或者未阻塞），旧的信号集状态存在oldset中</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>set：将set是一个二进制的数，每个信号对应一个二进制位，当要对一种信号执行操作时，就把他的相应为设置为有效</p>
+<p>how：三种操作：</p>
+<ul>
+<li>SIG_BLOCK：将指定的信号加入阻塞列表中</li>
+<li>SIG_UNBLOCK：将指定的信号从阻塞列表中移除</li>
+<li>SIG_SETMASK：只阻塞指定的信号，未被指定的不阻塞</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;signal.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 参数 set 是一个指向 sigset_t 类型的指针，用于表示信号集。</span></span><br><span class="line"><span class="comment">// 参数 signum 是要从信号集中移除的信号编号。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//该函数用于清空信号集，将所有信号从信号集中移除。</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sigemptyset</span><span class="params">(<span class="type">sigset_t</span> *<span class="built_in">set</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//该函数用于将所有信号添加到信号集中，填充整个信号集。</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sigfillset</span><span class="params">(<span class="type">sigset_t</span> *<span class="built_in">set</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//该函数用于将指定的信号添加到信号集中。</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sigaddset</span><span class="params">(<span class="type">sigset_t</span> *<span class="built_in">set</span>, <span class="type">int</span> signum)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//该函数用于将指定的信号从信号集中移除。</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sigdelset</span><span class="params">(<span class="type">sigset_t</span> *<span class="built_in">set</span>, <span class="type">int</span> signum)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/11/Git/remote/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/11/Git/remote/" class="post-title-link" itemprop="url">remote</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-11 02:13:47" itemprop="dateCreated datePublished" datetime="2023-11-11T02:13:47+08:00">2023-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-16 09:23:56" itemprop="dateModified" datetime="2023-11-16T09:23:56+08:00">2023-11-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/07/C++/string/strFunc/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -196,7 +487,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-09 21:19:01" itemprop="dateModified" datetime="2023-11-09T21:19:01+08:00">2023-11-09</time>
+                <time title="修改时间：2023-11-13 00:15:02" itemprop="dateModified" datetime="2023-11-13T00:15:02+08:00">2023-11-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -246,7 +537,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/02/Redis/implementation/singleMachine/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/02/Redis/implementation/database/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -260,7 +551,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/11/02/Redis/implementation/singleMachine/" class="post-title-link" itemprop="url">singleMachine</a>
+            <a href="/2023/11/02/Redis/implementation/database/" class="post-title-link" itemprop="url">database</a>
         </h2>
 
         <div class="post-meta">
@@ -277,7 +568,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-09 21:18:31" itemprop="dateModified" datetime="2023-11-09T21:18:31+08:00">2023-11-09</time>
+                <time title="修改时间：2023-11-16 09:22:58" itemprop="dateModified" datetime="2023-11-16T09:22:58+08:00">2023-11-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -304,16 +595,20 @@
 <ol>
 <li>数据库的保存方式</li>
 <li>客户端的目标数据库切换</li>
-<li>键值对的保存方式<ul>
+<li>键值对的保存方式</li>
+</ol>
+<ul>
 <li>增删改查的实现方式</li>
 <li>键的过期时间</li>
 <li>服务器自动删除键</li>
+<li>AOF RDB 复制功能对过期键的处理</li>
 </ul>
-</li>
+<ol start="4">
+<li>数据库通知</li>
 </ol>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/11/02/Redis/implementation/singleMachine/#more" rel="contents">
+              <a class="btn" href="/2023/11/02/Redis/implementation/database/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -368,7 +663,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-27 02:22:52" itemprop="dateModified" datetime="2023-10-27T02:22:52+08:00">2023-10-27</time>
+                <time title="修改时间：2023-11-11 02:11:13" itemprop="dateModified" datetime="2023-11-11T02:11:13+08:00">2023-11-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -391,7 +686,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h1>
+          <h1 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h1><ol>
+<li>撤销暂存操作</li>
+<li>撤销提交操作</li>
+<li>撤销修改文件操作</li>
+</ol>
+<h2 id="撤销暂存"><a href="#撤销暂存" class="headerlink" title="撤销暂存"></a>撤销暂存</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将try.go移至暂存区</span></span><br><span class="line">PS E:\C++ code\git\go&gt; git add try.go</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看当前文件状态</span></span><br><span class="line">PS E:\C++ code\git\go&gt; git status    </span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git restore --staged &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line">        new file:   Hello.go</span><br><span class="line">        new file:   try.go</span><br><span class="line"></span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">        modified:   ../Hello.cpp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将try.go从暂存区移除</span></span><br><span class="line"><span class="comment"># git reset HEAD try.go 可以换成 git restore --staged try.go</span></span><br><span class="line">PS E:\C++ code\git\go&gt; git reset HEAD try.go</span><br><span class="line">Unstaged changes after reset:</span><br><span class="line">M       Hello.cpp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看当前文件状态</span></span><br><span class="line">PS E:\C++ code\git\go&gt; git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git restore --staged &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line">        new file:   Hello.go</span><br><span class="line"></span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">        modified:   ../Hello.cpp</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to include <span class="keyword">in</span> what will be committed)</span><br><span class="line">        try.go</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="撤销提交"><a href="#撤销提交" class="headerlink" title="撤销提交"></a>撤销提交</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提交</span></span><br><span class="line">PS E:\C++ code\git\go&gt; git commit -m <span class="string">&quot;undoing commit&quot;</span></span><br><span class="line">[master 236a858] undoing commit</span><br><span class="line"> 1 file changed, 7 insertions(+)</span><br><span class="line"> create mode 100644 go/Hello.go</span><br><span class="line"> </span><br><span class="line"><span class="comment">#查看状态</span></span><br><span class="line">PS E:\C++ code\git\go&gt; git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">        modified:   ../Hello.cpp</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to include <span class="keyword">in</span> what will be committed)</span><br><span class="line">        try.go</span><br><span class="line"></span><br><span class="line">no changes added to commit (use <span class="string">&quot;git add&quot;</span> and/or <span class="string">&quot;git commit -a&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">PS E:\C++ code\git\go&gt; git add try.go</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新提交</span></span><br><span class="line">PS E:\C++ code\git\go&gt; git commit --amend</span><br><span class="line">[master c547a5b] undoing commit</span><br><span class="line"> Date: Fri Nov 10 23:59:15 2023 +0800</span><br><span class="line"> 2 files changed, 42 insertions(+)</span><br><span class="line"> create mode 100644 go/Hello.go</span><br><span class="line"> create mode 100644 go/try.go</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 打印日志，看到只有一次提交</span></span><br><span class="line">PS E:\C++ code\git\go&gt; git <span class="built_in">log</span> --pretty=<span class="string">&quot;%h - %s&quot;</span> --since=<span class="string">&quot;2023-11-10&quot;</span> --before=<span class="string">&quot;2023-11-12&quot;</span></span><br><span class="line">c547a5b - undoing commit</span><br></pre></td></tr></table></figure>
+
+<h2 id="撤销文件的修改"><a href="#撤销文件的修改" class="headerlink" title="撤销文件的修改"></a>撤销文件的修改</h2><p>使用 <code>git checkout `` &lt;file&gt; </code> <strong>被选中文件</strong>将被git使用最近提交的<strong>被选中文件</strong>覆盖。</p>
+
       
     </div>
 
@@ -441,7 +746,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-26 00:04:11" itemprop="dateModified" datetime="2023-10-26T00:04:11+08:00">2023-10-26</time>
+                <time title="修改时间：2023-11-10 23:17:48" itemprop="dateModified" datetime="2023-11-10T23:17:48+08:00">2023-11-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -465,175 +770,14 @@
 
       
           <h1 id="git-日志"><a href="#git-日志" class="headerlink" title="git 日志"></a>git 日志</h1><p>使用<code>git log</code>命令以及一些选项打印日志信息,如下表：</p>
-<table>
-<thead>
-<tr>
-<th align="left">选项</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><code>-p</code></td>
-<td align="left">按补丁格式显示每个提交引入的差异。</td>
-</tr>
-<tr>
-<td align="left"><code>--stat</code></td>
-<td align="left">显示每次提交的文件修改统计信息。</td>
-</tr>
-<tr>
-<td align="left"><code>--shortstat</code></td>
-<td align="left">只显示 –stat 中最后的行数修改添加移除统计。</td>
-</tr>
-<tr>
-<td align="left"><code>--name-only</code></td>
-<td align="left">仅在提交信息后显示已修改的文件清单。</td>
-</tr>
-<tr>
-<td align="left"><code>--name-status</code></td>
-<td align="left">显示新增、修改、删除的文件清单。</td>
-</tr>
-<tr>
-<td align="left"><code>--abbrev-commit</code></td>
-<td align="left">仅显示 SHA-1 校验和所有 40 个字符中的前几个字符。</td>
-</tr>
-<tr>
-<td align="left"><code>--relative-date</code></td>
-<td align="left">使用较短的相对时间而不是完整格式显示日期（比如“2 weeks ago”）。</td>
-</tr>
-<tr>
-<td align="left"><code>--graph</code></td>
-<td align="left">在日志旁以 ASCII 图形显示分支与合并历史。</td>
-</tr>
-<tr>
-<td align="left"><code>--pretty</code></td>
-<td align="left">使用其他格式显示历史提交信息。可用的选项包括 oneline、short、full、fuller 和 format（用来定义自己的格式）。</td>
-</tr>
-<tr>
-<td align="left"><code>--oneline</code></td>
-<td align="left"><code>--pretty=oneline --abbrev-commit</code> 合用的简写。</td>
-</tr>
-</tbody></table>
-<h2 id="–pretty"><a href="#–pretty" class="headerlink" title="–pretty"></a>–pretty</h2><p>这个选项可以打印出自定义格式的日志,格式为：<code>git log -pretty=&lt;&gt;</code>。&lt;&gt;中可填入以下的选项</p>
-<ul>
-<li><code>oneline</code></li>
-<li><code>short</code></li>
-<li><code>full</code></li>
-<li><code>fuller</code></li>
-<li><code>format</code></li>
-</ul>
-<p>其中format的用法如下所示：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$git</span> <span class="built_in">log</span> --pretty=format:<span class="string">&quot;%h - %an, %ar : %s&quot;</span></span><br><span class="line">eca0687 - anan-liu, 2 days ago : forth commit</span><br><span class="line">8262fd0 - anan-liu, 2 days ago : third commit</span><br><span class="line">7cbed8a - anan-liu, 8 days ago : second commit</span><br><span class="line">e0702ed - anan-liu, 8 days ago : initial project version</span><br></pre></td></tr></table></figure>
-
-<p><code>git log --pretty=format:</code>的一些常用选项如下所示：</p>
-<table>
-<thead>
-<tr>
-<th align="left">选项</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><code>%H</code></td>
-<td align="left">提交的完整哈希值</td>
-</tr>
-<tr>
-<td align="left"><code>%h</code></td>
-<td align="left">提交的简写哈希值</td>
-</tr>
-<tr>
-<td align="left"><code>%T</code></td>
-<td align="left">树的完整哈希值</td>
-</tr>
-<tr>
-<td align="left"><code>%t</code></td>
-<td align="left">树的简写哈希值</td>
-</tr>
-<tr>
-<td align="left"><code>%P</code></td>
-<td align="left">父提交的完整哈希值</td>
-</tr>
-<tr>
-<td align="left"><code>%p</code></td>
-<td align="left">父提交的简写哈希值</td>
-</tr>
-<tr>
-<td align="left"><code>%an</code></td>
-<td align="left">作者名字</td>
-</tr>
-<tr>
-<td align="left"><code>%ae</code></td>
-<td align="left">作者的电子邮件地址</td>
-</tr>
-<tr>
-<td align="left"><code>%ad</code></td>
-<td align="left">作者修订日期（可以用 –date&#x3D;选项 来定制格式）</td>
-</tr>
-<tr>
-<td align="left"><code>%ar</code></td>
-<td align="left">作者修订日期，按多久以前的方式显示</td>
-</tr>
-<tr>
-<td align="left"><code>%cn</code></td>
-<td align="left">提交者的名字</td>
-</tr>
-<tr>
-<td align="left"><code>%ce</code></td>
-<td align="left">提交者的电子邮件地址</td>
-</tr>
-<tr>
-<td align="left"><code>%cd</code></td>
-<td align="left">提交日期</td>
-</tr>
-<tr>
-<td align="left"><code>%cr</code></td>
-<td align="left">提交日期（距今多长时间）</td>
-</tr>
-<tr>
-<td align="left"><code>%s</code></td>
-<td align="left">提交说明</td>
-</tr>
-</tbody></table>
-<h2 id="限制输出"><a href="#限制输出" class="headerlink" title="限制输出"></a>限制输出</h2><p>可以使用一些限制选项打印日志，使得打印精简且有用的日志信息</p>
-<table>
-<thead>
-<tr>
-<th align="left">选项</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><code>-&lt;n&gt;</code></td>
-<td align="left">仅显示最近的 n 条提交。</td>
-</tr>
-<tr>
-<td align="left"><code>--since</code>, <code>--after</code></td>
-<td align="left">仅显示指定时间之后的提交。</td>
-</tr>
-<tr>
-<td align="left"><code>--until</code>, <code>--before</code></td>
-<td align="left">仅显示指定时间之前的提交。</td>
-</tr>
-<tr>
-<td align="left"><code>--author</code></td>
-<td align="left">仅显示作者匹配指定字符串的提交。</td>
-</tr>
-<tr>
-<td align="left"><code>--committer</code></td>
-<td align="left">仅显示提交者匹配指定字符串的提交。</td>
-</tr>
-<tr>
-<td align="left"><code>--grep</code></td>
-<td align="left">仅显示提交说明中包含指定字符串的提交。</td>
-</tr>
-<tr>
-<td align="left"><code>-S</code></td>
-<td align="left">仅显示添加或删除内容匹配指定字符串的提交。</td>
-</tr>
-</tbody></table>
-<p>示例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --pretty=<span class="string">&quot;%h - %s&quot;</span> --author=<span class="string">&#x27;anan-liu&#x27;</span> --since=<span class="string">&quot;2023-10-01&quot;</span> --before=<span class="string">&quot;2023-11-01&quot;</span>           eca0687 - forth commit</span><br><span class="line">8262fd0 - third commit</span><br><span class="line">7cbed8a - second commit</span><br><span class="line">e0702ed - initial project version</span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/10/24/Git/log/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -922,10 +1066,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-10-09 03:48:20 / 修改时间：03:59:17" itemprop="dateCreated datePublished" datetime="2023-10-09T03:48:20+08:00">2023-10-09</time>
+              <time title="创建时间：2023-10-09 03:48:20" itemprop="dateCreated datePublished" datetime="2023-10-09T03:48:20+08:00">2023-10-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-12 22:37:57" itemprop="dateModified" datetime="2023-11-12T22:37:57+08:00">2023-11-12</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -954,174 +1104,10 @@
 <h1 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h1><p>指向函数的指针与其他指针一样需要一个类型。因此如果令一个指针指向上述函数，可以：</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bool</span> (*pf)(<span class="type">const</span> string &amp;, <span class="type">const</span> string &amp;);<span class="comment">//未初始化</span></span><br></pre></td></tr></table></figure>
 
+<h1 id="结合typedef"><a href="#结合typedef" class="headerlink" title="结合typedef"></a>结合typedef</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*ptr)</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">myFunction</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Sum: %d\n&quot;</span>, x + y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ptr functionPointer = myFunction;  <span class="comment">// 使用 typedef 创建的类型名</span></span><br><span class="line">    <span class="built_in">functionPointer</span>(<span class="number">10</span>, <span class="number">20</span>);           <span class="comment">// 调用函数指针</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/07/Redis/object/setObject/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/07/Redis/object/setObject/" class="post-title-link" itemprop="url">setObject</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-07 23:17:45" itemprop="dateCreated datePublished" datetime="2023-10-07T23:17:45+08:00">2023-10-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-08 02:54:51" itemprop="dateModified" datetime="2023-10-08T02:54:51+08:00">2023-10-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="集合对象"><a href="#集合对象" class="headerlink" title="集合对象"></a>集合对象</h1><blockquote>
-<p>Redis对象有三个主要属性：type、encoding、ptr。集合对象type的类型就是集合：REDIS_SET</p>
-</blockquote>
-<p>集合的编码有：1、inset；2、hashtable</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/07/Redis/object/setObject/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/05/C++17/structuredBingding/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/05/C++17/structuredBingding/" class="post-title-link" itemprop="url">structuredBinding</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-05 23:23:35" itemprop="dateCreated datePublished" datetime="2023-10-05T23:23:35+08:00">2023-10-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-06 19:01:48" itemprop="dateModified" datetime="2023-10-06T19:01:48+08:00">2023-10-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="结构化绑定"><a href="#结构化绑定" class="headerlink" title="结构化绑定"></a>结构化绑定</h1><p>结构化绑定是C++17的特性。将左值指定的变量名绑定到初始化项的子对象或元素中去。</p>
-<p>类似引用，结构化绑定是一个别名；区别于引用，结构化绑定不用是一个引用类型。</p>
-<p>有三种情况：</p>
-<h2 id="绑定数组"><a href="#绑定数组" class="headerlink" title="绑定数组"></a>绑定数组</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a[<span class="number">2</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">auto</span> [x, y] = a;    <span class="comment">// creates e[2], copies a into e,</span></span><br><span class="line">                    <span class="comment">// then x refers to e[0], y refers to e[1]</span></span><br><span class="line"><span class="keyword">auto</span>&amp; [xr, yr] = a; <span class="comment">// xr refers to a[0], yr refers to a[1]</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="绑定tuple-like-类型"><a href="#绑定tuple-like-类型" class="headerlink" title="绑定tuple-like 类型"></a>绑定tuple-like 类型</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">float</span> x&#123;&#125;;</span><br><span class="line"><span class="type">char</span>  y&#123;&#125;;</span><br><span class="line"><span class="type">int</span>   z&#123;&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function">std::tuple&lt;<span class="type">float</span>&amp;, <span class="type">char</span>&amp;&amp;, <span class="type">int</span>&gt; <span class="title">tpl</span><span class="params">(x, std::move(y), z)</span></span>;</span><br><span class="line"><span class="type">const</span> <span class="keyword">auto</span>&amp; [a, b, c] = tpl;</span><br><span class="line"><span class="comment">// using Tpl = const std::tuple&lt;float&amp;, char&amp;&amp;, int&gt;;</span></span><br><span class="line"><span class="comment">// a names a structured binding that refers to x (initialized from get&lt;0&gt;(tpl))</span></span><br><span class="line"><span class="comment">// decltype(a) is std::tuple_element&lt;0, Tpl&gt;::type, i.e. float&amp;</span></span><br><span class="line"><span class="comment">// b names a structured binding that refers to y (initialized from get&lt;1&gt;(tpl))</span></span><br><span class="line"><span class="comment">// decltype(b) is std::tuple_element&lt;1, Tpl&gt;::type, i.e. char&amp;&amp;</span></span><br><span class="line"><span class="comment">// c names a structured binding that refers to the third component of tpl, get&lt;2&gt;(tpl)</span></span><br><span class="line"><span class="comment">// decltype(c) is std::tuple_element&lt;2, Tpl&gt;::type, i.e. const int</span></span><br><span class="line"><span class="comment">// 上述语句中，a是float&amp;类型，b是char&amp;&amp;类型，c是const int类型。</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>以上<code>a,b,c</code>为什么是他们那种类型的解释：<a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/49308674/variables-marked-as-const-using-structured-bindings-are-not-const">https://stackoverflow.com/questions/49308674/variables-marked-as-const-using-structured-bindings-are-not-const</a></p>
-</blockquote>
-<h2 id="绑定数据成员"><a href="#绑定数据成员" class="headerlink" title="绑定数据成员"></a>绑定数据成员</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">S</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">mutable</span> <span class="type">int</span> x1 : <span class="number">2</span>;  <span class="comment">//使用mutable修饰将允许修改const成员</span></span><br><span class="line">    <span class="keyword">volatile</span> <span class="type">double</span> y1;  <span class="comment">//表示对象是易变的，每次读取都将从内存读取它的值，有碍优化</span></span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function">S <span class="title">f</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> S&#123;<span class="number">1</span>, <span class="number">2.3</span>&#125;; &#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">const</span> <span class="keyword">auto</span> [x, y] = <span class="built_in">f</span>(); <span class="comment">// x is an int lvalue identifying the 2-bit bit-field</span></span><br><span class="line">                             <span class="comment">// y is a const volatile double lvalue</span></span><br><span class="line">    std::cout &lt;&lt; x &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; y &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;  <span class="comment">// 1 2.3</span></span><br><span class="line">    x = <span class="number">-2</span>;   <span class="comment">// OK</span></span><br><span class="line"><span class="comment">//  y = -2.;  // Error: y is const-qualified</span></span><br><span class="line">    std::cout &lt;&lt; x &lt;&lt; <span class="string">&#x27; &#x27;</span> &lt;&lt; y &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;  <span class="comment">// -2 2.3</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如程序示例，ptr被当作一个类型，类型为<code>void (int a, int b);</code></p>
+<h1 id="结合using"><a href="#结合using" class="headerlink" title="结合using"></a>结合using</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> FunctionPointer = <span class="built_in">void</span> (*)(<span class="type">int</span> a, <span class="type">int</span> b);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">myFunction</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Sum: &quot;</span> &lt;&lt; x + y &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    FunctionPointer functionPointer = myFunction;  <span class="comment">// 使用 using 创建的类型别名</span></span><br><span class="line">    <span class="built_in">functionPointer</span>(<span class="number">10</span>, <span class="number">20</span>);                        <span class="comment">// 调用函数指针</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -1207,7 +1193,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">57</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1220,7 +1206,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-count">34</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

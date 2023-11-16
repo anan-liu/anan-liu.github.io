@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="单机数据库的实现总述这篇博客记录学习redis的单机数据库实现的原理，包括：  数据库的保存方式 客户端的目标数据库切换 键值对的保存方式   增删改查的实现方式 键的过期时间 服务器自动删除键 AOF RDB 复制功能对过期键的处理   数据库通知">
+<meta property="og:type" content="article">
+<meta property="og:title" content="database">
+<meta property="og:url" content="http://example.com/2023/11/02/Redis/implementation/database/index.html">
+<meta property="og:site_name" content="任我行">
+<meta property="og:description" content="单机数据库的实现总述这篇博客记录学习redis的单机数据库实现的原理，包括：  数据库的保存方式 客户端的目标数据库切换 键值对的保存方式   增删改查的实现方式 键的过期时间 服务器自动删除键 AOF RDB 复制功能对过期键的处理   数据库通知">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2023/11/02/Redis/implementation/database/database.png">
+<meta property="og:image" content="http://example.com/2023/11/02/Redis/implementation/database/dict.png">
+<meta property="og:image" content="http://example.com/2023/11/02/Redis/implementation/database/expireDict.png">
+<meta property="og:image" content="http://example.com/2023/11/02/Redis/implementation/database/lazyDeletion.png">
+<meta property="article:published_time" content="2023-11-02T15:33:43.000Z">
+<meta property="article:modified_time" content="2023-11-16T01:22:58.713Z">
+<meta property="article:author" content="阿怪">
+<meta property="article:tag" content="Redis">
+<meta property="article:tag" content="implementation">
+<meta property="article:tag" content="singleMachine">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/11/02/Redis/implementation/database/database.png">
+
+<link rel="canonical" href="http://example.com/2023/11/02/Redis/implementation/database/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>database | 任我行</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">任我行</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-resources">
+
+    <a href="/resources/" rel="section"><i class="download fa-fw"></i>resources</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/02/Redis/implementation/database/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          database
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-02 23:33:43" itemprop="dateCreated datePublished" datetime="2023-11-02T23:33:43+08:00">2023-11-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-16 09:22:58" itemprop="dateModified" datetime="2023-11-16T09:22:58+08:00">2023-11-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="单机数据库的实现"><a href="#单机数据库的实现" class="headerlink" title="单机数据库的实现"></a>单机数据库的实现</h1><h2 id="总述"><a href="#总述" class="headerlink" title="总述"></a>总述</h2><p>这篇博客记录学习redis的单机数据库实现的原理，包括：</p>
+<ol>
+<li>数据库的保存方式</li>
+<li>客户端的目标数据库切换</li>
+<li>键值对的保存方式</li>
+</ol>
+<ul>
+<li>增删改查的实现方式</li>
+<li>键的过期时间</li>
+<li>服务器自动删除键</li>
+<li>AOF RDB 复制功能对过期键的处理</li>
+</ul>
+<ol start="4">
+<li>数据库通知</li>
+</ol>
+<span id="more"></span>
+
+<h2 id="数据库的保存方式"><a href="#数据库的保存方式" class="headerlink" title="数据库的保存方式"></a>数据库的保存方式</h2><p>数据库存放在服务器中，具体的构造如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">redisServer</span> &#123;</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="comment">// 一个数组，保存着服务器中的所有数据库</span></span><br><span class="line">    redisDb *db;</span><br><span class="line">    <span class="comment">// 数据库的数量</span></span><br><span class="line">    <span class="type">int</span> dbnum;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>redisDb是数据库的类型，一个redisDb对象就是一个数据库，在<code>redisServer</code>这个结构体中，定义了一个redisDb类型的数组，存放服务器的所有数据库，dbnum指明了数据库的数量。</p>
+<h2 id="数据库的切换"><a href="#数据库的切换" class="headerlink" title="数据库的切换"></a>数据库的切换</h2><p>客户端有自己的目标数据库，可以使用SELECT命令更换。客户端的目标数据库从代码层面实现是：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisClient</span> &#123;</span></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="comment">// 记录客户端当前正在使用的数据库</span></span><br><span class="line">redisDb *db;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">&#125; redisClient;</span><br></pre></td></tr></table></figure>
+
+<p>其中，客户端中的<code>redisDb *</code>类型是一个指针，虽然和服务器中的数据库数组相同的类型表示，但有本质的区别：服务器表明db是一个<code>redisDB</code>类型的数组；客户端表示是指向<code>redisDB</code>类型的指针，指向服务器数据库数组的其中一项。</p>
+<p>下图是服务器数据库，客户端的<code>redisDb *db</code>将指向下图示例中db数组中的一项，每一项就是一个数据库</p>
+<p><img src="/2023/11/02/Redis/implementation/database/database.png"></p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="http://www.redisbook.com/">www.redisbook.com</a></p>
+</blockquote>
+<p>客户端上，使用SELECT切换数据库的实现原理就是另客户端上的<code>redisDb *db</code>指向不同的数据库数组项。</p>
+<blockquote>
+<p>目前尚无返回客户端目标数据库的命令，因此在编程时，做一些危险命令操作时需要首先显示的指定一个数据库，这样才不会出错</p>
+</blockquote>
+<h2 id="键空间"><a href="#键空间" class="headerlink" title="键空间"></a>键空间</h2><p>在上文中提到了一个类型<code>redisDb *</code>,这是一个结构体，其中一个属性：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisDb</span> &#123;</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="comment">// 数据库键空间，保存着数据库中的所有键值对</span></span><br><span class="line">    dict *dict;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125; redisDb;</span><br></pre></td></tr></table></figure>
+
+<p>redis是一个键值对数据库，其中数据库由<code>redisDb</code>表示，其中的<code>dict</code>保存着数据库的所有键值对，这个<code>dict</code>称为：<strong>数据库键空间</strong>。键空间的键是字符串对象，键空间的值是任意一种Redis对象</p>
+<p><strong>增删改查</strong>的操作实际上是在操作键空间上的数据。其中增和改用同一个命令，比如字符串对象的<code>SET</code>，当命令后跟的键不在键空间时，则增加这个键，在键空间时则更改这个键对应的值。</p>
+<h2 id="读写键空间时的维护"><a href="#读写键空间时的维护" class="headerlink" title="读写键空间时的维护"></a>读写键空间时的维护</h2><ul>
+<li><p>服务器读取一个键后，根据这个键是否存在更新键空间命中次数和键空间不命中次数。<code>INFO stats</code>命令中的<code>keyspace_hits</code>和<code>keyspace_misses</code>可以查看。</p>
+</li>
+<li><p>读取一个键后，会更新键的LRU。   </p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://anan-liu.github.io/2023/10/13/Redis/object/memory/">memory | 任我行 (anan-liu.github.io)</a></p>
+</blockquote>
+</li>
+<li><p>客户端WATCH某个键后，后续服务器对这个键进行修改之后，会将这个键标记为“脏”，脏的键会触发持久化操作和复制操作</p>
+</li>
+</ul>
+<h2 id="键的生存时间和过期时间"><a href="#键的生存时间和过期时间" class="headerlink" title="键的生存时间和过期时间"></a>键的生存时间和过期时间</h2><p>如下命令，用以设置生存时间和过期时间</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>EXPIRE</td>
+<td>设置键的生存时间</td>
+<td>单位秒</td>
+</tr>
+<tr>
+<td>PEXPIRE</td>
+<td>设置键的生存时间</td>
+<td>单位毫秒</td>
+</tr>
+<tr>
+<td>EXPIREAT</td>
+<td>设置键的过期时间</td>
+<td>单位秒，时间戳</td>
+</tr>
+<tr>
+<td>PEXPIREAT</td>
+<td>设置键的过期时间</td>
+<td>单位毫秒，时间戳</td>
+</tr>
+</tbody></table>
+<p>这组的命令的实现方式主要看<code>PEXPIREAT</code>命令，其它命令在稍作转换后最后会调用<code>PEXPIREAT</code>命令的函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">EXPIRE</span>(<span class="params">key,ttl_in_sec</span>):</span><br><span class="line">    <span class="comment">#将TTL从秒转换成毫秒</span></span><br><span class="line">    ttl_in_ms = sec_to_ms(ttl_in_sec)</span><br><span class="line">    PEXPIRE(key, ttl_in_ms)</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">PEXPIRE</span>(<span class="params">key,ttl_in_ms</span>):</span><br><span class="line">    <span class="comment">#获取以毫秒计算的当前UNIX时间戳</span></span><br><span class="line">    now_ms = get_current_unix_timestamp_in_ms()</span><br><span class="line">    <span class="comment">#当前时间加上TTL，得出毫秒格式的键过期时间</span></span><br><span class="line">    PEXPIREAT(key,now_ms+ttl_in_ms)</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">EXPIREAT</span>(<span class="params">key,expire_time_in_sec</span>):</span><br><span class="line">    <span class="comment"># 将过期时间从秒转换为毫秒</span></span><br><span class="line">    expire_time_in_ms = sec_to_ms(expire_time_in_sec)</span><br><span class="line">    PEXPIREAT(key, expire_time_in_ms)</span><br></pre></td></tr></table></figure>
+
+
+
+<table>
+<thead>
+<tr>
+<th align="left">命令</th>
+<th align="center">作用</th>
+<th align="center">备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">TTL</td>
+<td align="center">返回键的剩余时间</td>
+<td align="center">秒</td>
+</tr>
+<tr>
+<td align="left">PTTL</td>
+<td align="center">返回键的剩余时间</td>
+<td align="center">毫秒</td>
+</tr>
+</tbody></table>
+<h2 id="保存过期时间"><a href="#保存过期时间" class="headerlink" title="保存过期时间"></a>保存过期时间</h2><p>键的过期时间由字典保存。字典的键保存一个指向键的指针，值保存long long类型的时间戳</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisDb</span> &#123;</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="comment">// 过期字典，保存着键的过期时间</span></span><br><span class="line">    dict *expires;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125; redisDb;</span><br></pre></td></tr></table></figure>
+
+<p>其中dict的结构如下：</p>
+<img src="/2023/11/02/Redis/implementation/database/dict.png" style="zoom:80%;">
+
+<p>当执行了任意一个设置过期时间的命令，过期字典将新增一个键值对，<strong>新增键值对的键</strong>指向<strong>执行命令的键</strong>，值保存设定的时间戳。</p>
+<p>结构如下：</p>
+<p><img src="/2023/11/02/Redis/implementation/database/expireDict.png"></p>
+<h2 id="移除过期时间"><a href="#移除过期时间" class="headerlink" title="移除过期时间"></a>移除过期时间</h2><p><code>PERSIST</code>可以将一个键从过期字典中删除，是设置过期时间命令的反操作。实现原理如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">PERSIST</span>(<span class="params">key</span>):</span><br><span class="line">    <span class="comment"># 如果键不存在，或者键没有设置过期时间，那么直接返回</span></span><br><span class="line">    <span class="keyword">if</span> key <span class="keyword">not</span> <span class="keyword">in</span> redisDb.expires:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="comment"># 移除过期字典中给定键的键值对关联</span></span><br><span class="line">    redisDb.expires.remove(key)</span><br><span class="line">    <span class="comment"># 键的过期时间移除成功</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="返回生存时间"><a href="#返回生存时间" class="headerlink" title="返回生存时间"></a>返回生存时间</h2><p><code>TTL</code>和<code>PTTL</code>是返回生成时间的命令，它们的实现原理如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">PTTL</span>(<span class="params">key</span>):</span><br><span class="line">    <span class="comment"># 键不存在于数据库</span></span><br><span class="line">    <span class="keyword">if</span> key <span class="keyword">not</span> <span class="keyword">in</span> redisDb.<span class="built_in">dict</span>:</span><br><span class="line">        <span class="keyword">return</span>-<span class="number">2</span></span><br><span class="line">    <span class="comment"># 尝试取得键的过期时间</span></span><br><span class="line">    <span class="comment"># 如果键没有设置过期时间，那么 expire_time_in_ms 将为 None</span></span><br><span class="line">    expire_time_in_ms = redisDb.expires.get(key)</span><br><span class="line">    <span class="comment"># 键没有设置过期时间</span></span><br><span class="line">    <span class="keyword">if</span> expire_time_in_ms <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> -<span class="number">1</span></span><br><span class="line">    <span class="comment"># 获得当前时间</span></span><br><span class="line">    now_ms = get_current_unix_timestamp_in_ms()</span><br><span class="line">    <span class="comment"># 过期时间减去当前时间，得出的差就是键的剩余生存时间</span></span><br><span class="line">    <span class="keyword">return</span>(expire_time_in_ms - now_ms)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">TTL</span>(<span class="params">key</span>):</span><br><span class="line">    <span class="comment"># 获取以毫秒为单位的剩余生存时间</span></span><br><span class="line">    ttl_in_ms = PTTL(key)</span><br><span class="line">    <span class="keyword">if</span> ttl_in_ms &lt; <span class="number">0</span>:</span><br><span class="line">        <span class="comment">#处理返回值为-2和-1的情况</span></span><br><span class="line">        <span class="keyword">return</span> ttl_in_ms</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 将毫秒转换为秒</span></span><br><span class="line">        <span class="keyword">return</span> ms_to_sec(ttl_in_ms)</span><br></pre></td></tr></table></figure>
+
+<h2 id="过期键判定"><a href="#过期键判定" class="headerlink" title="过期键判定"></a>过期键判定</h2><p>步骤：1）检查给定键的过期字典，如果存在则取得过期时间；2）将过期时间和当前时间戳对比。</p>
+<h2 id="过期键删除策略"><a href="#过期键删除策略" class="headerlink" title="过期键删除策略"></a>过期键删除策略</h2><p>redis采用定期删除和惰性删除结合的形式：</p>
+<ul>
+<li>定期删除：每隔一段时间删除过期键，并限制删除时长和频率减少删除操作对CPU的影响</li>
+<li>惰性删除：当访问到过期键时才删除</li>
+</ul>
+<h3 id="惰性删除"><a href="#惰性删除" class="headerlink" title="惰性删除"></a>惰性删除</h3><p>惰性删除的步骤如下图：</p>
+<p><img src="/2023/11/02/Redis/implementation/database/lazyDeletion.png"></p>
+<p>使用GET读取一个键时，先判定键是否过期，没有就返回key对应的值。如果过期了就删除键并返回空值。</p>
+<h3 id="定期删除"><a href="#定期删除" class="headerlink" title="定期删除"></a>定期删除</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认每次检查的数据库数量</span></span><br><span class="line">DEFAULT_DB_NUMBERS = <span class="number">16</span></span><br><span class="line"><span class="comment"># 默认每个数据库检查的键数量</span></span><br><span class="line">DEFAULT_KEY_NUMBERS = <span class="number">20</span></span><br><span class="line"><span class="comment"># 全局变量，记录检查进度</span></span><br><span class="line">current_db = <span class="number">0</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">activeExpireCycle</span>():</span><br><span class="line">    <span class="comment"># 初始化要检查的数据库数量</span></span><br><span class="line">    <span class="comment"># 如果服务器的数据库数量比 DEFAULT_DB_NUMBERS 要小</span></span><br><span class="line">    <span class="comment"># 那么以服务器的数据库数量为准</span></span><br><span class="line">    <span class="keyword">if</span> server.dbnum &lt; DEFAULT_DB_NUMBERS:</span><br><span class="line">        db_numbers = server.dbnum</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        db_numbers = DEFAULT_DB_NUMBERS</span><br><span class="line">    <span class="comment"># 遍历各个数据库</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(db_numbers):</span><br><span class="line">        <span class="comment"># 如果current_db的值等于服务器的数据库数量</span></span><br><span class="line">        <span class="comment"># 这表示检查程序已经遍历了服务器的所有数据库一次</span></span><br><span class="line">        <span class="comment"># 将current_db重置为0，开始新的一轮遍历</span></span><br><span class="line">        <span class="keyword">if</span> current_db == server.dbnum:</span><br><span class="line">            current_db = <span class="number">0</span></span><br><span class="line">        <span class="comment"># 获取当前要处理的数据库</span></span><br><span class="line">        redisDb = server.db[current_db]</span><br><span class="line">        <span class="comment"># 将数据库索引增1，指向下一个要处理的数据库</span></span><br><span class="line">        current_db += <span class="number">1</span></span><br><span class="line">        <span class="comment"># 检查数据库键</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(DEFAULT_KEY_NUMBERS):</span><br><span class="line">            <span class="comment"># 如果数据库中没有一个键带有过期时间，那么跳过这个数据库</span></span><br><span class="line">            <span class="keyword">if</span> redisDb.expires.size() == <span class="number">0</span>: <span class="keyword">break</span></span><br><span class="line">            <span class="comment"># 随机获取一个带有过期时间的键</span></span><br><span class="line">            key_with_ttl = redisDb.expires.get_random_key()</span><br><span class="line">            <span class="comment"># 检查键是否过期，如果过期就删除它</span></span><br><span class="line">            <span class="keyword">if</span> is_expired(key_with_ttl):</span><br><span class="line">                delete_key(key_with_ttl)</span><br><span class="line">            <span class="comment"># 已达到时间上限，停止处理</span></span><br><span class="line">            <span class="keyword">if</span> reach_time_limit(): <span class="keyword">return</span></span><br></pre></td></tr></table></figure>
+
+<p>redis中由<code>redis.c/activeExpireCycle</code>这个函数来实现对过期键的定期删除。他的行为如上伪代码所示。</p>
+<h3 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h3><p>使用<code>SAVE</code> <code>BGSAVE</code>命令会创建一个.rdb文件，即RDB持久化功能。此时，过期的键不会被保存到.rdb文件中。</p>
+<p>当载入rdb文件时，分主服务器和从服务器两种情况：</p>
+<ol>
+<li>主服务器：.rdb文件中的过期的键不会载入</li>
+<li>从服务器：.rdb文件中的所有键会被载入。当主服务器数据同步时，从服务器的数据库会被删除。</li>
+</ol>
+<h3 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h3><p>当键过期且被删除时，服务器向AOF文件发送DEL命令，记录该键已经删除。</p>
+<p>AOF重写时，仅重写不过期的键</p>
+<h3 id="复制"><a href="#复制" class="headerlink" title="复制"></a>复制</h3><p>客户端向主服务器读取一个键时，如果过期了，主服务器将删除这个键并返回空值。当主服务器删除了一个过期键时，此时主服务器也向其他的从服务器发送删除过期键的指令。</p>
+<p>客户端向从服务器读取一个键时，即使读取了过期键也像正常的键一样处理，只有接收了主服务器发送的删除过期键指令才会删除。</p>
+<h2 id="数据库通知"><a href="#数据库通知" class="headerlink" title="数据库通知"></a>数据库通知</h2><ul>
+<li>键空间通知：通知哪个键执行了什么命令</li>
+<li>键事件通知：通知哪个命令被什么键执行</li>
+</ul>
+<p>在<code>notify-keyspace-events</code>中决定服务器发送通知的类型。</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>属性</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AKE</td>
+<td>所有类型的键事件和键空间通知</td>
+</tr>
+<tr>
+<td>AK</td>
+<td>所有类型的键空间通知</td>
+</tr>
+<tr>
+<td>AE</td>
+<td>所有类型的键事件通知</td>
+</tr>
+<tr>
+<td>K$</td>
+<td>字符串键类型的键空间通知</td>
+</tr>
+<tr>
+<td>EL</td>
+<td>列表键类型的键事件通知</td>
+</tr>
+<tr>
+<td>……</td>
+<td>……</td>
+</tr>
+</tbody></table>
+<h3 id="发送通知"><a href="#发送通知" class="headerlink" title="发送通知"></a>发送通知</h3><p>在<code>notify.c/notifyKeyspaceEvent()</code>中实现：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">notifyKeyspaceEvent</span><span class="params">(<span class="type">int</span> type, <span class="type">char</span> *event, robj *key, <span class="type">int</span> dbid)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>函数的参数作用如下：</p>
+<ul>
+<li><code>type</code>:当前发送的通知类型，然后根据服务器的<code>notify-keyspace-events</code>配置来判断是否发送这个通知</li>
+<li><code>event</code>：事件的名称</li>
+<li><code>key</code>：产生事件的键</li>
+<li><code>dbid</code>产生事件的数据库id</li>
+</ul>
+<p>以下是实现的伪码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">notifyKeyspaceEvent</span>(<span class="params"><span class="built_in">type</span>, event, key, dbid</span>):</span><br><span class="line">    <span class="comment"># 如果给定的通知不是服务器允许发送的通知，那么直接返回</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span>(server.notify_keyspace_events &amp; <span class="built_in">type</span>):</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="comment"># 发送键空间通知</span></span><br><span class="line">    <span class="keyword">if</span> server.notify_keyspace_events &amp; REDIS_NOTIFY_KEYSPACE:</span><br><span class="line">        <span class="comment">#将通知发送给频道__keyspace@&lt;dbid&gt;__:&lt;key&gt;</span></span><br><span class="line">        <span class="comment">#内容为键所发生的事件 &lt;event&gt;</span></span><br><span class="line">        <span class="comment"># 构建频道名字</span></span><br><span class="line">        chan = <span class="string">&quot;__keyspace@&#123;dbid&#125;__:&#123;key&#125;&quot;</span>.<span class="built_in">format</span>(dbid=dbid, key=key)</span><br><span class="line">        <span class="comment"># 发送通知</span></span><br><span class="line">        pubsubPublishMessage(chan, event)</span><br><span class="line">    <span class="comment"># 发送键事件通知</span></span><br><span class="line">    <span class="keyword">if</span> server.notify_keyspace_events &amp; REDIS_NOTIFY_KEYEVENT:</span><br><span class="line">        <span class="comment">#将通知发送给频道__keyevent@&lt;dbid&gt;__:&lt;event&gt;</span></span><br><span class="line">        <span class="comment">#内容为发生事件的键 &lt;key&gt;</span></span><br><span class="line">        <span class="comment"># 构建频道名字</span></span><br><span class="line">        chan = <span class="string">&quot;__keyevent@&#123;dbid&#125;__:&#123;event&#125;&quot;</span>.<span class="built_in">format</span>(dbid=dbid,event=event)</span><br><span class="line">        <span class="comment"># 发送通知</span></span><br><span class="line">        pubsubPublishMessage(chan, key)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Redis/" rel="tag"># Redis</a>
+              <a href="/tags/implementation/" rel="tag"># implementation</a>
+              <a href="/tags/singleMachine/" rel="tag"># singleMachine</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/10/26/Git/undoing/" rel="prev" title="undoing">
+      <i class="fa fa-chevron-left"></i> undoing
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/11/07/C++/string/strFunc/" rel="next" title="strFunc">
+      strFunc <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E6%9C%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.</span> <span class="nav-text">单机数据库的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E8%BF%B0"><span class="nav-number">1.1.</span> <span class="nav-text">总述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E4%BF%9D%E5%AD%98%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">数据库的保存方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%88%87%E6%8D%A2"><span class="nav-number">1.3.</span> <span class="nav-text">数据库的切换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%AE%E7%A9%BA%E9%97%B4"><span class="nav-number">1.4.</span> <span class="nav-text">键空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%86%99%E9%94%AE%E7%A9%BA%E9%97%B4%E6%97%B6%E7%9A%84%E7%BB%B4%E6%8A%A4"><span class="nav-number">1.5.</span> <span class="nav-text">读写键空间时的维护</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%AE%E7%9A%84%E7%94%9F%E5%AD%98%E6%97%B6%E9%97%B4%E5%92%8C%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4"><span class="nav-number">1.6.</span> <span class="nav-text">键的生存时间和过期时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%9D%E5%AD%98%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4"><span class="nav-number">1.7.</span> <span class="nav-text">保存过期时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%BB%E9%99%A4%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4"><span class="nav-number">1.8.</span> <span class="nav-text">移除过期时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%94%E5%9B%9E%E7%94%9F%E5%AD%98%E6%97%B6%E9%97%B4"><span class="nav-number">1.9.</span> <span class="nav-text">返回生存时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E6%9C%9F%E9%94%AE%E5%88%A4%E5%AE%9A"><span class="nav-number">1.10.</span> <span class="nav-text">过期键判定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E6%9C%9F%E9%94%AE%E5%88%A0%E9%99%A4%E7%AD%96%E7%95%A5"><span class="nav-number">1.11.</span> <span class="nav-text">过期键删除策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%83%B0%E6%80%A7%E5%88%A0%E9%99%A4"><span class="nav-number">1.11.1.</span> <span class="nav-text">惰性删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E6%9C%9F%E5%88%A0%E9%99%A4"><span class="nav-number">1.11.2.</span> <span class="nav-text">定期删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RDB"><span class="nav-number">1.11.3.</span> <span class="nav-text">RDB</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AOF"><span class="nav-number">1.11.4.</span> <span class="nav-text">AOF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6"><span class="nav-number">1.11.5.</span> <span class="nav-text">复制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E9%80%9A%E7%9F%A5"><span class="nav-number">1.12.</span> <span class="nav-text">数据库通知</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%91%E9%80%81%E9%80%9A%E7%9F%A5"><span class="nav-number">1.12.1.</span> <span class="nav-text">发送通知</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">阿怪</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">阿怪</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
