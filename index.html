@@ -165,6 +165,549 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/22/concurrent/thread/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/22/concurrent/thread/" class="post-title-link" itemprop="url">thread</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-11-22 10:58:49 / 修改时间：11:09:04" itemprop="dateCreated datePublished" datetime="2023-11-22T10:58:49+08:00">2023-11-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/thread/" itemprop="url" rel="index"><span itemprop="name">thread</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="pthread-mutex-t"><a href="#pthread-mutex-t" class="headerlink" title="pthread_mutex_t"></a>pthread_mutex_t</h1><p> POSIX 线程库（Pthreads）中用于创建互斥锁（Mutex）的数据类型。互斥锁用于实现线程之间的互斥访问，确保在任意给定时刻只有一个线程可以访问共享资源。</p>
+<p>使用步骤如下：</p>
+<ol>
+<li><strong>创建和初始化互斥锁：</strong></li>
+</ol>
+  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;pthread.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">pthread_mutex_t</span> myMutex = PTHREAD_MUTEX_INITIALIZER;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li><p><strong>在代码中使用互斥锁：</strong></p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pthread_mutex_lock</span>(&amp;myMutex);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 访问共享资源的代码块</span></span><br><span class="line"><span class="built_in">pthread_mutex_unlock</span>(&amp;myMutex);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>pthread_mutex_lock</code> 用于获取互斥锁，如果锁已被其他线程占用，当前线程将被阻塞。</li>
+<li><code>pthread_mutex_unlock</code> 用于释放互斥锁。</li>
+</ul>
+</li>
+<li><p><strong>销毁互斥锁：</strong></p>
+ <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pthread_mutex_destroy</span>(&amp;myMutex);</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/21/webserver/networkProgramming/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/21/webserver/networkProgramming/" class="post-title-link" itemprop="url">networkProgramming</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-21 10:55:22" itemprop="dateCreated datePublished" datetime="2023-11-21T10:55:22+08:00">2023-11-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-22 10:06:00" itemprop="dateModified" datetime="2023-11-22T10:06:00+08:00">2023-11-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webserver/" itemprop="url" rel="index"><span itemprop="name">webserver</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="套接字"><a href="#套接字" class="headerlink" title="套接字"></a>套接字</h1><p>套接字 &#x3D; IP＋端口</p>
+<h1 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">in_addr</span>&#123;</span><br><span class="line">    <span class="type">uint32_t</span> s_addr;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//IP地址结构</span></span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//将点分十进制地址转换为二进制网络字节顺序的IP地址</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">inet_pton</span><span class="params">(AF_INET, <span class="type">const</span> <span class="type">void</span> *src, <span class="type">void</span> *dst)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将二进制地址转换为点分十进制地址</span></span><br><span class="line"><span class="function"><span class="type">const</span> <span class="type">char</span> *<span class="title">inet_ntop</span><span class="params">(AF_INET, <span class="type">const</span> <span class="type">void</span> *src ,<span class="type">char</span> *dst, <span class="type">socklen_t</span> len)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="套接字地址结构"><a href="#套接字地址结构" class="headerlink" title="套接字地址结构"></a>套接字地址结构</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">sockaddr</span> &#123;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> sa_family;  <span class="comment">// 地址族，例如 AF_INET</span></span><br><span class="line">    <span class="type">char</span> sa_data[<span class="number">14</span>];          <span class="comment">// 地址数据</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> &#123;</span><br><span class="line">    <span class="type">short</span> <span class="type">int</span> sin_family;      <span class="comment">// 地址族，通常为 AF_INET</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> <span class="type">int</span> sin_port;  <span class="comment">// 端口号，网络字节序</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">in_addr</span> sin_addr;   <span class="comment">// IPv4 地址结构体</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> sin_zero[<span class="number">8</span>];  <span class="comment">// 填充字段，使结构体大小与 sockaddr 一致</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="地址转换"><a href="#地址转换" class="headerlink" title="地址转换"></a>地址转换</h1><h2 id="getaddrinfo"><a href="#getaddrinfo" class="headerlink" title="getaddrinfo()"></a>getaddrinfo()</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">getaddrinfor</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *host, <span class="type">const</span> <span class="type">char</span> *service,</span></span><br><span class="line"><span class="params">                 <span class="type">const</span> <span class="keyword">struct</span> addrinfo *hints,</span></span><br><span class="line"><span class="params">                 <span class="keyword">struct</span> addrinfo **result)</span>;</span><br><span class="line"><span class="comment">//成功返回0，失败返回错误代码</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">freeaddrinfo</span><span class="params">(stuct addrinfo *result)</span>;</span><br><span class="line"><span class="comment">//释放空间</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>node</code>：主机名或 IP 地址字符串，可以为 <code>NULL</code>。</li>
+<li><code>service</code>：服务名或端口号字符串，可以为 <code>NULL</code>。</li>
+<li><code>hints</code>：一个可选的指向 <code>struct addrinfo</code> 结构体的指针，用于提供关于期望返回的地址信息类型的提示。如果不需要特殊的提示，可以将其设置为 <code>NULL</code>。</li>
+<li><code>res</code>：一个指向 <code>struct addrinfo</code> 结构体链表的指针，返回获取到的地址信息。</li>
+</ul>
+<h2 id="struct-addrinfo"><a href="#struct-addrinfo" class="headerlink" title="struct addrinfo"></a>struct addrinfo</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">addrinfo</span> &#123;</span></span><br><span class="line">        <span class="type">int</span> ai_flags;     <span class="comment">// Hints argument flags </span></span><br><span class="line">        <span class="type">int</span> ai_family;    <span class="comment">// First arg to socket function </span></span><br><span class="line">        <span class="type">int</span> ai_socktype; <span class="comment">// Second arg to socket function </span></span><br><span class="line">        <span class="type">int</span> ai_protocol; <span class="comment">// Third arg to socket function </span></span><br><span class="line">        <span class="type">char</span> *ai_canonname; <span class="comment">// Canonical hostname </span></span><br><span class="line">        <span class="type">size_t</span> ai_addrlen;   <span class="comment">// Size of ai_addr struct </span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr</span> *<span class="title">ai_addr</span>;</span></span><br><span class="line">    <span class="comment">// Ptr to socket address structure */</span></span><br><span class="line">    </span><br><span class="line">    	<span class="class"><span class="keyword">struct</span> <span class="title">addrinfo</span> *<span class="title">ai_next</span>;</span>      </span><br><span class="line">    <span class="comment">// Ptr to next item in linked list */</span></span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="地址信息链表"><a href="#地址信息链表" class="headerlink" title="地址信息链表"></a>地址信息链表</h2><h2 id="inet-ntop"><a href="#inet-ntop" class="headerlink" title="inet_ntop()"></a>inet_ntop()</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">const</span> <span class="type">char</span> *<span class="title">inet_ntop</span><span class="params">(<span class="type">int</span> af, <span class="type">const</span> <span class="type">void</span> *src, <span class="type">char</span> *dst, <span class="type">socklen_t</span> size)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>af</code>：地址族，可以是 <code>AF_INET</code>（IPv4）或 <code>AF_INET6</code>（IPv6）。</li>
+<li><code>src</code>：指向包含二进制地址的指针，通常是 <code>struct sockaddr</code> 结构体中的 <code>sa_data</code> 字段。</li>
+<li><code>dst</code>：指向存储转换后的字符串的缓冲区。</li>
+<li><code>size</code>：缓冲区的大小。</li>
+</ul>
+<h1 id="套接字选项"><a href="#套接字选项" class="headerlink" title="套接字选项"></a>套接字选项</h1><h2 id="setsockopt"><a href="#setsockopt" class="headerlink" title="setsockopt()"></a>setsockopt()</h2><p>是一个系统调用，用于设置套接字选项。套接字选项是影响套接字行为的参数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">setsockopt</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">int</span> level, <span class="type">int</span> optname, <span class="type">const</span> <span class="type">void</span> *optval, <span class="type">socklen_t</span> optlen)</span></span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>sockfd</code>：套接字描述符，标识要设置选项的套接字。</li>
+<li><code>level</code>：指定选项的级别，常见的有 <code>SOL_SOCKET</code>（通用套接字选项）、<code>IPPROTO_TCP</code>（TCP 选项）和 <code>IPPROTO_IP</code>（IP 选项）等。</li>
+<li><code>optname</code>：指定要设置的选项的名称，具体取决于 <code>level</code> 的值。</li>
+<li><code>optval</code>：指向包含新选项值的内存块的指针。</li>
+<li><code>optlen</code>：<code>optval</code> 指向的内存块的大小。</li>
+</ul>
+<blockquote>
+<p>当 <code>level</code> 设置为 <code>SOL_SOCKET</code> 时，<code>optname</code> 和 <code>optval</code> 参数的含义会根据具体的选项而变化。</p>
+</blockquote>
+<h1 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h1><h2 id="socket-connect"><a href="#socket-connect" class="headerlink" title="socket() &amp;&amp; connect()"></a>socket() &amp;&amp; connect()</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">socket</span><span class="params">(<span class="type">int</span> domain, <span class="type">int</span> type, <span class="type">int</span> protocol)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">connect</span><span class="params">(<span class="type">int</span> clientfd, <span class="type">const</span> <span class="keyword">struct</span> socketaddr *addr, </span></span><br><span class="line"><span class="params">            <span class="type">socklen_t</span> addrlen)</span>;</span><br><span class="line"><span class="comment">//connect把clientfd的内容发送给服务端，并从clienfd中接收从服务端传来的消息</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h1><h2 id="socket-bind-listen-accept"><a href="#socket-bind-listen-accept" class="headerlink" title="socket() &amp;&amp; bind() &amp;&amp; listen() &amp;&amp; accept()"></a>socket() &amp;&amp; bind() &amp;&amp; listen() &amp;&amp; accept()</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">bind</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="keyword">struct</span> sockaddr *addr,</span></span><br><span class="line"><span class="params">         <span class="type">socklen_t</span> addrlen)</span>;</span><br><span class="line"><span class="comment">//绑定服务器套接字地址和套接字描述符</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">listen</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">int</span> backlog)</span>;</span><br><span class="line"><span class="comment">//将套接字设置为监听状态</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">accept</span><span class="params">(<span class="type">int</span> listenfd, <span class="keyword">struct</span> sockaddr *addr, </span></span><br><span class="line"><span class="params">           <span class="type">int</span> *addrlen)</span>;</span><br><span class="line"><span class="comment">//*等待*客户端的连接请求，返回一个已连接描述符，向描述符写的内容就是传给客户端的内容。</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/20/CloudMeetting/main/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/20/CloudMeetting/main/" class="post-title-link" itemprop="url">Main</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-20 16:56:34" itemprop="dateCreated datePublished" datetime="2023-11-20T16:56:34+08:00">2023-11-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-22 11:43:52" itemprop="dateModified" datetime="2023-11-22T11:43:52+08:00">2023-11-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/project/" itemprop="url" rel="index"><span itemprop="name">project</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Readme"><a href="#Readme" class="headerlink" title="Readme"></a>Readme</h1><p>这篇博文用来解析项目代码</p>
+<h1 id="main"><a href="#main" class="headerlink" title="main()"></a>main()</h1><p>从main()函数开始，按照顺序解析各个函数的功能。</p>
+<h2 id="sig-chld"><a href="#sig-chld" class="headerlink" title="sig_chld()"></a>sig_chld()</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">sig_chld</span><span class="params">(<span class="type">int</span> signo)</span></span>;</span><br><span class="line"><span class="built_in">Signal</span>(SIGCHLD, sig_chld);</span><br></pre></td></tr></table></figure>
+
+<p><code>sig_chld()</code>是信号处理程序，当服务器接收到<code>SIGCHLD</code>信号时执行的函数时执行。主要逻辑：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>((pid = <span class="built_in">waitpid</span>(<span class="number">-1</span>, &amp;stat, WNOHANG)) &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">WIFEXITED</span>(stat)) <span class="comment">//是否正常退出</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;child %d normal termination, exit status = %d\n&quot;</span>,pid,  <span class="built_in">WEXITSTATUS</span>(stat));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">WIFSIGNALED</span>(stat)) <span class="comment">//由于信号而退出</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;child %d abnormal termination, singal number  = %d%s\n&quot;</span>, pid, <span class="built_in">WTERMSIG</span>(stat),</span><br><span class="line">            <span class="meta">#<span class="keyword">ifdef</span> WCOREDUMP</span></span><br><span class="line">                   <span class="built_in">WCOREDUMP</span>(stat)? <span class="string">&quot; (core file generated) &quot;</span> : <span class="string">&quot;&quot;</span>);</span><br><span class="line">            <span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">                   <span class="string">&quot;&quot;</span>);</span><br><span class="line">            <span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>其中宏定义参考：<a target="_blank" rel="noopener" href="https://anan-liu.github.io/2023/11/11/webserver/ECF/">Exceptional Control Flow | 任我行 (anan-liu.github.io)</a></p>
+</blockquote>
+<h2 id="Tcp-listen"><a href="#Tcp-listen" class="headerlink" title="Tcp_listen()"></a>Tcp_listen()</h2><p>打开一个套接字描述符并令他成为监听套接字。</p>
+<p>这个函数主要使用<code>getaddrinfo()</code>，经由此函数生成的<code>addrinfo</code>类型的变量来生成套接字描述符。再之后调用封装函数<code>Listen()</code>来获得监听描述符，并将之作为返回。</p>
+<h2 id="struct-Room"><a href="#struct-Room" class="headerlink" title="struct Room"></a>struct Room</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">Room</span> <span class="comment">// single</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> navail;</span><br><span class="line">    Process *pptr;</span><br><span class="line">    <span class="type">pthread_mutex_t</span> lock;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Room</span> (<span class="type">int</span> n)</span><br><span class="line">    &#123;</span><br><span class="line">        navail = n;</span><br><span class="line">        pptr = (Process *)<span class="built_in">Calloc</span>(n, <span class="built_in">sizeof</span>(Process));</span><br><span class="line">        lock = PTHREAD_MUTEX_INITIALIZER;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;Room;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>Room(int n)</code>：构造函数，初始化各个成员变量。</li>
+</ul>
+<h2 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">pthread_t</span> thread_tid;</span><br><span class="line">&#125;Thread;</span><br><span class="line"><span class="comment">// 将 pthread_t 封装在结构体中，可以通过定义更高级别的接口函数来管理线程。</span></span><br><span class="line"><span class="comment">// 这使得线程的创建、销毁等操作更加直观和易用。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Calloc"><a href="#Calloc" class="headerlink" title="Calloc()"></a>Calloc()</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> * <span class="title">Calloc</span><span class="params">(<span class="type">size_t</span> n, <span class="type">size_t</span> size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">void</span> *ptr;</span><br><span class="line">    <span class="keyword">if</span>( (ptr = <span class="built_in">calloc</span>(n, size)) == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        errno = ENOMEM;</span><br><span class="line">        <span class="built_in">err_quit</span>(<span class="string">&quot;Calloc error&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ptr;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// calloc()的封装函数，将内存分配和错误信息处理存放在一起</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Select"><a href="#Select" class="headerlink" title="Select()"></a>Select()</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">Select</span><span class="params">(<span class="type">int</span> nfds, fd_set * readfds, fd_set * writefds, fd_set * execpfds, <span class="keyword">struct</span> timeval *timeout)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">for</span>(;;)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>((n = <span class="built_in">select</span>(nfds, readfds, writefds, execpfds, timeout)) &lt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(errno == EINTR) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="built_in">err_quit</span>(<span class="string">&quot;select error&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> n; <span class="comment">//can return 0 on timeout</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/20/concurrent/threadPool/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/20/concurrent/threadPool/" class="post-title-link" itemprop="url">threadPool</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-11-20 11:05:54 / 修改时间：15:00:25" itemprop="dateCreated datePublished" datetime="2023-11-20T11:05:54+08:00">2023-11-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/thread/" itemprop="url" rel="index"><span itemprop="name">thread</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="x"><a href="#x" class="headerlink" title="x"></a>x</h1>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/16/Redis/implementation/rdb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/16/Redis/implementation/rdb/" class="post-title-link" itemprop="url">RDB</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-16 09:38:51" itemprop="dateCreated datePublished" datetime="2023-11-16T09:38:51+08:00">2023-11-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-19 02:13:57" itemprop="dateModified" datetime="2023-11-19T02:13:57+08:00">2023-11-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h1><p><strong>数据库状态</strong>：非空数据库和其键值对统称为数据库状态</p>
+<p>由于Redis是内存数据库，当关机后数据将不存在，因此需要将其存储在硬盘上。RDB持久化将数据存储在硬盘上，可以手动或服务器定期执行。</p>
+<ul>
+<li>保存和载入RDB</li>
+<li>SAVE和BGSAVE的实现原理</li>
+<li>自动保存功能</li>
+<li>RDB文件的组成</li>
+</ul>
+<h2 id="保存和载入RDB"><a href="#保存和载入RDB" class="headerlink" title="保存和载入RDB"></a>保存和载入RDB</h2><p>使用命令<code>SAVE</code>或<code>BGSAVE</code>可以创建RDB文件。两个命令的区别是</p>
+<ul>
+<li><code>SAVE</code>会阻断当前的进程，等待命令执行完成</li>
+<li><code>BGSAVE</code>会创建子进程，用子进程来执行创建RDB操作</li>
+</ul>
+<p>两个命令 的伪码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">SAVE</span>():</span><br><span class="line">    <span class="comment"># 创建RDB文件</span></span><br><span class="line">    rdbSave()</span><br><span class="line">    </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">BGSAVE</span>():</span><br><span class="line">    <span class="comment"># 创建子进程</span></span><br><span class="line">    pid = fork()</span><br><span class="line">    <span class="keyword">if</span> pid == <span class="number">0</span>:</span><br><span class="line">        <span class="comment">#子进程负责创建RDB文件</span></span><br><span class="line">        rdbSave()</span><br><span class="line">        <span class="comment"># 完成之后向父进程发送信号</span></span><br><span class="line">        signal_parent()</span><br><span class="line">    <span class="keyword">elif</span> pid &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="comment"># 父进程继续处理命令请求，并通过轮询等待子进程的信号</span></span><br><span class="line">        handle_request_and_wait_signal()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 处理出错情况</span></span><br><span class="line">        handle_fork_error()</span><br></pre></td></tr></table></figure>
+
+<p>Redis在服务器启动时会自动载入RDB文件，如果AOF持久化功能是启用状态，则会载入AOF文件。</p>
+<h2 id="保存过程中的服务器状态"><a href="#保存过程中的服务器状态" class="headerlink" title="保存过程中的服务器状态"></a>保存过程中的服务器状态</h2><p>执行<code>SAVE</code>时，服务器处于阻塞状态，此时发送的所有命令将被拒绝。</p>
+<p>执行<code>BGSAVE</code>时，是子进程来执行的，因此在执行时可以接收大部分命令。以下几个命令例外：</p>
+<ul>
+<li><code>SAVE</code>：为了避免同时调用rdbSave()产生竞争，执行<code>BGSAVE</code>时，将拒绝<code>SAVE</code>命令</li>
+<li><code>BGSAVE</code>：在执行过程中，<code>BGSAVE</code>命令也会被拒绝，同样会产生竞争。</li>
+<li><code>BGREWRITEAOF</code>：等到<code>BGSAVE</code>执行完毕后再执行，同时执行这两个命令将造成极大的性能损耗</li>
+</ul>
+<blockquote>
+<p>载入过程中，服务器处于阻塞状态</p>
+</blockquote>
+<h2 id="自动间隔保存"><a href="#自动间隔保存" class="headerlink" title="自动间隔保存"></a>自动间隔保存</h2><p>因为<code>BGSAVE</code>是在后台进行的，因此可以令服务器根据特定条件自动调用这个命令。一般设置如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">save 900 1</span><br><span class="line">save 300 10</span><br></pre></td></tr></table></figure>
+
+<p>两条条件的意思是：1）900秒内有一次修改，2）300秒内有10次修改。一旦触发了两个条件其中之一，就会自动保存。</p>
+<p>这个配置保存在以下数据结构中：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">redisServer</span> &#123;</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="comment">// 记录了保存条件的数组</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">saveparam</span> *<span class="title">saveparams</span>;</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">saveparam</span> &#123;</span></span><br><span class="line">    <span class="comment">// 秒数</span></span><br><span class="line">    <span class="type">time_t</span> seconds;</span><br><span class="line">    <span class="comment">// 修改数</span></span><br><span class="line">    <span class="type">int</span> changes;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p><code>seconds</code>和<code>changes</code>记录的是规定的条件，有两个属性记录服务器当前对应的条件值是多少，分别是<code>dirty</code>和<code>lastsave</code>。如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">redisServer</span> &#123;</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="comment">// 修改计数器</span></span><br><span class="line">    <span class="type">long</span> <span class="type">long</span> dirty;</span><br><span class="line">    <span class="comment">// 上一次执行保存的时间</span></span><br><span class="line">    <span class="type">time_t</span> lastsave;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>为了检查当前服务器是否满足条件，有一个函数<code>serverCron()</code>用来检查条件，每100ms执行一次，伪码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">serverCron</span>():</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">    <span class="comment"># 遍历所有保存条件</span></span><br><span class="line">    <span class="keyword">for</span> saveparam <span class="keyword">in</span> server.saveparams:</span><br><span class="line">        <span class="comment"># 计算距离上次执行保存操作有多少秒</span></span><br><span class="line">        save_interval = unixtime_now()-server.lastsave</span><br><span class="line">        <span class="comment"># 如果数据库状态的修改次数超过条件所设置的次数</span></span><br><span class="line">        <span class="comment"># 并且距离上次保存的时间超过条件所设置的时间</span></span><br><span class="line">        <span class="comment"># 那么执行保存操作</span></span><br><span class="line">        <span class="keyword">if</span>      server.dirty &gt;= saveparam.changes <span class="keyword">and</span> \</span><br><span class="line">           save_interval &gt; saveparam.seconds:</span><br><span class="line">            BGSAVE()</span><br><span class="line">    <span class="comment"># ...</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h2><blockquote>
+<p>大写字母为常量，小写字母为变量或者数据</p>
+</blockquote>
+<p>RDB是一个二进制文件，RDB的文件结构如下：</p>
+<p><img src="/2023/11/16/Redis/implementation/rdb/structure.png"></p>
+<p><code>REDIS</code>:占据5字节大小，RDB文件的开头，用以快速确认是否为RDB文件</p>
+<p><code>db_version</code>:占据4字节大小，RDB文件的版本</p>
+<p><code>databases</code>:包含0个或多个数据库，以及其中的键值对。如果没有数据库大小为0，如果有则根据数量的不同大小随之变化</p>
+<p><code>EOF</code>:占据1字节，RDB正文的结束，读到此处表示数据库全部读取完毕</p>
+<p><code>check_sum</code>:占据8字节，是一个校验和，检验RDB文件是否出错</p>
+<h3 id="databases"><a href="#databases" class="headerlink" title="databases"></a>databases</h3><p>databases部分保存数据库，结构如下：</p>
+<p><img src="/2023/11/16/Redis/implementation/rdb/databases.png"></p>
+<ul>
+<li><code>SELECTDB</code>：占据1字节，系统读到此处时，认为接下来将要读取数据库号</li>
+<li><code>db_number</code>：占据1&#x2F;2&#x2F;5字节，数据库号码，接下来读取的数据存入到对应的数据库中</li>
+<li><code>key_value_pairs</code>：如果键有过期时间，过期时间和键值对保存在一起。大小不定</li>
+</ul>
+<h3 id="key-value-pairs"><a href="#key-value-pairs" class="headerlink" title="key_value_pairs"></a>key_value_pairs</h3><p>保存键值对，结构如下：</p>
+<p><img src="/2023/11/16/Redis/implementation/rdb/key_value_pairs.png"></p>
+<ul>
+<li><p><code>TYPE</code>：记录对象类型并指明相应的编码</p>
+<table>
+<thead>
+<tr>
+<th>REDIS_RDB_TYPE_STRING</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>REDIS_RDB_TYPE_LIST</strong></td>
+</tr>
+<tr>
+<td><strong>REDIS_RDB_TYPE_SET</strong></td>
+</tr>
+<tr>
+<td><strong>REDIS_RDB_TYPE_ZSET</strong></td>
+</tr>
+<tr>
+<td><strong>REDIS_RDB_TYPE_HASH</strong></td>
+</tr>
+<tr>
+<td><strong>REDIS_RDB_TYPE_LIST_ZIPLIST</strong></td>
+</tr>
+<tr>
+<td><strong>REDIS_RDB_TYPE_SET_INTSET</strong></td>
+</tr>
+<tr>
+<td><strong>REDIS_RDB_TYPE_ZSET_ZIPLIST</strong></td>
+</tr>
+<tr>
+<td><strong>REDIS_RDB_TYPE_HASH_ZIPLIST</strong></td>
+</tr>
+</tbody></table>
+<p>  服务器读入RDB时，根据<code>TYPE</code>来决定如何解释value的数据</p>
+</li>
+</ul>
+<p>带过期键的键值对结构如下：</p>
+<p><img src="/2023/11/16/Redis/implementation/rdb/key_value_pairs_withExpire.png"></p>
+<h3 id="value的编码"><a href="#value的编码" class="headerlink" title="value的编码"></a>value的编码</h3><ol>
+<li><p>字符串对象</p>
+</li>
+<li></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/11/webserver/ECF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -196,7 +739,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-12 15:37:16" itemprop="dateModified" datetime="2023-11-12T15:37:16+08:00">2023-11-12</time>
+                <time title="修改时间：2023-11-21 10:59:18" itemprop="dateModified" datetime="2023-11-21T10:59:18+08:00">2023-11-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -220,151 +763,14 @@
 
       
           <h1 id="异常控制流"><a href="#异常控制流" class="headerlink" title="异常控制流"></a>异常控制流</h1><p>在程序执行过程中由于出现异常情况而引发的控制流变化，涉及异常，进程，系统调用，进程控制，信号等</p>
-<h2 id="1、异常"><a href="#1、异常" class="headerlink" title="1、异常"></a>1、异常</h2><table>
-<thead>
-<tr>
-<th>类别</th>
-<th>原因</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>中断</td>
-<td>来自I&#x2F;O设备的信号</td>
-</tr>
-<tr>
-<td>陷阱</td>
-<td>有意的异常</td>
-</tr>
-<tr>
-<td>故障</td>
-<td>可回复的错误</td>
-</tr>
-<tr>
-<td>终止</td>
-<td>不可恢复的错误</td>
-</tr>
-</tbody></table>
-<p>其中陷阱也即是系统调用</p>
-<h2 id="2、进程"><a href="#2、进程" class="headerlink" title="2、进程"></a>2、进程</h2><p><strong>进程</strong>是正在执行中的程序的实例。每个进程都有自己的地址空间、内存、文件描述符和系统资源。进程是计算机系统中实现并发的基本单位，多个进程可以在同一时间并行执行。</p>
-<h3 id="2-1、上下文切换"><a href="#2-1、上下文切换" class="headerlink" title="2.1、上下文切换"></a>2.1、上下文切换</h3><p>上下文：由一些对象的值组成，对象包括通用目的寄存器、浮点寄存器、程序计数器、用户栈、状态寄存器、内核栈和各种内核数据结构。</p>
-<p>在执行某些进程时，内核可以决定另外一个进程来取代当前进程。称为<strong>调度</strong>。此时控制的转移由<strong>上下文切换</strong>这种机制来实现。</p>
-<h2 id="3、系统调用"><a href="#3、系统调用" class="headerlink" title="3、系统调用"></a>3、系统调用</h2><p>系统调用是操作系统提供给应用程序的一组接口，允许应用程序请求操作系统内核执行特权操作，例如文件操作、进程控制、网络通信等。应用程序通过系统调用与底层操作系统进行交互，访问底层系统资源。</p>
-<p>系统级函数遇到错误时，将返回-1，设置全局整数变量<code>errno</code>表示什么出错。<code>errno</code>表示的是一个整数，可以使用<code>strerror(errno);</code>，这个函数返回一个字符串，描述相对应的错误。</p>
-<h2 id="4、进程控制"><a href="#4、进程控制" class="headerlink" title="4、进程控制"></a>4、进程控制</h2><p>系统调用用来操作进程，以下是一些系统调用的函数清单</p>
-<h3 id="4-1-进程ID"><a href="#4-1-进程ID" class="headerlink" title="4.1 进程ID"></a>4.1 进程ID</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">getpid</span><span class="params">()</span>; <span class="comment">//返回当前进程的PID</span></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">getppid</span><span class="params">()</span>; <span class="comment">//返回当前进程的父进程的PID</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-2-创建和终止进程"><a href="#4-2-创建和终止进程" class="headerlink" title="4.2  创建和终止进程"></a>4.2  创建和终止进程</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">exit</span><span class="params">(<span class="type">int</span> status)</span>; <span class="comment">//以status退出状态终止进程</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">fork</span><span class="params">()</span>; 创建子进程</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-3-回收子进程"><a href="#4-3-回收子进程" class="headerlink" title="4.3 回收子进程"></a>4.3 回收子进程</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">waitpid</span><span class="params">(<span class="type">pid_t</span> pid, <span class="type">int</span> *statusp, <span class="type">int</span> options)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">wait</span><span class="params">(<span class="type">int</span> *statusp)</span>;</span><br><span class="line">    <span class="comment">//&lt;=&gt;</span></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">waitpid</span><span class="params">(<span class="number">-1</span>, status, <span class="number">0</span>)</span>;    </span><br></pre></td></tr></table></figure>
-
-<p>watipid返回时，导致它返回的此时有一个_等待集合_，存放进程，具体的进程由pid参数指定。</p>
-<ol>
-<li><p>pid</p>
-<ul>
-<li>pid&gt;0:等待集合的进程为进程号为pid的进程</li>
-<li>pid&#x3D;-1:等待集合为所有的子进程</li>
-</ul>
-</li>
-<li><p>*statusp</p>
-<p> 导致waitpid返回的子进程的状态信息会被写入*statusp中。</p>
-</li>
-<li><p>options</p>
-<p> 有常量如下：</p>
-<ul>
-<li>WNOHANG:等待集合没有任何子进程终止，立即返回，返回值为0.</li>
-<li>WUNTRACED:挂起调用进程，直到有子进程被终止，此时终止子进程的pid就是函数返回值。</li>
-<li>WCONTINUED:挂起调用进程，直到有子进程终止，或者有一个被停止的子进程又重新开始执行。</li>
-</ul>
-</li>
-</ol>
-<p>有示例如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;errno.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> N 3</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">unix_error</span><span class="params">(<span class="type">char</span> *msg)</span> &#123;</span><br><span class="line">    <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">&quot;%s\n&quot;</span>, msg);</span><br><span class="line">    <span class="built_in">exit</span>(EXIT_FAILURE);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> status, i;</span><br><span class="line">    <span class="type">pid_t</span> pid;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Parent creates N children */</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> ((pid = fork()) == <span class="number">0</span>) &#123;  <span class="comment">/* Child */</span></span><br><span class="line">            <span class="comment">// Child process code</span></span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;Child %d created\n&quot;</span>, getpid());</span><br><span class="line">            <span class="built_in">exit</span>(<span class="number">100</span> + i);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (pid &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            unix_error(<span class="string">&quot;Fork error&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Parent reaps N children in the order they were created */</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">        pid = waitpid(<span class="number">-1</span>, &amp;status, <span class="number">0</span>);</span><br><span class="line">        <span class="keyword">if</span> (pid &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (WIFEXITED(status))</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;Child %d terminated normally with exit status=%d\n&quot;</span>,</span><br><span class="line">                       pid, WEXITSTATUS(status));</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;Child %d terminated abnormally\n&quot;</span>, pid);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (pid &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            unix_error(<span class="string">&quot;Waitpid error&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>程序输出如下：</p>
-<p><img src="/2023/11/11/webserver/ECF/waitpid1.png"></p>
-<p>如程序的31行所示，status接收导致返回的子进程的状态信息。可以使用以下几个宏用以解释status：</p>
-<ul>
-<li>**<code>WIFEXITED(status)</code>**：<ul>
-<li>用于测试子进程是否正常终止。</li>
-<li>返回非零值表示子进程正常终止，可以使用 <code>WEXITSTATUS(status)</code> 获取其退出状态。</li>
-</ul>
-</li>
-<li>**<code>WEXITSTATUS(status)</code>**：<ul>
-<li>用于获取子进程正常终止时的退出状态。</li>
-<li>只有在 <code>WIFEXITED(status)</code> 返回非零值的情况下调用该宏才是有效的。</li>
-</ul>
-</li>
-<li>**<code>WIFSIGNALED(status)</code>**：<ul>
-<li>用于测试子进程是否因信号而终止。</li>
-<li>返回非零值表示子进程因信号而终止，可以使用 <code>WTERMSIG(status)</code> 获取导致终止的信号编号。</li>
-</ul>
-</li>
-<li>**<code>WTERMSIG(status)</code>**：<ul>
-<li>用于获取导致子进程终止的信号编号。</li>
-<li>只有在 <code>WIFSIGNALED(status)</code> 返回非零值的情况下调用该宏才是有效的。</li>
-</ul>
-</li>
-<li>**<code>WIFSTOPPED(status)</code>**：<ul>
-<li>用于测试子进程是否停止。</li>
-<li>返回非零值表示子进程当前已停止，可以使用 <code>WSTOPSIG(status)</code> 获取导致停止的信号编号。</li>
-</ul>
-</li>
-<li>**<code>WSTOPSIG(status)</code>**：<ul>
-<li>用于获取导致子进程停止的信号编号。</li>
-<li>只有在 <code>WIFSTOPPED(status)</code> 返回非零值的情况下调用该宏才是有效的。</li>
-</ul>
-</li>
-<li>**<code>WIFCONTINUED(status)</code>**：<ul>
-<li>用于测试子进程是否已经被继续。</li>
-<li>返回非零值表示子进程已经被继续。</li>
-</ul>
-</li>
-</ul>
-<h3 id="4-4-进程休眠"><a href="#4-4-进程休眠" class="headerlink" title="4.4 进程休眠"></a>4.4 进程休眠</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">unsigned</span> <span class="type">int</span> <span class="title function_">sleep</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> secs)</span>; <span class="comment">//休眠指定的秒数或收到一个信号中断。</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">pause</span><span class="params">(<span class="type">void</span>)</span>; <span class="comment">//直到收到信号才返回。</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-5-加载并运行程序"><a href="#4-5-加载并运行程序" class="headerlink" title="4.5 加载并运行程序"></a>4.5 加载并运行程序</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">execve</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *filename, <span class="type">const</span> <span class="type">char</span> *argv[], <span class="type">const</span> <span class="type">char</span> *envp[])</span>;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>filename:可执行文件的路径</li>
-<li>argc:可执行文件的名字和参数存储在这个数组。默认argv[0]为可执行文件。</li>
-<li>*envp[]:每个数组项都是char *类型的字符串。存储”name&#x3D;value”形式的环境</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//以下几组函数用以操作环境数组。环境变量的形式： &quot;name=value&quot;</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 得到&quot;name&quot;相对应的&quot;value&quot;</span></span><br><span class="line"><span class="type">char</span> *<span class="title function_">getenv</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *name)</span>; </span><br><span class="line"></span><br><span class="line"><span class="comment">//给&quot;name&quot;设置&quot;newvalue&quot;,如果没有oldvalue,则把&quot;name=newvalue&quot;添加到数组中</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">setenv</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *name, <span class="type">const</span> <span class="type">char</span> *newvalue, <span class="type">int</span> overwrite)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果环境数组中存在一个对应的&quot;name&quot;，则删除它</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">unsetenv</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *name)</span>;</span><br></pre></td></tr></table></figure>
-
-<h2 id="5、信号"><a href="#5、信号" class="headerlink" title="5、信号"></a>5、信号</h2><h3 id="5-1-会话-进程组及相关函数"><a href="#5-1-会话-进程组及相关函数" class="headerlink" title="5.1 会话&amp;&amp;进程组及相关函数"></a>5.1 会话&amp;&amp;进程组及相关函数</h3><p>会话包含一系列的进程组，进程组包含一系列的进程</p>
-<p>当进程组最后一个进程退出进程组后，进程组死亡。进程组的生命周期就是从进程组创建到进程组中最后一个进程退出。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">getpgrp</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="comment">//行为：获得当前进程的进程组id，并作为返回值</span></span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">getpgid</span><span class="params">(<span class="type">pid_t</span> pid)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">setpgid</span><span class="params">(<span class="type">pid_t</span> pid, <span class="type">pid_t</span> pgid)</span>;</span><br><span class="line"><span class="comment">//行为：改变指定进程的进程组ID，如果pid是0，则指定当前进程；如果pgid是0，就用当前进程id作为进程组id。</span></span><br><span class="line"><span class="comment">//返回：成功返回0，失败为-1</span></span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">getsid</span><span class="params">(<span class="type">pid_t</span> pid)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">setsid</span><span class="params">(<span class="type">void</span>)</span>;</span><br></pre></td></tr></table></figure>
-
-<h3 id="5-2-kill-raise-abort"><a href="#5-2-kill-raise-abort" class="headerlink" title="5.2 kill()&amp;&amp;raise()&amp;&amp;abort"></a>5.2 kill()&amp;&amp;raise()&amp;&amp;abort</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">kill</span><span class="params">(<span class="type">pid_t</span> pid, <span class="type">int</span> sig)</span>;</span><br><span class="line"><span class="comment">//行为：向指定的进程发送指定的信号。</span></span><br><span class="line"><span class="comment">//返回：成功返回0，失败返回-1.</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">raise</span><span class="params">(<span class="type">int</span> sig)</span>;</span><br><span class="line"><span class="comment">//行为：给当前的进程发送指定的信号</span></span><br><span class="line"><span class="comment">//返回：成功返回0，失败返回非0.</span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">abort</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="comment">//行为：给当前进程发送一个SIGABRT信号，杀死当前进程</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="5-3-alarm"><a href="#5-3-alarm" class="headerlink" title="5.3 alarm()"></a>5.3 alarm()</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">unsigned</span> <span class="type">int</span> <span class="title function_">alarm</span><span class="params">(<span class="type">unsigned</span> <span class="type">int</span> secs)</span>;</span><br><span class="line"><span class="comment">//行为：如果调用alarm时有待处理的闹钟，则取消待处理的闹钟，待处理闹钟的剩余秒数将被作为返回值。如果没有待处理闹钟，返回0.</span></span><br><span class="line"><span class="comment">//secs如果为0，则不安排新的闹钟。</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="5-4-setitimer"><a href="#5-4-setitimer" class="headerlink" title="5.4 setitimer()"></a>5.4 setitimer()</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/time.h&gt;</span></span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">setitimer</span><span class="params">(<span class="type">int</span> which, <span class="type">const</span> <span class="keyword">struct</span> itimerval *new_value,</span></span><br><span class="line"><span class="params">                        <span class="keyword">struct</span> itimerval *old_value)</span>;</span><br><span class="line">    </span><br><span class="line"><span class="comment">/* - 功能：设置定时器（闹钟）。可以替代alarm函数。精度微妙us，可以实现周期性定时</span></span><br><span class="line"><span class="comment"> - 参数：</span></span><br><span class="line"><span class="comment">     - which : 定时器以什么时间计时</span></span><br><span class="line"><span class="comment">       ITIMER_REAL: 真实时间，时间到达，发送 SIGALRM </span></span><br><span class="line"><span class="comment">       ITIMER_VIRTUAL: 用户时间，时间到达，发送 SIGVTALRM</span></span><br><span class="line"><span class="comment">       ITIMER_PROF: 以该进程在用户态和内核态下所消耗的时间来计算，时间到达，发送 SIGPROF</span></span><br><span class="line"><span class="comment">     - new_value: 设置定时器的属性 */</span></span><br><span class="line">            </span><br><span class="line">                <span class="class"><span class="keyword">struct</span> <span class="title">itimerval</span> &#123;</span>      <span class="comment">// 定时器的结构体</span></span><br><span class="line">                <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">it_interval</span>;</span>  <span class="comment">// 每个阶段的时间，间隔时间</span></span><br><span class="line">                <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> <span class="title">it_value</span>;</span>     <span class="comment">// 延迟多长时间执行定时器</span></span><br><span class="line">                &#125;;</span><br><span class="line"></span><br><span class="line">                <span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> &#123;</span>        <span class="comment">// 时间的结构体</span></span><br><span class="line">                    <span class="type">time_t</span>      tv_sec;     <span class="comment">//  秒数     </span></span><br><span class="line">                    <span class="type">suseconds_t</span> tv_usec;    <span class="comment">//  微秒    </span></span><br><span class="line">                &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*      过10秒后，每个2秒定时一次</span></span><br><span class="line"><span class="comment">     </span></span><br><span class="line"><span class="comment">      - old_value ：记录上一次的定时的时间参数，一般不使用，指定NULL</span></span><br><span class="line"><span class="comment">  </span></span><br><span class="line"><span class="comment">  - 返回值：</span></span><br><span class="line"><span class="comment">      成功 0</span></span><br><span class="line"><span class="comment">      失败 -1 并设置错误号 */</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="5-5接收信号"><a href="#5-5接收信号" class="headerlink" title="5.5接收信号"></a>5.5接收信号</h3><p>信号有默认行为，比如SIGCHLD的默认行为是忽略，SIGKILL是终止进程。</p>
-<p>除了SIGKILL,SIGSTOP这两个信号，其他信号的默认行为都可以被修改。通过调用signal()修改</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span><span class="params">(*<span class="type">sighandler_t</span>)</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="type">sighandler_t</span> <span class="title function_">signal</span><span class="params">(<span class="type">int</span> signum, <span class="type">sighandler_t</span>, handler)</span>;</span><br><span class="line"><span class="comment">//行为：指定一个信号，当这个信号发送给进程时，进程根据handler的内容去处理这个信号。</span></span><br><span class="line"><span class="comment">//handler有三种类型：</span></span><br><span class="line"><span class="comment">//1.SIG_IGN:忽略该信号</span></span><br><span class="line"><span class="comment">//2.SIG_DFL:恢复该信号的默认行为</span></span><br><span class="line"><span class="comment">//3.用户定义的函数：当收到这个信号时，去执行这个函数，函数称为：信号处理程序。</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="5-6-阻塞信号-解除阻塞"><a href="#5-6-阻塞信号-解除阻塞" class="headerlink" title="5.6 阻塞信号&amp;解除阻塞"></a>5.6 阻塞信号&amp;解除阻塞</h3><ul>
-<li><p>隐式阻塞：如果一个进程因为接收了s信号而去执行S信号处理程序，那么后续所有发送给这个进程的信号都将被送进待处理信号中，直到处理程序执行完毕而解除对这个信号的阻塞。</p>
-</li>
-<li><p>显示阻塞：可以调用sigprocmask()函数，明确阻塞指定的信号。</p>
-</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sigprocmask</span><span class="params">(<span class="type">int</span> how, <span class="type">const</span> <span class="type">sigset_t</span> *<span class="built_in">set</span>, <span class="type">sigset_t</span> *oldset)</span>;</span><br><span class="line"><span class="comment">//对何种信号执行操作取决于set，对信号执行何种操作取决于how。</span></span><br><span class="line"><span class="comment">//执行这个函数后，信号集会有新的状态（阻塞或者未阻塞），旧的信号集状态存在oldset中</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>set：将set是一个二进制的数，每个信号对应一个二进制位，当要对一种信号执行操作时，就把他的相应为设置为有效</p>
-<p>how：三种操作：</p>
-<ul>
-<li>SIG_BLOCK：将指定的信号加入阻塞列表中</li>
-<li>SIG_UNBLOCK：将指定的信号从阻塞列表中移除</li>
-<li>SIG_SETMASK：只阻塞指定的信号，未被指定的不阻塞</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;signal.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 参数 set 是一个指向 sigset_t 类型的指针，用于表示信号集。</span></span><br><span class="line"><span class="comment">// 参数 signum 是要从信号集中移除的信号编号。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//该函数用于清空信号集，将所有信号从信号集中移除。</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sigemptyset</span><span class="params">(<span class="type">sigset_t</span> *<span class="built_in">set</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//该函数用于将所有信号添加到信号集中，填充整个信号集。</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sigfillset</span><span class="params">(<span class="type">sigset_t</span> *<span class="built_in">set</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//该函数用于将指定的信号添加到信号集中。</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sigaddset</span><span class="params">(<span class="type">sigset_t</span> *<span class="built_in">set</span>, <span class="type">int</span> signum)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//该函数用于将指定的信号从信号集中移除。</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sigdelset</span><span class="params">(<span class="type">sigset_t</span> *<span class="built_in">set</span>, <span class="type">int</span> signum)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/11/11/webserver/ECF/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -663,7 +1069,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-11 02:11:13" itemprop="dateModified" datetime="2023-11-11T02:11:13+08:00">2023-11-11</time>
+                <time title="修改时间：2023-11-16 09:28:56" itemprop="dateModified" datetime="2023-11-16T09:28:56+08:00">2023-11-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -691,425 +1097,14 @@
 <li>撤销提交操作</li>
 <li>撤销修改文件操作</li>
 </ol>
-<h2 id="撤销暂存"><a href="#撤销暂存" class="headerlink" title="撤销暂存"></a>撤销暂存</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将try.go移至暂存区</span></span><br><span class="line">PS E:\C++ code\git\go&gt; git add try.go</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看当前文件状态</span></span><br><span class="line">PS E:\C++ code\git\go&gt; git status    </span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git restore --staged &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line">        new file:   Hello.go</span><br><span class="line">        new file:   try.go</span><br><span class="line"></span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">        modified:   ../Hello.cpp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 将try.go从暂存区移除</span></span><br><span class="line"><span class="comment"># git reset HEAD try.go 可以换成 git restore --staged try.go</span></span><br><span class="line">PS E:\C++ code\git\go&gt; git reset HEAD try.go</span><br><span class="line">Unstaged changes after reset:</span><br><span class="line">M       Hello.cpp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看当前文件状态</span></span><br><span class="line">PS E:\C++ code\git\go&gt; git status</span><br><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">  (use <span class="string">&quot;git restore --staged &lt;file&gt;...&quot;</span> to unstage)</span><br><span class="line">        new file:   Hello.go</span><br><span class="line"></span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">        modified:   ../Hello.cpp</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to include <span class="keyword">in</span> what will be committed)</span><br><span class="line">        try.go</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="撤销提交"><a href="#撤销提交" class="headerlink" title="撤销提交"></a>撤销提交</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 提交</span></span><br><span class="line">PS E:\C++ code\git\go&gt; git commit -m <span class="string">&quot;undoing commit&quot;</span></span><br><span class="line">[master 236a858] undoing commit</span><br><span class="line"> 1 file changed, 7 insertions(+)</span><br><span class="line"> create mode 100644 go/Hello.go</span><br><span class="line"> </span><br><span class="line"><span class="comment">#查看状态</span></span><br><span class="line">PS E:\C++ code\git\go&gt; git status</span><br><span class="line">On branch master</span><br><span class="line">Changes not staged <span class="keyword">for</span> commit:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed)</span><br><span class="line">  (use <span class="string">&quot;git restore &lt;file&gt;...&quot;</span> to discard changes <span class="keyword">in</span> working directory)</span><br><span class="line">        modified:   ../Hello.cpp</span><br><span class="line"></span><br><span class="line">Untracked files:</span><br><span class="line">  (use <span class="string">&quot;git add &lt;file&gt;...&quot;</span> to include <span class="keyword">in</span> what will be committed)</span><br><span class="line">        try.go</span><br><span class="line"></span><br><span class="line">no changes added to commit (use <span class="string">&quot;git add&quot;</span> and/or <span class="string">&quot;git commit -a&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">PS E:\C++ code\git\go&gt; git add try.go</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新提交</span></span><br><span class="line">PS E:\C++ code\git\go&gt; git commit --amend</span><br><span class="line">[master c547a5b] undoing commit</span><br><span class="line"> Date: Fri Nov 10 23:59:15 2023 +0800</span><br><span class="line"> 2 files changed, 42 insertions(+)</span><br><span class="line"> create mode 100644 go/Hello.go</span><br><span class="line"> create mode 100644 go/try.go</span><br><span class="line"> </span><br><span class="line"><span class="comment"># 打印日志，看到只有一次提交</span></span><br><span class="line">PS E:\C++ code\git\go&gt; git <span class="built_in">log</span> --pretty=<span class="string">&quot;%h - %s&quot;</span> --since=<span class="string">&quot;2023-11-10&quot;</span> --before=<span class="string">&quot;2023-11-12&quot;</span></span><br><span class="line">c547a5b - undoing commit</span><br></pre></td></tr></table></figure>
-
-<h2 id="撤销文件的修改"><a href="#撤销文件的修改" class="headerlink" title="撤销文件的修改"></a>撤销文件的修改</h2><p>使用 <code>git checkout `` &lt;file&gt; </code> <strong>被选中文件</strong>将被git使用最近提交的<strong>被选中文件</strong>覆盖。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/24/Git/log/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/24/Git/log/" class="post-title-link" itemprop="url">log</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-24 16:45:34" itemprop="dateCreated datePublished" datetime="2023-10-24T16:45:34+08:00">2023-10-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-10 23:17:48" itemprop="dateModified" datetime="2023-11-10T23:17:48+08:00">2023-11-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="git-日志"><a href="#git-日志" class="headerlink" title="git 日志"></a>git 日志</h1><p>使用<code>git log</code>命令以及一些选项打印日志信息,如下表：</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/10/24/Git/log/#more" rel="contents">
+              <a class="btn" href="/2023/10/26/Git/undoing/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
           <!--/noindex-->
         
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/22/glob/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/22/glob/" class="post-title-link" itemprop="url">glob</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-22 15:43:17" itemprop="dateCreated datePublished" datetime="2023-10-22T15:43:17+08:00">2023-10-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-24 16:44:09" itemprop="dateModified" datetime="2023-10-24T16:44:09+08:00">2023-10-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/glob/" itemprop="url" rel="index"><span itemprop="name">glob</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="模式匹配"><a href="#模式匹配" class="headerlink" title="模式匹配"></a>模式匹配</h1><p>可以使用一些规则用以匹配特定的文件</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/22/glob/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/13/Redis/object/memory/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/13/Redis/object/memory/" class="post-title-link" itemprop="url">memory</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-13 01:33:48" itemprop="dateCreated datePublished" datetime="2023-10-13T01:33:48+08:00">2023-10-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-09 21:03:13" itemprop="dateModified" datetime="2023-11-09T21:03:13+08:00">2023-11-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="内存回收"><a href="#内存回收" class="headerlink" title="内存回收"></a>内存回收</h1><p>当共享对象的<strong>引用次数</strong>为0时，Redis服务器会自动回收共享对象。</p>
-<h2 id="对象共享"><a href="#对象共享" class="headerlink" title="对象共享"></a>对象共享</h2><p>当多个键的值相同时，这几个键指向相同的存放值的内存，为了性能，只在值为整数值时才使用。</p>
-<p>redis初始化化时，会创建多个字符串对象保存多个整数值，当有键需要时，将指向这些整数值而不是重新创建。</p>
-<h2 id="引用次数"><a href="#引用次数" class="headerlink" title="引用次数"></a>引用次数</h2><p>对象共享允许多个键指向同一个值，有多少个键指向这个值对象，那么这个对象就有多少个引用次数。</p>
-<p>在程序中，这个属性为<code> int refcount;</code></p>
-<h2 id="空转时长"><a href="#空转时长" class="headerlink" title="空转时长"></a>空转时长</h2><p>加上之前的属性，对象的属性有5个，为：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">redisObject</span> &#123;</span></span><br><span class="line">    <span class="comment">// 类型</span></span><br><span class="line">    <span class="type">unsigned</span> type:<span class="number">4</span>;</span><br><span class="line">    <span class="comment">// 编码</span></span><br><span class="line">    <span class="type">unsigned</span> encoding:<span class="number">4</span>;</span><br><span class="line">    <span class="comment">// 指向底层实现数据结构的指针</span></span><br><span class="line">    <span class="type">void</span> *ptr;</span><br><span class="line">    <span class="comment">// 引用计数</span></span><br><span class="line">    <span class="type">int</span> refcount;</span><br><span class="line">    <span class="comment">// 空转时长</span></span><br><span class="line">    <span class="type">unsigned</span> lru:<span class="number">22</span>;</span><br><span class="line">&#125; robj;</span><br></pre></td></tr></table></figure>
-
-<p><code>lru</code>属性记录了对象最后一次被命令程序访问的时间，因此当使用命令<code>OBJECT IDLETIME msg</code>时，将打印出他最后一次使用时间距离现在的时间长度。</p>
-<p>空转时长 &#x3D; 当前时间 - LRU</p>
-<p>当服务器打开了<code>maxmemory</code>选项时，当内存超过指定数额，空转时长高的键被回收。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/12/Redis/object/typeAndCmd/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/12/Redis/object/typeAndCmd/" class="post-title-link" itemprop="url">typeAndCmd</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-12 22:17:17" itemprop="dateCreated datePublished" datetime="2023-10-12T22:17:17+08:00">2023-10-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-07 15:09:43" itemprop="dateModified" datetime="2023-11-07T15:09:43+08:00">2023-11-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="类型检查"><a href="#类型检查" class="headerlink" title="类型检查"></a>类型检查</h1><p>操作键的命令类型有两种：1、通用类型；2、特定类型。</p>
-<p>执行一个特定类型的命令时，先检查给定的键是否符合要求，再考虑是否执行这个命令。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/12/Redis/object/typeAndCmd/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/09/C++/function/functionType/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/09/C++/function/functionType/" class="post-title-link" itemprop="url">functionType</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-09 03:48:20" itemprop="dateCreated datePublished" datetime="2023-10-09T03:48:20+08:00">2023-10-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-12 22:37:57" itemprop="dateModified" datetime="2023-11-12T22:37:57+08:00">2023-11-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="函数类型"><a href="#函数类型" class="headerlink" title="函数类型"></a>函数类型</h1><p>函数的类型由返回类型和形参类型共同决定，例如，由如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">bol <span class="title">lengthCompare</span><span class="params">(<span class="type">const</span> string &amp;, <span class="type">const</span> string &amp;)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p>则它的函数类型为<code>bool(const string &amp;, const string &amp;)</code></p>
-<h1 id="函数指针"><a href="#函数指针" class="headerlink" title="函数指针"></a>函数指针</h1><p>指向函数的指针与其他指针一样需要一个类型。因此如果令一个指针指向上述函数，可以：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">bool</span> (*pf)(<span class="type">const</span> string &amp;, <span class="type">const</span> string &amp;);<span class="comment">//未初始化</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="结合typedef"><a href="#结合typedef" class="headerlink" title="结合typedef"></a>结合typedef</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*ptr)</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">myFunction</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Sum: %d\n&quot;</span>, x + y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ptr functionPointer = myFunction;  <span class="comment">// 使用 typedef 创建的类型名</span></span><br><span class="line">    <span class="built_in">functionPointer</span>(<span class="number">10</span>, <span class="number">20</span>);           <span class="comment">// 调用函数指针</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>如程序示例，ptr被当作一个类型，类型为<code>void (int a, int b);</code></p>
-<h1 id="结合using"><a href="#结合using" class="headerlink" title="结合using"></a>结合using</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> FunctionPointer = <span class="built_in">void</span> (*)(<span class="type">int</span> a, <span class="type">int</span> b);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">myFunction</span><span class="params">(<span class="type">int</span> x, <span class="type">int</span> y)</span> </span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Sum: &quot;</span> &lt;&lt; x + y &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    FunctionPointer functionPointer = myFunction;  <span class="comment">// 使用 using 创建的类型别名</span></span><br><span class="line">    <span class="built_in">functionPointer</span>(<span class="number">10</span>, <span class="number">20</span>);                        <span class="comment">// 调用函数指针</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
       
     </div>
 
@@ -1127,7 +1122,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1193,20 +1188,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

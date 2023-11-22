@@ -20,21 +20,24 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="异常控制流在程序执行过程中由于出现异常情况而引发的控制流变化，涉及异常，进程，系统调用，进程控制，信号等 1、异常   类别 原因    中断 来自I&#x2F;O设备的信号   陷阱 有意的异常   故障 可回复的错误   终止 不可恢复的错误   其中陷阱也即是系统调用 2、进程进程是正在执行中的程序的实例。每个进程都有自己的地址空间、内存、文件描述符和系统资源。进程是计算机系统中实现并发的基">
+  <meta name="description" content="异常控制流在程序执行过程中由于出现异常情况而引发的控制流变化，涉及异常，进程，系统调用，进程控制，信号等">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Exceptional Control Flow">
 <meta property="og:url" content="http://example.com/2023/11/11/webserver/ECF/index.html">
 <meta property="og:site_name" content="任我行">
-<meta property="og:description" content="异常控制流在程序执行过程中由于出现异常情况而引发的控制流变化，涉及异常，进程，系统调用，进程控制，信号等 1、异常   类别 原因    中断 来自I&#x2F;O设备的信号   陷阱 有意的异常   故障 可回复的错误   终止 不可恢复的错误   其中陷阱也即是系统调用 2、进程进程是正在执行中的程序的实例。每个进程都有自己的地址空间、内存、文件描述符和系统资源。进程是计算机系统中实现并发的基">
+<meta property="og:description" content="异常控制流在程序执行过程中由于出现异常情况而引发的控制流变化，涉及异常，进程，系统调用，进程控制，信号等">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2023/11/11/webserver/ECF/waitpid1.png">
 <meta property="article:published_time" content="2023-11-11T08:41:55.000Z">
-<meta property="article:modified_time" content="2023-11-12T07:37:16.703Z">
+<meta property="article:modified_time" content="2023-11-21T02:59:18.829Z">
 <meta property="article:author" content="阿怪">
 <meta property="article:tag" content="C++">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="C">
 <meta property="article:tag" content="webserver">
+<meta property="article:tag" content="systemProgramming">
+<meta property="article:tag" content="signal">
+<meta property="article:tag" content="process">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/2023/11/11/webserver/ECF/waitpid1.png">
 
@@ -206,7 +209,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-12 15:37:16" itemprop="dateModified" datetime="2023-11-12T15:37:16+08:00">2023-11-12</time>
+                <time title="修改时间：2023-11-21 10:59:18" itemprop="dateModified" datetime="2023-11-21T10:59:18+08:00">2023-11-21</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -230,6 +233,8 @@
 
       
         <h1 id="异常控制流"><a href="#异常控制流" class="headerlink" title="异常控制流"></a>异常控制流</h1><p>在程序执行过程中由于出现异常情况而引发的控制流变化，涉及异常，进程，系统调用，进程控制，信号等</p>
+<span id="more"></span>
+
 <h2 id="1、异常"><a href="#1、异常" class="headerlink" title="1、异常"></a>1、异常</h2><table>
 <thead>
 <tr>
@@ -265,18 +270,21 @@
 
 <h3 id="4-2-创建和终止进程"><a href="#4-2-创建和终止进程" class="headerlink" title="4.2  创建和终止进程"></a>4.2  创建和终止进程</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="type">void</span> <span class="title function_">exit</span><span class="params">(<span class="type">int</span> status)</span>; <span class="comment">//以status退出状态终止进程</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">fork</span><span class="params">()</span>; 创建子进程</span><br></pre></td></tr></table></figure>
 
-<h3 id="4-3-回收子进程"><a href="#4-3-回收子进程" class="headerlink" title="4.3 回收子进程"></a>4.3 回收子进程</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">waitpid</span><span class="params">(<span class="type">pid_t</span> pid, <span class="type">int</span> *statusp, <span class="type">int</span> options)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">wait</span><span class="params">(<span class="type">int</span> *statusp)</span>;</span><br><span class="line">    <span class="comment">//&lt;=&gt;</span></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">waitpid</span><span class="params">(<span class="number">-1</span>, status, <span class="number">0</span>)</span>;    </span><br></pre></td></tr></table></figure>
+<h3 id="4-3-回收子进程"><a href="#4-3-回收子进程" class="headerlink" title="4.3 回收子进程"></a>4.3 回收子进程</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//调用waitpid()时进程阻塞，直到有一个子进程结束才返回，返回值是子进程的pid</span></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">waitpid</span><span class="params">(<span class="type">pid_t</span> pid, <span class="type">int</span> *statusp, <span class="type">int</span> options)</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">wait</span><span class="params">(<span class="type">int</span> *statusp)</span>;</span><br><span class="line">    <span class="comment">//&lt;=&gt;</span></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">waitpid</span><span class="params">(<span class="number">-1</span>, status, <span class="number">0</span>)</span>;    </span><br></pre></td></tr></table></figure>
 
 <p>watipid返回时，导致它返回的此时有一个_等待集合_，存放进程，具体的进程由pid参数指定。</p>
 <ol>
-<li><p>pid</p>
+<li>pid</li>
+</ol>
 <ul>
 <li>pid&gt;0:等待集合的进程为进程号为pid的进程</li>
 <li>pid&#x3D;-1:等待集合为所有的子进程</li>
 </ul>
-</li>
+<ol start="2">
 <li><p>*statusp</p>
-<p> 导致waitpid返回的子进程的状态信息会被写入*statusp中。</p>
+<p> 导致waitpid返回的子进程的状态信息会被写入*statusp中。其中</p>
+<p> <strong>正常退出：</strong> 如果子进程正常退出，<code>WIFEXITED(statusp)</code> 将返回真，表示子进程已经正常退出。此时，<code>WEXITSTATUS(status)</code> 将包含子进程的退出状态码。</p>
+<p> <strong>信号导致的退出：</strong> 如果子进程是由于信号而退出的，<code>WIFSIGNALED(statusp)</code> 将返回真，表示子进程由于收到信号而终止。此时，<code>WTERMSIG(statusp)</code> 将包含导致子进程终止的信号编号。</p>
 </li>
 <li><p>options</p>
 <p> 有常量如下：</p>
@@ -355,8 +363,18 @@
 
 <h3 id="5-5接收信号"><a href="#5-5接收信号" class="headerlink" title="5.5接收信号"></a>5.5接收信号</h3><p>信号有默认行为，比如SIGCHLD的默认行为是忽略，SIGKILL是终止进程。</p>
 <p>除了SIGKILL,SIGSTOP这两个信号，其他信号的默认行为都可以被修改。通过调用signal()修改</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span><span class="params">(*<span class="type">sighandler_t</span>)</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="type">sighandler_t</span> <span class="title function_">signal</span><span class="params">(<span class="type">int</span> signum, <span class="type">sighandler_t</span>, handler)</span>;</span><br><span class="line"><span class="comment">//行为：指定一个信号，当这个信号发送给进程时，进程根据handler的内容去处理这个信号。</span></span><br><span class="line"><span class="comment">//handler有三种类型：</span></span><br><span class="line"><span class="comment">//1.SIG_IGN:忽略该信号</span></span><br><span class="line"><span class="comment">//2.SIG_DFL:恢复该信号的默认行为</span></span><br><span class="line"><span class="comment">//3.用户定义的函数：当收到这个信号时，去执行这个函数，函数称为：信号处理程序。</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="title function_">void</span><span class="params">(*<span class="type">sighandler_t</span>)</span><span class="params">(<span class="type">int</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="type">sighandler_t</span> <span class="title function_">signal</span><span class="params">(<span class="type">int</span> signum, <span class="type">sighandler_t</span> handler)</span>;</span><br><span class="line"><span class="comment">//行为：指定一个信号，当这个信号发送给进程时，进程根据handler的内容去处理这个信号。</span></span><br><span class="line"><span class="comment">//handler有三种类型：</span></span><br><span class="line"><span class="comment">//1.SIG_IGN:忽略该信号</span></span><br><span class="line"><span class="comment">//2.SIG_DFL:恢复该信号的默认行为</span></span><br><span class="line"><span class="comment">//3.用户定义的函数：当收到这个信号时，去执行这个函数，函数称为：信号处理程序。</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">sigaction</span><span class="params">(<span class="type">int</span> signum, <span class="type">const</span> <span class="keyword">struct</span> sigaction *act, <span class="keyword">struct</span> sigaction *oldact)</span>;</span><br><span class="line"><span class="comment">//1.signum：要操作的信号的编号，例如 SIGINT 表示中断信号。</span></span><br><span class="line"><span class="comment">//2.act：指向 struct sigaction 结构的指针，定义了对信号的新处理方式。</span></span><br><span class="line"><span class="comment">//3.oldact：struct sigaction 结构的指针，用于存储之前对信号的处理方式。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//其中，sigaction结构体如下：</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sigaction</span> &#123;</span></span><br><span class="line">    <span class="type">void</span>     (*sa_handler)(<span class="type">int</span>);</span><br><span class="line">    <span class="type">void</span>     (*sa_sigaction)(<span class="type">int</span>, <span class="type">siginfo_t</span> *, <span class="type">void</span> *);</span><br><span class="line">    <span class="type">sigset_t</span>   sa_mask;</span><br><span class="line">    <span class="type">int</span>        sa_flags;</span><br><span class="line">    <span class="comment">// void     (*sa_restorer)(void); 废弃</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+<blockquote>
+<ul>
+<li>在早期的 UNIX 系统中，<code>signal()</code> 是唯一的设置信号处理函数的函数。</li>
+<li><code>signal()</code> 有一些缺陷，因为它在不同的 UNIX 系统中的实现有差异，有的实现会更改信号处理方式为默认行为，有的不会。</li>
+<li>不能指定使用 <code>sa_mask</code> 来设置在信号处理期间要阻塞的信号集。</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>在实际开发中，尽可能使用 <code>sigaction()</code>，特别是在需要更精确控制信号处理行为的情况下。</p>
+</blockquote>
 <h3 id="5-6-阻塞信号-解除阻塞"><a href="#5-6-阻塞信号-解除阻塞" class="headerlink" title="5.6 阻塞信号&amp;解除阻塞"></a>5.6 阻塞信号&amp;解除阻塞</h3><ul>
 <li><p>隐式阻塞：如果一个进程因为接收了s信号而去执行S信号处理程序，那么后续所有发送给这个进程的信号都将被送进待处理信号中，直到处理程序执行完毕而解除对这个信号的阻塞。</p>
 </li>
@@ -387,6 +405,9 @@
               <a href="/tags/linux/" rel="tag"># linux</a>
               <a href="/tags/C/" rel="tag"># C</a>
               <a href="/tags/webserver/" rel="tag"># webserver</a>
+              <a href="/tags/systemProgramming/" rel="tag"># systemProgramming</a>
+              <a href="/tags/signal/" rel="tag"># signal</a>
+              <a href="/tags/process/" rel="tag"># process</a>
           </div>
 
         
@@ -398,7 +419,10 @@
     <a href="/2023/11/11/Git/remote/" rel="prev" title="remote">
       <i class="fa fa-chevron-left"></i> remote
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/11/16/Redis/implementation/rdb/" rel="next" title="RDB">
+      RDB <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -471,20 +495,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-count">62</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-count">14</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">41</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
