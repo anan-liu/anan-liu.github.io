@@ -20,15 +20,15 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="pthread_mutex_t POSIX 线程库（Pthreads）中用于创建互斥锁（Mutex）的数据类型。互斥锁用于实现线程之间的互斥访问，确保在任意给定时刻只有一个线程可以访问共享资源。 使用步骤如下：  创建和初始化互斥锁：    123#include &lt;pthread.h&gt;pthread_mutex_t myMutex &#x3D; PTHREAD_MUTEX_INITIALIZE">
+  <meta name="description" content="POSIXPOSIX 线程库定义了一套用于创建、同步和管理线程的接口，通常用于在支持 POSIX 标准的操作系统上进行多线程编程。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="thread">
 <meta property="og:url" content="http://example.com/2023/11/22/concurrent/thread/index.html">
 <meta property="og:site_name" content="任我行">
-<meta property="og:description" content="pthread_mutex_t POSIX 线程库（Pthreads）中用于创建互斥锁（Mutex）的数据类型。互斥锁用于实现线程之间的互斥访问，确保在任意给定时刻只有一个线程可以访问共享资源。 使用步骤如下：  创建和初始化互斥锁：    123#include &lt;pthread.h&gt;pthread_mutex_t myMutex &#x3D; PTHREAD_MUTEX_INITIALIZE">
+<meta property="og:description" content="POSIXPOSIX 线程库定义了一套用于创建、同步和管理线程的接口，通常用于在支持 POSIX 标准的操作系统上进行多线程编程。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-11-22T02:58:49.000Z">
-<meta property="article:modified_time" content="2023-11-22T03:09:04.232Z">
+<meta property="article:modified_time" content="2024-01-06T08:29:28.195Z">
 <meta property="article:author" content="阿怪">
 <meta property="article:tag" content="concurrent">
 <meta property="article:tag" content="thread">
@@ -194,10 +194,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-11-22 10:58:49 / 修改时间：11:09:04" itemprop="dateCreated datePublished" datetime="2023-11-22T10:58:49+08:00">2023-11-22</time>
+              <time title="创建时间：2023-11-22 10:58:49" itemprop="dateCreated datePublished" datetime="2023-11-22T10:58:49+08:00">2023-11-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-01-06 16:29:28" itemprop="dateModified" datetime="2024-01-06T16:29:28+08:00">2024-01-06</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -219,7 +225,10 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="pthread-mutex-t"><a href="#pthread-mutex-t" class="headerlink" title="pthread_mutex_t"></a>pthread_mutex_t</h1><p> POSIX 线程库（Pthreads）中用于创建互斥锁（Mutex）的数据类型。互斥锁用于实现线程之间的互斥访问，确保在任意给定时刻只有一个线程可以访问共享资源。</p>
+        <h1 id="POSIX"><a href="#POSIX" class="headerlink" title="POSIX"></a>POSIX</h1><p>POSIX 线程库定义了一套用于创建、同步和管理线程的接口，通常用于在支持 POSIX 标准的操作系统上进行多线程编程。</p>
+<span id="more"></span>
+
+<h1 id="pthread-mutex-t"><a href="#pthread-mutex-t" class="headerlink" title="pthread_mutex_t"></a>pthread_mutex_t</h1><p> POSIX 线程库（Pthreads）中用于创建互斥锁（Mutex）的数据类型。互斥锁用于实现线程之间的互斥访问，确保在任意给定时刻只有一个线程可以访问共享资源。</p>
 <p>使用步骤如下：</p>
 <ol>
 <li><strong>创建和初始化互斥锁：</strong></li>
@@ -238,6 +247,29 @@
 <li><p><strong>销毁互斥锁：</strong></p>
  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pthread_mutex_destroy</span>(&amp;myMutex);</span><br></pre></td></tr></table></figure></li>
 </ol>
+<blockquote>
+<p>如果将这个变量写到类内，互斥锁的初始化和销毁与类的构造和析构函数关联，确保在对象生命周期内正确地初始化和销毁互斥锁。</p>
+</blockquote>
+<h1 id="pthread-create"><a href="#pthread-create" class="headerlink" title="pthread_create()"></a>pthread_create()</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;pthread.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">pthread_create</span><span class="params">(<span class="type">pthread_t</span> *thread, <span class="type">const</span> <span class="type">pthread_attr_t</span> *attr,</span></span></span><br><span class="line"><span class="params"><span class="function">                   <span class="type">void</span> *(*start_routine)(<span class="type">void</span>*), <span class="type">void</span> *arg)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果成功，返回 0。</span></span><br><span class="line"><span class="comment">//如果失败，返回错误码，可以通过 strerror 函数将其转换为对应的错误信息。</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>thread</code>：一个指向 <code>pthread_t</code> 类型的指针，用于存储新创建线程的标识符。</li>
+<li><code>attr</code>：一个指向 <code>pthread_attr_t</code> 类型的结构体的指针，用于设置线程的属性。通常可以将其设置为 <code>NULL</code>，表示使用默认属性。</li>
+<li><code>start_routine</code>：一个指向线程执行函数的指针，该函数的原型为 <code>void* start_routine(void*)</code>。</li>
+<li><code>arg</code>：传递给 <code>start_routine</code> 函数的参数。</li>
+</ul>
+<h1 id="socketpair"><a href="#socketpair" class="headerlink" title="socketpair()"></a>socketpair()</h1><p><code>socketpair()</code> 函数是一个用于创建全双工的、互相连接的一对套接字的系统调用。这对套接字可以用于在同一台机器上的两个进程之间进行双向通信。通常情况下，<code>socketpair()</code> 函数用于进程间通信（IPC）。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">socketpair</span><span class="params">(<span class="type">int</span> domain, <span class="type">int</span> type, <span class="type">int</span> protocol, <span class="type">int</span> sv[<span class="number">2</span>])</span></span>;</span><br><span class="line"><span class="comment">// 如果成功，返回 0。</span></span><br><span class="line"><span class="comment">// 如果失败，返回 -1，并设置 errno 来指示错误类型。</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>domain</code>：套接字的协议族，通常为 <code>AF_UNIX</code>（Unix 域套接字）。</li>
+<li><code>type</code>：套接字的类型，通常为 <code>SOCK_STREAM</code>（流式套接字）。</li>
+<li><code>protocol</code>：套接字的协议，通常为 <code>0</code>。</li>
+<li><code>sv</code>：一个整数数组，用于存储创建的两个套接字的文件描述符。</li>
+</ul>
+<blockquote>
+<p>为了程序清晰，sv数组的两个描述符最好规定父进程固定使用某一个，子进程固定使用另一个。	</p>
+</blockquote>
 
     </div>
 
@@ -260,7 +292,10 @@
     <a href="/2023/11/21/webserver/networkProgramming/" rel="prev" title="networkProgramming">
       <i class="fa fa-chevron-left"></i> networkProgramming
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2023/11/24/concurrent/mutiplexing/" rel="next" title="I/O multiplexing">
+      I/O multiplexing <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -319,7 +354,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pthread-mutex-t"><span class="nav-number">1.</span> <span class="nav-text">pthread_mutex_t</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#POSIX"><span class="nav-number">1.</span> <span class="nav-text">POSIX</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pthread-mutex-t"><span class="nav-number">2.</span> <span class="nav-text">pthread_mutex_t</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pthread-create"><span class="nav-number">3.</span> <span class="nav-text">pthread_create()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#socketpair"><span class="nav-number">4.</span> <span class="nav-text">socketpair()</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -340,13 +375,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -373,7 +408,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

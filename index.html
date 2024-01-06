@@ -165,6 +165,189 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/30/C++/enum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/12/30/C++/enum/" class="post-title-link" itemprop="url">enum</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-12-30 02:16:32" itemprop="dateCreated datePublished" datetime="2023-12-30T02:16:32+08:00">2023-12-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-01-01 14:50:33" itemprop="dateModified" datetime="2024-01-01T14:50:33+08:00">2024-01-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="enum"><a href="#enum" class="headerlink" title="enum"></a>enum</h1><p>枚举（enum）是一种数据类型，在编程中用于定义一个有限的、命名的常量集合。它通过使用enum关键字来声明，在声明中列出枚举常量。每个枚举常量具有一个名称和一个关联的值。</p>
+<h2 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h2><p>每个列表中的常量都有默认值，从0开始以此类推。如果有某个常量被赋值了，那么后续的常量将以这个值为起点，依次累加。如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Season</span> &#123;</span><br><span class="line">    SPRING = <span class="number">1</span>,</span><br><span class="line">    SUMMER, <span class="comment">// = 2</span></span><br><span class="line">    AUTUMN = <span class="number">10</span>,</span><br><span class="line">    WINTER <span class="comment">// =11</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Season</span> &#123;</span><br><span class="line">    SPRING, <span class="comment">// = 0</span></span><br><span class="line">    SUMMER, <span class="comment">// = 1</span></span><br><span class="line">    AUTUMN, <span class="comment">// = 2</span></span><br><span class="line">    WINTER <span class="comment">// = 3</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明一个枚举类型Season</span></span><br><span class="line"><span class="keyword">enum</span> <span class="title class_">Season</span> &#123;</span><br><span class="line">    SPRING,</span><br><span class="line">    SUMMER,</span><br><span class="line">    AUTUMN,</span><br><span class="line">    WINTER</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 使用枚举类型变量</span></span><br><span class="line">    Season currentSeason = SUMMER;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出当前季节</span></span><br><span class="line">    <span class="keyword">switch</span> (currentSeason) &#123;</span><br><span class="line">        <span class="keyword">case</span> SPRING:</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;It&#x27;s spring!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> SUMMER:</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;It&#x27;s summer!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> AUTUMN:</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;It&#x27;s autumn!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> WINTER:</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;It&#x27;s winter!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;Invalid season!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在C中，使用名称空间来标识程序中的各个部分，名称空间分类别：特定作用域中结构，联合，枚举共享同一个名称空间；这个名称空间和普通变量的使用的空间不同，因此以下代码是允许的：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rect</span> &#123;</span><span class="type">double</span> x; <span class="type">double</span> y;&#125;</span><br><span class="line"><span class="type">int</span> rect;</span><br></pre></td></tr></table></figure>
+
+<p>但是C++中不允许这么做，C++将标记名和变量名放在相同的名称空间中。但是C++有namespace的概念。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/24/concurrent/mutiplexing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/24/concurrent/mutiplexing/" class="post-title-link" itemprop="url">I/O multiplexing</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-11-24 16:10:24 / 修改时间：23:29:11" itemprop="dateCreated datePublished" datetime="2023-11-24T16:10:24+08:00">2023-11-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/concurrent/" itemprop="url" rel="index"><span itemprop="name">concurrent</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="I-O-多路复用"><a href="#I-O-多路复用" class="headerlink" title="I&#x2F;O 多路复用"></a>I&#x2F;O 多路复用</h1><p>I&#x2F;O多路复用是一种并发处理的机制，允许单个进程或线程处理多个输入或输出通道，而无需为每个通道创建单独的线程或进程。这样可以有效地提高系统的性能和资源利用率。</p>
+<p>常用的I&#x2F;O多路复用机制有<code>select</code>、<code>poll</code>、<code>epoll</code></p>
+<h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/select.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">select</span><span class="params">(<span class="type">int</span> nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, <span class="keyword">struct</span> timeval *timeout)</span>;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><p><strong>nfds：</strong></p>
+<p> <code>nfds</code> 参数指定待监视的文件描述符中最大的文件描述符值加一（即最大的文件描述符值+1）。这个参数是必须的，因为 <code>select()</code> 函数要求知道监视的文件描述符范围。</p>
+</li>
+<li><p><strong>readfds：</strong></p>
+<p> <code>readfds</code> 是一个指向 <code>fd_set</code> 结构体的指针，表示要监视可读事件的文件描述符集合。当 <code>select()</code> 返回时，<code>readfds</code> 将包含就绪的可读文件描述符。</p>
+</li>
+<li><p><strong>writefds：</strong></p>
+<p> <code>writefds</code> 是一个指向 <code>fd_set</code> 结构体的指针，表示要监视可写事件的文件描述符集合。当 <code>select()</code> 返回时，<code>writefds</code> 将包含就绪的可写文件描述符。</p>
+</li>
+<li><p><strong>exceptfds：</strong></p>
+<p> <code>exceptfds</code> 是一个指向 <code>fd_set</code> 结构体的指针，表示要监视异常事件的文件描述符集合。当 <code>select()</code> 返回时，<code>exceptfds</code> 将包含发生异常的文件描述符。</p>
+</li>
+<li><p><strong>timeout：</strong></p>
+<p> <code>timeout</code> 是一个指向 <code>struct timeval</code> 结构体的指针，表示超时时间。它指定 <code>select()</code> 在等待事件发生的时间上的限制。</p>
+<ul>
+<li>如果 <code>timeout</code> 为 <code>NULL</code>，<code>select()</code> 将一直等待，直到有事件发生。</li>
+<li>如果 <code>timeout</code> 为 <code>&#123;0, 0&#125;</code>，<code>select()</code> 将立即返回，不等待。</li>
+<li>如果 <code>timeout</code> 具有非零值，<code>select()</code> 将在规定的时间内等待事件，超时后返回。</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>除了nfds参数，其他的参数可以为NULL，表示该参数的功能不启用</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/22/concurrent/thread/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -188,10 +371,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-11-22 10:58:49 / 修改时间：11:09:04" itemprop="dateCreated datePublished" datetime="2023-11-22T10:58:49+08:00">2023-11-22</time>
+              <time title="创建时间：2023-11-22 10:58:49" itemprop="dateCreated datePublished" datetime="2023-11-22T10:58:49+08:00">2023-11-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-01-06 16:29:28" itemprop="dateModified" datetime="2024-01-06T16:29:28+08:00">2024-01-06</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -213,26 +402,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="pthread-mutex-t"><a href="#pthread-mutex-t" class="headerlink" title="pthread_mutex_t"></a>pthread_mutex_t</h1><p> POSIX 线程库（Pthreads）中用于创建互斥锁（Mutex）的数据类型。互斥锁用于实现线程之间的互斥访问，确保在任意给定时刻只有一个线程可以访问共享资源。</p>
-<p>使用步骤如下：</p>
-<ol>
-<li><strong>创建和初始化互斥锁：</strong></li>
-</ol>
-  <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;pthread.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">pthread_mutex_t</span> myMutex = PTHREAD_MUTEX_INITIALIZER;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li><p><strong>在代码中使用互斥锁：</strong></p>
- <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pthread_mutex_lock</span>(&amp;myMutex);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 访问共享资源的代码块</span></span><br><span class="line"><span class="built_in">pthread_mutex_unlock</span>(&amp;myMutex);</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>pthread_mutex_lock</code> 用于获取互斥锁，如果锁已被其他线程占用，当前线程将被阻塞。</li>
-<li><code>pthread_mutex_unlock</code> 用于释放互斥锁。</li>
-</ul>
-</li>
-<li><p><strong>销毁互斥锁：</strong></p>
- <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pthread_mutex_destroy</span>(&amp;myMutex);</span><br></pre></td></tr></table></figure></li>
-</ol>
-
+          <h1 id="POSIX"><a href="#POSIX" class="headerlink" title="POSIX"></a>POSIX</h1><p>POSIX 线程库定义了一套用于创建、同步和管理线程的接口，通常用于在支持 POSIX 标准的操作系统上进行多线程编程。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/11/22/concurrent/thread/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -282,7 +460,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-22 10:06:00" itemprop="dateModified" datetime="2023-11-22T10:06:00+08:00">2023-11-22</time>
+                <time title="修改时间：2023-12-17 02:33:24" itemprop="dateModified" datetime="2023-12-17T02:33:24+08:00">2023-12-17</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -305,17 +483,18 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="套接字"><a href="#套接字" class="headerlink" title="套接字"></a>套接字</h1><p>套接字 &#x3D; IP＋端口</p>
-<h1 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">in_addr</span>&#123;</span><br><span class="line">    <span class="type">uint32_t</span> s_addr;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//IP地址结构</span></span><br></pre></td></tr></table></figure>
-
-
+          <h1 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">in_addr</span>&#123;</span><br><span class="line">    <span class="type">uint32_t</span> s_addr;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//IP地址结构</span></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//将点分十进制地址转换为二进制网络字节顺序的IP地址</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">inet_pton</span><span class="params">(AF_INET, <span class="type">const</span> <span class="type">void</span> *src, <span class="type">void</span> *dst)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将二进制地址转换为点分十进制地址</span></span><br><span class="line"><span class="function"><span class="type">const</span> <span class="type">char</span> *<span class="title">inet_ntop</span><span class="params">(AF_INET, <span class="type">const</span> <span class="type">void</span> *src ,<span class="type">char</span> *dst, <span class="type">socklen_t</span> len)</span></span>;</span><br></pre></td></tr></table></figure>
 
-<h1 id="套接字地址结构"><a href="#套接字地址结构" class="headerlink" title="套接字地址结构"></a>套接字地址结构</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">sockaddr</span> &#123;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> sa_family;  <span class="comment">// 地址族，例如 AF_INET</span></span><br><span class="line">    <span class="type">char</span> sa_data[<span class="number">14</span>];          <span class="comment">// 地址数据</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> &#123;</span><br><span class="line">    <span class="type">short</span> <span class="type">int</span> sin_family;      <span class="comment">// 地址族，通常为 AF_INET</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> <span class="type">int</span> sin_port;  <span class="comment">// 端口号，网络字节序</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">in_addr</span> sin_addr;   <span class="comment">// IPv4 地址结构体</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> sin_zero[<span class="number">8</span>];  <span class="comment">// 填充字段，使结构体大小与 sockaddr 一致</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="套接字地址结构"><a href="#套接字地址结构" class="headerlink" title="套接字地址结构"></a>套接字地址结构</h1><p>套接字 &#x3D; IP＋端口</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">sockaddr</span> &#123;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> sa_family;  <span class="comment">// 地址族，例如 AF_INET</span></span><br><span class="line">    <span class="type">char</span> sa_data[<span class="number">14</span>];          <span class="comment">// 地址数据</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> &#123;</span><br><span class="line">    <span class="type">short</span> <span class="type">int</span> sin_family;      <span class="comment">// 地址族，通常为 AF_INET</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> <span class="type">int</span> sin_port;  <span class="comment">// 端口号，网络字节序</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">in_addr</span> sin_addr;   <span class="comment">// IPv4 地址结构体</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> sin_zero[<span class="number">8</span>];  <span class="comment">// 填充字段，使结构体大小与 sockaddr 一致</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-
-
+<ul>
+<li><code>sockaddr_in</code> 是用于表示IPv4地址的结构体</li>
+<li><code>sockaddr</code> 是一个通用的套接字地址结构体</li>
+</ul>
+<p>在使用套接字编程时，通常会将 <code>sockaddr_in</code> 转换为 <code>struct sockaddr</code>，以便在函数参数中传递。这是因为很多套接字相关的系统调用（如 <code>bind</code>、<code>connect</code>、<code>accept</code> 等）都接受通用的 <code>struct sockaddr</code> 类型的地址参数。</p>
 <h1 id="地址转换"><a href="#地址转换" class="headerlink" title="地址转换"></a>地址转换</h1><h2 id="getaddrinfo"><a href="#getaddrinfo" class="headerlink" title="getaddrinfo()"></a>getaddrinfo()</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">getaddrinfor</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *host, <span class="type">const</span> <span class="type">char</span> *service,</span></span><br><span class="line"><span class="params">                 <span class="type">const</span> <span class="keyword">struct</span> addrinfo *hints,</span></span><br><span class="line"><span class="params">                 <span class="keyword">struct</span> addrinfo **result)</span>;</span><br><span class="line"><span class="comment">//成功返回0，失败返回错误代码</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">freeaddrinfo</span><span class="params">(stuct addrinfo *result)</span>;</span><br><span class="line"><span class="comment">//释放空间</span></span><br></pre></td></tr></table></figure>
 
 <ul>
@@ -324,9 +503,21 @@
 <li><code>hints</code>：一个可选的指向 <code>struct addrinfo</code> 结构体的指针，用于提供关于期望返回的地址信息类型的提示。如果不需要特殊的提示，可以将其设置为 <code>NULL</code>。</li>
 <li><code>res</code>：一个指向 <code>struct addrinfo</code> 结构体链表的指针，返回获取到的地址信息。</li>
 </ul>
+<p>在使用 <code>getaddrinfo()</code> 函数获取地址信息之后，需要遍历返回的地址信息链表并调用 <code>socket()</code>，这是因为一个主机名（或服务名）可能对应多个地址，而不同的地址可能代表不同的网络接口或协议。</p>
 <h2 id="struct-addrinfo"><a href="#struct-addrinfo" class="headerlink" title="struct addrinfo"></a>struct addrinfo</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">addrinfo</span> &#123;</span></span><br><span class="line">        <span class="type">int</span> ai_flags;     <span class="comment">// Hints argument flags </span></span><br><span class="line">        <span class="type">int</span> ai_family;    <span class="comment">// First arg to socket function </span></span><br><span class="line">        <span class="type">int</span> ai_socktype; <span class="comment">// Second arg to socket function </span></span><br><span class="line">        <span class="type">int</span> ai_protocol; <span class="comment">// Third arg to socket function </span></span><br><span class="line">        <span class="type">char</span> *ai_canonname; <span class="comment">// Canonical hostname </span></span><br><span class="line">        <span class="type">size_t</span> ai_addrlen;   <span class="comment">// Size of ai_addr struct </span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr</span> *<span class="title">ai_addr</span>;</span></span><br><span class="line">    <span class="comment">// Ptr to socket address structure */</span></span><br><span class="line">    </span><br><span class="line">    	<span class="class"><span class="keyword">struct</span> <span class="title">addrinfo</span> *<span class="title">ai_next</span>;</span>      </span><br><span class="line">    <span class="comment">// Ptr to next item in linked list */</span></span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
 
-<h2 id="地址信息链表"><a href="#地址信息链表" class="headerlink" title="地址信息链表"></a>地址信息链表</h2><h2 id="inet-ntop"><a href="#inet-ntop" class="headerlink" title="inet_ntop()"></a>inet_ntop()</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">const</span> <span class="type">char</span> *<span class="title">inet_ntop</span><span class="params">(<span class="type">int</span> af, <span class="type">const</span> <span class="type">void</span> *src, <span class="type">char</span> *dst, <span class="type">socklen_t</span> size)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>以上的结构体就是<strong>地址信息链表</strong>：<code>struct addrinfo</code> 结构体中的字段描述了一个网络地址的各种属性。</p>
+<ul>
+<li><code>ai_flags</code> 控制返回信息的标志，</li>
+<li><code>ai_family</code> 表示地址族，</li>
+<li><code>ai_socktype</code> 表示套接字类型，</li>
+<li><code>ai_protocol</code> 表示协议，</li>
+<li><code>ai_addrlen</code> 表示地址长度，</li>
+<li><code>ai_addr</code> 是一个指向 <code>sockaddr</code> 结构体的指针，包含实际的地址信息。</li>
+<li><code>ai_canonname</code> 存储主机的规范名，</li>
+<li><code>ai_next</code> 指向链表中的下一个 <code>addrinfo</code> 结构体。</li>
+</ul>
+<h2 id="inet-ntop"><a href="#inet-ntop" class="headerlink" title="inet_ntop()"></a>inet_ntop()</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">const</span> <span class="type">char</span> *<span class="title">inet_ntop</span><span class="params">(<span class="type">int</span> af, <span class="type">const</span> <span class="type">void</span> *src, <span class="type">char</span> *dst, <span class="type">socklen_t</span> size)</span></span>;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><code>af</code>：地址族，可以是 <code>AF_INET</code>（IPv4）或 <code>AF_INET6</code>（IPv6）。</li>
@@ -351,102 +542,141 @@
 
 <h1 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h1><h2 id="socket-bind-listen-accept"><a href="#socket-bind-listen-accept" class="headerlink" title="socket() &amp;&amp; bind() &amp;&amp; listen() &amp;&amp; accept()"></a>socket() &amp;&amp; bind() &amp;&amp; listen() &amp;&amp; accept()</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">bind</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="keyword">struct</span> sockaddr *addr,</span></span><br><span class="line"><span class="params">         <span class="type">socklen_t</span> addrlen)</span>;</span><br><span class="line"><span class="comment">//绑定服务器套接字地址和套接字描述符</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">listen</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">int</span> backlog)</span>;</span><br><span class="line"><span class="comment">//将套接字设置为监听状态</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">accept</span><span class="params">(<span class="type">int</span> listenfd, <span class="keyword">struct</span> sockaddr *addr, </span></span><br><span class="line"><span class="params">           <span class="type">int</span> *addrlen)</span>;</span><br><span class="line"><span class="comment">//*等待*客户端的连接请求，返回一个已连接描述符，向描述符写的内容就是传给客户端的内容。</span></span><br></pre></td></tr></table></figure>
 
+<h2 id="getpeername"><a href="#getpeername" class="headerlink" title="getpeername"></a>getpeername</h2><p><code>getpeername()</code> 是一个用于获取已连接套接字对端地址信息的系统调用。它通常用于在服务器端获知与其连接的客户端的地址信息。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">getpeername</span><span class="params">(<span class="type">int</span> sockfd, <span class="keyword">struct</span> sockaddr *addr, <span class="type">socklen_t</span> *addrlen)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/20/CloudMeetting/main/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/20/CloudMeetting/main/" class="post-title-link" itemprop="url">Main</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-11-20 16:56:34" itemprop="dateCreated datePublished" datetime="2023-11-20T16:56:34+08:00">2023-11-20</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-22 11:43:52" itemprop="dateModified" datetime="2023-11-22T11:43:52+08:00">2023-11-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/project/" itemprop="url" rel="index"><span itemprop="name">project</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Readme"><a href="#Readme" class="headerlink" title="Readme"></a>Readme</h1><p>这篇博文用来解析项目代码</p>
-<h1 id="main"><a href="#main" class="headerlink" title="main()"></a>main()</h1><p>从main()函数开始，按照顺序解析各个函数的功能。</p>
-<h2 id="sig-chld"><a href="#sig-chld" class="headerlink" title="sig_chld()"></a>sig_chld()</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">sig_chld</span><span class="params">(<span class="type">int</span> signo)</span></span>;</span><br><span class="line"><span class="built_in">Signal</span>(SIGCHLD, sig_chld);</span><br></pre></td></tr></table></figure>
-
-<p><code>sig_chld()</code>是信号处理程序，当服务器接收到<code>SIGCHLD</code>信号时执行的函数时执行。主要逻辑：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>((pid = <span class="built_in">waitpid</span>(<span class="number">-1</span>, &amp;stat, WNOHANG)) &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">WIFEXITED</span>(stat)) <span class="comment">//是否正常退出</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;child %d normal termination, exit status = %d\n&quot;</span>,pid,  <span class="built_in">WEXITSTATUS</span>(stat));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">WIFSIGNALED</span>(stat)) <span class="comment">//由于信号而退出</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;child %d abnormal termination, singal number  = %d%s\n&quot;</span>, pid, <span class="built_in">WTERMSIG</span>(stat),</span><br><span class="line">            <span class="meta">#<span class="keyword">ifdef</span> WCOREDUMP</span></span><br><span class="line">                   <span class="built_in">WCOREDUMP</span>(stat)? <span class="string">&quot; (core file generated) &quot;</span> : <span class="string">&quot;&quot;</span>);</span><br><span class="line">            <span class="meta">#<span class="keyword">else</span></span></span><br><span class="line">                   <span class="string">&quot;&quot;</span>);</span><br><span class="line">            <span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>其中宏定义参考：<a target="_blank" rel="noopener" href="https://anan-liu.github.io/2023/11/11/webserver/ECF/">Exceptional Control Flow | 任我行 (anan-liu.github.io)</a></p>
-</blockquote>
-<h2 id="Tcp-listen"><a href="#Tcp-listen" class="headerlink" title="Tcp_listen()"></a>Tcp_listen()</h2><p>打开一个套接字描述符并令他成为监听套接字。</p>
-<p>这个函数主要使用<code>getaddrinfo()</code>，经由此函数生成的<code>addrinfo</code>类型的变量来生成套接字描述符。再之后调用封装函数<code>Listen()</code>来获得监听描述符，并将之作为返回。</p>
-<h2 id="struct-Room"><a href="#struct-Room" class="headerlink" title="struct Room"></a>struct Room</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> <span class="title class_">Room</span> <span class="comment">// single</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> navail;</span><br><span class="line">    Process *pptr;</span><br><span class="line">    <span class="type">pthread_mutex_t</span> lock;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Room</span> (<span class="type">int</span> n)</span><br><span class="line">    &#123;</span><br><span class="line">        navail = n;</span><br><span class="line">        pptr = (Process *)<span class="built_in">Calloc</span>(n, <span class="built_in">sizeof</span>(Process));</span><br><span class="line">        lock = PTHREAD_MUTEX_INITIALIZER;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;Room;</span><br></pre></td></tr></table></figure>
+<ol>
+<li><strong>sockfd：</strong><ul>
+<li><code>sockfd</code> 是已连接套接字的文件描述符，它是通过 <code>socket()</code> 和 <code>accept()</code> 等函数创建的。</li>
+</ul>
+</li>
+<li><strong>addr：</strong><ul>
+<li><code>addr</code> 是一个指向 <code>struct sockaddr</code> 结构体的指针，用于存储对端（远程端）的地址信息。</li>
+</ul>
+</li>
+<li><strong>addrlen：</strong><ul>
+<li><code>addrlen</code> 是一个指向 <code>socklen_t</code> 类型的指针，用于指定 <code>addr</code> 缓冲区的大小。在调用 <code>getpeername()</code> 之前，<code>addrlen</code> 应该被设置为 <code>sizeof(struct sockaddr)</code>。</li>
+</ul>
+</li>
+</ol>
+<p><code>getpeername()</code> 在成功时返回 0，失败时返回 -1，并设置全局变量 <code>errno</code> 来指示错误的类型。</p>
+<h1 id="消息"><a href="#消息" class="headerlink" title="消息"></a>消息</h1><h2 id="struct-msghdr"><a href="#struct-msghdr" class="headerlink" title="struct msghdr"></a>struct msghdr</h2><p><code>struct msghdr</code> 是用于描述消息的数据结构，通常在网络编程中的一些系统调用中使用，如 <code>sendmsg()</code> 和 <code>recvmsg()</code>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">msghdr</span> &#123;</span></span><br><span class="line">    <span class="type">void</span>         *msg_name;       <span class="comment">// 指向目标地址的指针，通常是 struct sockaddr 结构体的指针</span></span><br><span class="line">    <span class="type">socklen_t</span>     msg_namelen;    <span class="comment">// 目标地址的长度</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> *<span class="title">msg_iov</span>;</span>        <span class="comment">// 指向一个或多个数据块的结构体数组，用于指定发送或接收的数据</span></span><br><span class="line">    <span class="type">size_t</span>        msg_iovlen;     <span class="comment">// msg_iov 数组的元素个数</span></span><br><span class="line">    <span class="type">void</span>         *msg_control;    <span class="comment">// 用于传递辅助数据，比如控制信息或文件描述符</span></span><br><span class="line">    <span class="type">size_t</span>        msg_controllen; <span class="comment">// msg_control 的长度</span></span><br><span class="line">    <span class="type">int</span>           msg_flags;      <span class="comment">// 用于传递或接收标志信息</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><code>Room(int n)</code>：构造函数，初始化各个成员变量。</li>
+<li><strong>msg_name 和 msg_namelen：</strong><ul>
+<li><code>msg_name</code> 和 <code>msg_namelen</code> 用于指定目标地址的信息。通常，<code>msg_name</code> 是一个指向 <code>struct sockaddr</code> 结构体的指针，<code>msg_namelen</code> 是这个结构体的长度。</li>
 </ul>
-<h2 id="Thread"><a href="#Thread" class="headerlink" title="Thread"></a>Thread</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">pthread_t</span> thread_tid;</span><br><span class="line">&#125;Thread;</span><br><span class="line"><span class="comment">// 将 pthread_t 封装在结构体中，可以通过定义更高级别的接口函数来管理线程。</span></span><br><span class="line"><span class="comment">// 这使得线程的创建、销毁等操作更加直观和易用。</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><strong>msg_iov 和 msg_iovlen：</strong><ul>
+<li><code>msg_iov</code> 是一个指向 <code>struct iovec</code> 结构体数组的指针，用于指定发送或接收的数据块。<code>msg_iovlen</code> 是 <code>msg_iov</code> 数组的元素个数。<code>struct iovec</code> 包含了指向数据的指针和数据的长度。</li>
+</ul>
+</li>
+<li><strong>msg_control 和 msg_controllen：</strong><ul>
+<li><code>msg_control</code> 和 <code>msg_controllen</code> 用于传递辅助数据，比如控制信息或文件描述符。这个字段通常用于在消息中传递额外的信息。</li>
+</ul>
+</li>
+<li><strong>msg_flags：</strong><ul>
+<li><code>msg_flags</code> 用于传递或接收标志信息，通常用于设置或获取一些与消息相关的状态。</li>
+</ul>
+</li>
+</ul>
+<h2 id="struct-cmsghdr"><a href="#struct-cmsghdr" class="headerlink" title="struct cmsghdr"></a>struct cmsghdr</h2><p>（Control Message Header）是一个用于描述控制消息的结构体头部，通常在一些套接字相关的系统调用中使用，如 <code>sendmsg()</code> 和 <code>recvmsg()</code>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cmsghdr</span> &#123;</span></span><br><span class="line">    <span class="type">size_t</span> cmsg_len;   <span class="comment">// 控制消息的总长度</span></span><br><span class="line">    <span class="type">int</span>    cmsg_level; <span class="comment">// 指定协议层，例如 SOL_SOCKET</span></span><br><span class="line">    <span class="type">int</span>    cmsg_type;  <span class="comment">// 指定消息类型</span></span><br><span class="line">    <span class="comment">// 后面跟着实际的数据</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<h2 id="Calloc"><a href="#Calloc" class="headerlink" title="Calloc()"></a>Calloc()</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> * <span class="title">Calloc</span><span class="params">(<span class="type">size_t</span> n, <span class="type">size_t</span> size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">void</span> *ptr;</span><br><span class="line">    <span class="keyword">if</span>( (ptr = <span class="built_in">calloc</span>(n, size)) == <span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        errno = ENOMEM;</span><br><span class="line">        <span class="built_in">err_quit</span>(<span class="string">&quot;Calloc error&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ptr;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// calloc()的封装函数，将内存分配和错误信息处理存放在一起</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>cmsg_len：</strong><ul>
+<li><code>cmsg_len</code> 表示整个控制消息的总长度，包括 <code>cmsghdr</code> 结构体头部以及后续的实际数据。</li>
+</ul>
+</li>
+<li><strong>cmsg_level：</strong><ul>
+<li><code>cmsg_level</code> 指定协议层，例如 <code>SOL_SOCKET</code> 表示套接字层。</li>
+</ul>
+</li>
+<li><strong>cmsg_type：</strong><ul>
+<li><code>cmsg_type</code> 指定消息的类型，表示控制消息的具体含义。</li>
+</ul>
+</li>
+</ul>
+<h3 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h3><p>用于处理和操作控制消息的不同方面。这些宏的命名通常以 <code>CMSG_</code> 为前缀，表示它们属于控制消息处理的一部分</p>
+<ul>
+<li><p><strong><code>CMSG_FIRSTHDR</code>：</strong> 返回与给定 <code>msghdr</code> 结构体相关联的第一个控制消息头的指针。</p>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CMSG_FIRSTHDR(mhdr) </span></span><br><span class="line">((mhdr)-&gt;msg_controllen &gt;= <span class="keyword">sizeof</span>(<span class="keyword">struct</span> cmsghdr) ? (<span class="keyword">struct</span> cmsghdr *)(mhdr)-&gt;msg_control : <span class="literal">NULL</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>CMSG_NXTHDR</code>：</strong> 返回下一个控制消息头的指针，用于在消息头链表中遍历控制消息。</p>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CMSG_NXTHDR(mhdr, cmsg) </span></span><br><span class="line">((<span class="type">char</span> *)cmsg + CMSG_ALIGN((cmsg)-&gt;cmsg_len) + CMSG_ALIGN(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> cmsghdr)) </span><br><span class="line">&lt; </span><br><span class="line"> (<span class="type">char</span> *)(mhdr)-&gt;msg_control + (mhdr)-&gt;msg_controllen </span><br><span class="line">? </span><br><span class="line"> (<span class="keyword">struct</span> cmsghdr *)((<span class="type">char</span> *)cmsg + CMSG_ALIGN((cmsg)-&gt;cmsg_len)) : <span class="literal">NULL</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>CMSG_LEN</code>：</strong> 根据给定数据大小计算控制消息头的总长度。</p>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CMSG_LEN(size) (CMSG_ALIGN(sizeof(struct cmsghdr)) + (size))</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>CMSG_SPACE</code>：</strong> 根据给定数据大小计算整个控制消息的总空间大小，包括头部和数据部分。</p>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CMSG_SPACE(size) (CMSG_ALIGN(sizeof(struct cmsghdr)) + CMSG_ALIGN(size))</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>CMSG_ALIGN</code>：</strong> 对给定大小进行对齐操作，确保满足平台的对齐要求。</p>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CMSG_ALIGN(len) (((len) + sizeof(long) - 1) &amp; ~(sizeof(long) - 1))</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>CMSG_DATA</code>:</strong> 是一个宏，用于获取控制消息头 (<code>struct cmsghdr</code>) 中数据部分的指针。在控制消息中，数据部分紧跟在头部之后，其大小可变。</p>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CMSG_DATA(cmsg) ((unsigned char *)(cmsg) + CMSG_LEN(0))</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p><code>msghdr</code> 用于描述整个消息，包括数据和控制信息，而 <code>cmsghdr</code> 则用于描述控制信息的头部。在实际应用中，<code>msg_control</code> 指向一个或多个 <code>cmsghdr</code> 结构体，后面跟着实际的控制信息数据。这样的结构设计使得在消息中可以携带各种类型的辅助信息，例如文件描述符等。</p>
+</blockquote>
+<h2 id="sendmsg"><a href="#sendmsg" class="headerlink" title="sendmsg()"></a>sendmsg()</h2><p><code>sendmsg()</code> 函数用于通过套接字发送消息，包括数据块和控制信息。它允许在一个系统调用中发送多个数据块，同时可以携带控制信息，比如文件描述符。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">sendmsg</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="keyword">struct</span> msghdr *msg, <span class="type">int</span> flags)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h2 id="Select"><a href="#Select" class="headerlink" title="Select()"></a>Select()</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span> <span class="title">Select</span><span class="params">(<span class="type">int</span> nfds, fd_set * readfds, fd_set * writefds, fd_set * execpfds, <span class="keyword">struct</span> timeval *timeout)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">int</span> n;</span><br><span class="line">    <span class="keyword">for</span>(;;)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>((n = <span class="built_in">select</span>(nfds, readfds, writefds, execpfds, timeout)) &lt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(errno == EINTR) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="built_in">err_quit</span>(<span class="string">&quot;select error&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> n; <span class="comment">//can return 0 on timeout</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>sockfd：</strong><ul>
+<li>是要发送数据的套接字描述符。</li>
+</ul>
+</li>
+<li><strong>msg：</strong><ul>
+<li>是一个指向 <code>struct msghdr</code> 结构体的指针，用于指定发送的消息的详细信息，包括目标地址、数据块、控制信息等。</li>
+</ul>
+</li>
+<li><strong>flags：</strong><ul>
+<li>是一组标志位，可以为 0 或者通过按位或操作指定多个标志。</li>
+</ul>
+</li>
+<li><strong>返回值：</strong><ul>
+<li>返回实际发送的字节数，发生错误时返回 -1。</li>
+</ul>
+</li>
+</ul>
+<h2 id="recvmsg"><a href="#recvmsg" class="headerlink" title="recvmsg()"></a>recvmsg()</h2><p><code>recvmsg()</code> 函数用于通过套接字接收消息，包括数据块和控制信息。它允许在一个系统调用中接收多个数据块，同时可以携带控制信息，比如文件描述符。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">recvmsg</span><span class="params">(<span class="type">int</span> sockfd, <span class="keyword">struct</span> msghdr *msg, <span class="type">int</span> flags)</span>;</span><br></pre></td></tr></table></figure>
 
+<h2 id="iovec"><a href="#iovec" class="headerlink" title="iovec"></a>iovec</h2><p><code>struct iovec</code> 是一个用于描述分散&#x2F;聚集输入输出的结构体，通常在一些系统调用中使用，如 <code>readv</code>、<code>writev</code>、<code>sendmsg</code> 和 <code>recvmsg</code>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/uio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> &#123;</span></span><br><span class="line">    <span class="type">void</span>  *iov_base; <span class="comment">// 指向数据的指针</span></span><br><span class="line">    <span class="type">size_t</span> iov_len;  <span class="comment">// 数据的长度</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>示例如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/uio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> <span class="title">iov</span>[2];</span></span><br><span class="line">    <span class="type">char</span> buffer1[] = <span class="string">&quot;Hello, &quot;</span>;</span><br><span class="line">    <span class="type">char</span> buffer2[] = <span class="string">&quot;world!\n&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置第一个缓冲区</span></span><br><span class="line">    iov[<span class="number">0</span>].iov_base = buffer1;</span><br><span class="line">    iov[<span class="number">0</span>].iov_len = <span class="keyword">sizeof</span>(buffer1) - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置第二个缓冲区</span></span><br><span class="line">    iov[<span class="number">1</span>].iov_base = buffer2;</span><br><span class="line">    iov[<span class="number">1</span>].iov_len = <span class="keyword">sizeof</span>(buffer2) - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用 writev 函数将两个缓冲区的数据写入到文件描述符</span></span><br><span class="line">    <span class="type">ssize_t</span> bytes_written = writev(STDOUT_FILENO, iov, <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (bytes_written == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;writev&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> BUF_SIZE 1024</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> sv[<span class="number">2</span>];</span><br><span class="line">    <span class="type">char</span> buffer[BUF_SIZE];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (socketpair(AF_UNIX, SOCK_STREAM, <span class="number">0</span>, sv) == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;socketpair&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">pid_t</span> pid = fork();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (pid == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;fork&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (pid == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 子进程</span></span><br><span class="line">        close(sv[<span class="number">0</span>]); <span class="comment">// 关闭不使用的一端</span></span><br><span class="line"></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> <span class="title">iov</span>[2];</span></span><br><span class="line">        iov[<span class="number">0</span>].iov_base = <span class="string">&quot;Hello, &quot;</span>;</span><br><span class="line">        iov[<span class="number">0</span>].iov_len = <span class="built_in">strlen</span>(<span class="string">&quot;Hello, &quot;</span>);</span><br><span class="line">        iov[<span class="number">1</span>].iov_base = <span class="string">&quot;world!&quot;</span>;</span><br><span class="line">        iov[<span class="number">1</span>].iov_len = <span class="built_in">strlen</span>(<span class="string">&quot;world!&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">msghdr</span> <span class="title">msg</span> =</span> &#123;</span><br><span class="line">            .msg_iov = iov,</span><br><span class="line">            .msg_iovlen = <span class="number">2</span>,</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (sendmsg(sv[<span class="number">1</span>], &amp;msg, <span class="number">0</span>) == <span class="number">-1</span>) &#123;</span><br><span class="line">            perror(<span class="string">&quot;sendmsg&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        close(sv[<span class="number">1</span>]); <span class="comment">// 关闭写入端</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 父进程</span></span><br><span class="line">        close(sv[<span class="number">1</span>]); <span class="comment">// 关闭不使用的一端</span></span><br><span class="line"></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> <span class="title">iov</span>[2];</span></span><br><span class="line">        iov[<span class="number">0</span>].iov_base = buffer;</span><br><span class="line">        iov[<span class="number">0</span>].iov_len = BUF_SIZE;</span><br><span class="line"></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">cmsghdr</span> *<span class="title">cmsg</span>;</span></span><br><span class="line">        <span class="type">size_t</span> cmsg_size = CMSG_SPACE(<span class="keyword">sizeof</span>(<span class="type">int</span>));</span><br><span class="line">        cmsg = <span class="built_in">malloc</span>(cmsg_size);</span><br><span class="line"></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">msghdr</span> <span class="title">msg</span> =</span> &#123;</span><br><span class="line">            .msg_iov = iov,</span><br><span class="line">            .msg_iovlen = <span class="number">1</span>,</span><br><span class="line">            .msg_control = cmsg,</span><br><span class="line">            .msg_controllen = cmsg_size,</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (recvmsg(sv[<span class="number">0</span>], &amp;msg, <span class="number">0</span>) == <span class="number">-1</span>) &#123;</span><br><span class="line">            perror(<span class="string">&quot;recvmsg&quot;</span>);</span><br><span class="line">            close(sv[<span class="number">0</span>]);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 提取控制信息</span></span><br><span class="line">        <span class="type">int</span> received_fd = *((<span class="type">int</span> *)CMSG_DATA(cmsg));</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Received file descriptor: %d\n&quot;</span>, received_fd);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 提取数据</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Received message: %s\n&quot;</span>, buffer);</span><br><span class="line"></span><br><span class="line">        close(sv[<span class="number">0</span>]); <span class="comment">// 关闭读取端</span></span><br><span class="line">        close(received_fd); <span class="comment">// 关闭文件描述符</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="socket通信"><a href="#socket通信" class="headerlink" title="socket通信"></a>socket通信</h1><h2 id="socketpair"><a href="#socketpair" class="headerlink" title="socketpair()"></a>socketpair()</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">socketpair</span><span class="params">(<span class="type">int</span> domai</span></span><br><span class="line"><span class="params">               n, <span class="type">int</span> type, <span class="type">int</span> protocol, <span class="type">int</span> sv[<span class="number">2</span>])</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>domain：</strong><ul>
+<li>指定协议族，通常使用 <code>AF_UNIX</code> 表示本地通信。</li>
+</ul>
+</li>
+<li><strong>type：</strong><ul>
+<li>指定套接字类型，通常使用 <code>SOCK_STREAM</code> 或 <code>SOCK_DGRAM</code>。</li>
+</ul>
+</li>
+<li><strong>protocol：</strong><ul>
+<li>指定协议，通常为 0。</li>
+</ul>
+</li>
+<li><strong>sv[2]：</strong><ul>
+<li>一个整型数组，用于存储创建的套接字对的文件描述符。<code>sv[0]</code> 表示一端，<code>sv[1]</code> 表示另一端。</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -739,7 +969,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-21 10:59:18" itemprop="dateModified" datetime="2023-11-21T10:59:18+08:00">2023-11-21</time>
+                <time title="修改时间：2024-01-06 15:40:10" itemprop="dateModified" datetime="2024-01-06T15:40:10+08:00">2024-01-06</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1034,91 +1264,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/26/Git/undoing/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/26/Git/undoing/" class="post-title-link" itemprop="url">undoing</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-26 00:05:49" itemprop="dateCreated datePublished" datetime="2023-10-26T00:05:49+08:00">2023-10-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-16 09:28:56" itemprop="dateModified" datetime="2023-11-16T09:28:56+08:00">2023-11-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h1><ol>
-<li>撤销暂存操作</li>
-<li>撤销提交操作</li>
-<li>撤销修改文件操作</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/26/Git/undoing/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1195,13 +1340,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">41</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1228,7 +1373,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
