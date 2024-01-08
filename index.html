@@ -196,7 +196,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-01 14:50:33" itemprop="dateModified" datetime="2024-01-01T14:50:33+08:00">2024-01-01</time>
+                <time title="修改时间：2024-01-08 02:50:21" itemprop="dateModified" datetime="2024-01-08T02:50:21+08:00">2024-01-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -220,20 +220,96 @@
 
       
           <h1 id="enum"><a href="#enum" class="headerlink" title="enum"></a>enum</h1><p>枚举（enum）是一种数据类型，在编程中用于定义一个有限的、命名的常量集合。它通过使用enum关键字来声明，在声明中列出枚举常量。每个枚举常量具有一个名称和一个关联的值。</p>
-<h2 id="默认值"><a href="#默认值" class="headerlink" title="默认值"></a>默认值</h2><p>每个列表中的常量都有默认值，从0开始以此类推。如果有某个常量被赋值了，那么后续的常量将以这个值为起点，依次累加。如：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Season</span> &#123;</span><br><span class="line">    SPRING = <span class="number">1</span>,</span><br><span class="line">    SUMMER, <span class="comment">// = 2</span></span><br><span class="line">    AUTUMN = <span class="number">10</span>,</span><br><span class="line">    WINTER <span class="comment">// =11</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/12/30/C++/enum/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
 
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> <span class="title class_">Season</span> &#123;</span><br><span class="line">    SPRING, <span class="comment">// = 0</span></span><br><span class="line">    SUMMER, <span class="comment">// = 1</span></span><br><span class="line">    AUTUMN, <span class="comment">// = 2</span></span><br><span class="line">    WINTER <span class="comment">// = 3</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
-<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 声明一个枚举类型Season</span></span><br><span class="line"><span class="keyword">enum</span> <span class="title class_">Season</span> &#123;</span><br><span class="line">    SPRING,</span><br><span class="line">    SUMMER,</span><br><span class="line">    AUTUMN,</span><br><span class="line">    WINTER</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 使用枚举类型变量</span></span><br><span class="line">    Season currentSeason = SUMMER;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出当前季节</span></span><br><span class="line">    <span class="keyword">switch</span> (currentSeason) &#123;</span><br><span class="line">        <span class="keyword">case</span> SPRING:</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;It&#x27;s spring!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> SUMMER:</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;It&#x27;s summer!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> AUTUMN:</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;It&#x27;s autumn!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> WINTER:</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;It&#x27;s winter!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            std::cout &lt;&lt; <span class="string">&quot;Invalid season!&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/30/C++/oriented/">
 
-<blockquote>
-<p>在C中，使用名称空间来标识程序中的各个部分，名称空间分类别：特定作用域中结构，联合，枚举共享同一个名称空间；这个名称空间和普通变量的使用的空间不同，因此以下代码是允许的：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rect</span> &#123;</span><span class="type">double</span> x; <span class="type">double</span> y;&#125;</span><br><span class="line"><span class="type">int</span> rect;</span><br></pre></td></tr></table></figure>
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
 
-<p>但是C++中不允许这么做，C++将标记名和变量名放在相同的名称空间中。但是C++有namespace的概念。</p>
-</blockquote>
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/30/C++/oriented/" class="post-title-link" itemprop="url">object-oriented</a>
+        </h2>
 
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-30 23:08:20" itemprop="dateCreated datePublished" datetime="2023-11-30T23:08:20+08:00">2023-11-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-01-08 21:51:22" itemprop="dateModified" datetime="2024-01-08T21:51:22+08:00">2024-01-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h1><p>三大特性：复合，委托，继承。</p>
+<p>复合和继承的构造函数都是由里到外的次序构建。析构则是由外到里。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/11/30/C++/oriented/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -275,10 +351,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-11-24 16:10:24 / 修改时间：23:29:11" itemprop="dateCreated datePublished" datetime="2023-11-24T16:10:24+08:00">2023-11-24</time>
+              <time title="创建时间：2023-11-24 16:10:24" itemprop="dateCreated datePublished" datetime="2023-11-24T16:10:24+08:00">2023-11-24</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-01-06 16:39:22" itemprop="dateModified" datetime="2024-01-06T16:39:22+08:00">2024-01-06</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -302,34 +384,14 @@
       
           <h1 id="I-O-多路复用"><a href="#I-O-多路复用" class="headerlink" title="I&#x2F;O 多路复用"></a>I&#x2F;O 多路复用</h1><p>I&#x2F;O多路复用是一种并发处理的机制，允许单个进程或线程处理多个输入或输出通道，而无需为每个通道创建单独的线程或进程。这样可以有效地提高系统的性能和资源利用率。</p>
 <p>常用的I&#x2F;O多路复用机制有<code>select</code>、<code>poll</code>、<code>epoll</code></p>
-<h2 id="select"><a href="#select" class="headerlink" title="select"></a>select</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/select.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">select</span><span class="params">(<span class="type">int</span> nfds, fd_set *readfds, fd_set *writefds, fd_set *exceptfds, <span class="keyword">struct</span> timeval *timeout)</span>;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li><p><strong>nfds：</strong></p>
-<p> <code>nfds</code> 参数指定待监视的文件描述符中最大的文件描述符值加一（即最大的文件描述符值+1）。这个参数是必须的，因为 <code>select()</code> 函数要求知道监视的文件描述符范围。</p>
-</li>
-<li><p><strong>readfds：</strong></p>
-<p> <code>readfds</code> 是一个指向 <code>fd_set</code> 结构体的指针，表示要监视可读事件的文件描述符集合。当 <code>select()</code> 返回时，<code>readfds</code> 将包含就绪的可读文件描述符。</p>
-</li>
-<li><p><strong>writefds：</strong></p>
-<p> <code>writefds</code> 是一个指向 <code>fd_set</code> 结构体的指针，表示要监视可写事件的文件描述符集合。当 <code>select()</code> 返回时，<code>writefds</code> 将包含就绪的可写文件描述符。</p>
-</li>
-<li><p><strong>exceptfds：</strong></p>
-<p> <code>exceptfds</code> 是一个指向 <code>fd_set</code> 结构体的指针，表示要监视异常事件的文件描述符集合。当 <code>select()</code> 返回时，<code>exceptfds</code> 将包含发生异常的文件描述符。</p>
-</li>
-<li><p><strong>timeout：</strong></p>
-<p> <code>timeout</code> 是一个指向 <code>struct timeval</code> 结构体的指针，表示超时时间。它指定 <code>select()</code> 在等待事件发生的时间上的限制。</p>
-<ul>
-<li>如果 <code>timeout</code> 为 <code>NULL</code>，<code>select()</code> 将一直等待，直到有事件发生。</li>
-<li>如果 <code>timeout</code> 为 <code>&#123;0, 0&#125;</code>，<code>select()</code> 将立即返回，不等待。</li>
-<li>如果 <code>timeout</code> 具有非零值，<code>select()</code> 将在规定的时间内等待事件，超时后返回。</li>
-</ul>
-</li>
-</ol>
-<blockquote>
-<p>除了nfds参数，其他的参数可以为NULL，表示该参数的功能不启用</p>
-</blockquote>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/11/24/concurrent/mutiplexing/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -794,7 +856,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-19 02:13:57" itemprop="dateModified" datetime="2023-11-19T02:13:57+08:00">2023-11-19</time>
+                <time title="修改时间：2024-01-08 02:51:18" itemprop="dateModified" datetime="2024-01-08T02:51:18+08:00">2024-01-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -819,107 +881,14 @@
       
           <h1 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h1><p><strong>数据库状态</strong>：非空数据库和其键值对统称为数据库状态</p>
 <p>由于Redis是内存数据库，当关机后数据将不存在，因此需要将其存储在硬盘上。RDB持久化将数据存储在硬盘上，可以手动或服务器定期执行。</p>
-<ul>
-<li>保存和载入RDB</li>
-<li>SAVE和BGSAVE的实现原理</li>
-<li>自动保存功能</li>
-<li>RDB文件的组成</li>
-</ul>
-<h2 id="保存和载入RDB"><a href="#保存和载入RDB" class="headerlink" title="保存和载入RDB"></a>保存和载入RDB</h2><p>使用命令<code>SAVE</code>或<code>BGSAVE</code>可以创建RDB文件。两个命令的区别是</p>
-<ul>
-<li><code>SAVE</code>会阻断当前的进程，等待命令执行完成</li>
-<li><code>BGSAVE</code>会创建子进程，用子进程来执行创建RDB操作</li>
-</ul>
-<p>两个命令 的伪码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">SAVE</span>():</span><br><span class="line">    <span class="comment"># 创建RDB文件</span></span><br><span class="line">    rdbSave()</span><br><span class="line">    </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">BGSAVE</span>():</span><br><span class="line">    <span class="comment"># 创建子进程</span></span><br><span class="line">    pid = fork()</span><br><span class="line">    <span class="keyword">if</span> pid == <span class="number">0</span>:</span><br><span class="line">        <span class="comment">#子进程负责创建RDB文件</span></span><br><span class="line">        rdbSave()</span><br><span class="line">        <span class="comment"># 完成之后向父进程发送信号</span></span><br><span class="line">        signal_parent()</span><br><span class="line">    <span class="keyword">elif</span> pid &gt; <span class="number">0</span>:</span><br><span class="line">        <span class="comment"># 父进程继续处理命令请求，并通过轮询等待子进程的信号</span></span><br><span class="line">        handle_request_and_wait_signal()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># 处理出错情况</span></span><br><span class="line">        handle_fork_error()</span><br></pre></td></tr></table></figure>
-
-<p>Redis在服务器启动时会自动载入RDB文件，如果AOF持久化功能是启用状态，则会载入AOF文件。</p>
-<h2 id="保存过程中的服务器状态"><a href="#保存过程中的服务器状态" class="headerlink" title="保存过程中的服务器状态"></a>保存过程中的服务器状态</h2><p>执行<code>SAVE</code>时，服务器处于阻塞状态，此时发送的所有命令将被拒绝。</p>
-<p>执行<code>BGSAVE</code>时，是子进程来执行的，因此在执行时可以接收大部分命令。以下几个命令例外：</p>
-<ul>
-<li><code>SAVE</code>：为了避免同时调用rdbSave()产生竞争，执行<code>BGSAVE</code>时，将拒绝<code>SAVE</code>命令</li>
-<li><code>BGSAVE</code>：在执行过程中，<code>BGSAVE</code>命令也会被拒绝，同样会产生竞争。</li>
-<li><code>BGREWRITEAOF</code>：等到<code>BGSAVE</code>执行完毕后再执行，同时执行这两个命令将造成极大的性能损耗</li>
-</ul>
-<blockquote>
-<p>载入过程中，服务器处于阻塞状态</p>
-</blockquote>
-<h2 id="自动间隔保存"><a href="#自动间隔保存" class="headerlink" title="自动间隔保存"></a>自动间隔保存</h2><p>因为<code>BGSAVE</code>是在后台进行的，因此可以令服务器根据特定条件自动调用这个命令。一般设置如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">save 900 1</span><br><span class="line">save 300 10</span><br></pre></td></tr></table></figure>
-
-<p>两条条件的意思是：1）900秒内有一次修改，2）300秒内有10次修改。一旦触发了两个条件其中之一，就会自动保存。</p>
-<p>这个配置保存在以下数据结构中：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">redisServer</span> &#123;</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="comment">// 记录了保存条件的数组</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">saveparam</span> *<span class="title">saveparams</span>;</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">saveparam</span> &#123;</span></span><br><span class="line">    <span class="comment">// 秒数</span></span><br><span class="line">    <span class="type">time_t</span> seconds;</span><br><span class="line">    <span class="comment">// 修改数</span></span><br><span class="line">    <span class="type">int</span> changes;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p><code>seconds</code>和<code>changes</code>记录的是规定的条件，有两个属性记录服务器当前对应的条件值是多少，分别是<code>dirty</code>和<code>lastsave</code>。如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">redisServer</span> &#123;</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="comment">// 修改计数器</span></span><br><span class="line">    <span class="type">long</span> <span class="type">long</span> dirty;</span><br><span class="line">    <span class="comment">// 上一次执行保存的时间</span></span><br><span class="line">    <span class="type">time_t</span> lastsave;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>为了检查当前服务器是否满足条件，有一个函数<code>serverCron()</code>用来检查条件，每100ms执行一次，伪码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">serverCron</span>():</span><br><span class="line">    <span class="comment"># ...</span></span><br><span class="line">    <span class="comment"># 遍历所有保存条件</span></span><br><span class="line">    <span class="keyword">for</span> saveparam <span class="keyword">in</span> server.saveparams:</span><br><span class="line">        <span class="comment"># 计算距离上次执行保存操作有多少秒</span></span><br><span class="line">        save_interval = unixtime_now()-server.lastsave</span><br><span class="line">        <span class="comment"># 如果数据库状态的修改次数超过条件所设置的次数</span></span><br><span class="line">        <span class="comment"># 并且距离上次保存的时间超过条件所设置的时间</span></span><br><span class="line">        <span class="comment"># 那么执行保存操作</span></span><br><span class="line">        <span class="keyword">if</span>      server.dirty &gt;= saveparam.changes <span class="keyword">and</span> \</span><br><span class="line">           save_interval &gt; saveparam.seconds:</span><br><span class="line">            BGSAVE()</span><br><span class="line">    <span class="comment"># ...</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="文件结构"><a href="#文件结构" class="headerlink" title="文件结构"></a>文件结构</h2><blockquote>
-<p>大写字母为常量，小写字母为变量或者数据</p>
-</blockquote>
-<p>RDB是一个二进制文件，RDB的文件结构如下：</p>
-<p><img src="/2023/11/16/Redis/implementation/rdb/structure.png"></p>
-<p><code>REDIS</code>:占据5字节大小，RDB文件的开头，用以快速确认是否为RDB文件</p>
-<p><code>db_version</code>:占据4字节大小，RDB文件的版本</p>
-<p><code>databases</code>:包含0个或多个数据库，以及其中的键值对。如果没有数据库大小为0，如果有则根据数量的不同大小随之变化</p>
-<p><code>EOF</code>:占据1字节，RDB正文的结束，读到此处表示数据库全部读取完毕</p>
-<p><code>check_sum</code>:占据8字节，是一个校验和，检验RDB文件是否出错</p>
-<h3 id="databases"><a href="#databases" class="headerlink" title="databases"></a>databases</h3><p>databases部分保存数据库，结构如下：</p>
-<p><img src="/2023/11/16/Redis/implementation/rdb/databases.png"></p>
-<ul>
-<li><code>SELECTDB</code>：占据1字节，系统读到此处时，认为接下来将要读取数据库号</li>
-<li><code>db_number</code>：占据1&#x2F;2&#x2F;5字节，数据库号码，接下来读取的数据存入到对应的数据库中</li>
-<li><code>key_value_pairs</code>：如果键有过期时间，过期时间和键值对保存在一起。大小不定</li>
-</ul>
-<h3 id="key-value-pairs"><a href="#key-value-pairs" class="headerlink" title="key_value_pairs"></a>key_value_pairs</h3><p>保存键值对，结构如下：</p>
-<p><img src="/2023/11/16/Redis/implementation/rdb/key_value_pairs.png"></p>
-<ul>
-<li><p><code>TYPE</code>：记录对象类型并指明相应的编码</p>
-<table>
-<thead>
-<tr>
-<th>REDIS_RDB_TYPE_STRING</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>REDIS_RDB_TYPE_LIST</strong></td>
-</tr>
-<tr>
-<td><strong>REDIS_RDB_TYPE_SET</strong></td>
-</tr>
-<tr>
-<td><strong>REDIS_RDB_TYPE_ZSET</strong></td>
-</tr>
-<tr>
-<td><strong>REDIS_RDB_TYPE_HASH</strong></td>
-</tr>
-<tr>
-<td><strong>REDIS_RDB_TYPE_LIST_ZIPLIST</strong></td>
-</tr>
-<tr>
-<td><strong>REDIS_RDB_TYPE_SET_INTSET</strong></td>
-</tr>
-<tr>
-<td><strong>REDIS_RDB_TYPE_ZSET_ZIPLIST</strong></td>
-</tr>
-<tr>
-<td><strong>REDIS_RDB_TYPE_HASH_ZIPLIST</strong></td>
-</tr>
-</tbody></table>
-<p>  服务器读入RDB时，根据<code>TYPE</code>来决定如何解释value的数据</p>
-</li>
-</ul>
-<p>带过期键的键值对结构如下：</p>
-<p><img src="/2023/11/16/Redis/implementation/rdb/key_value_pairs_withExpire.png"></p>
-<h3 id="value的编码"><a href="#value的编码" class="headerlink" title="value的编码"></a>value的编码</h3><ol>
-<li><p>字符串对象</p>
-</li>
-<li></li>
-</ol>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/11/16/Redis/implementation/rdb/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -969,7 +938,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-06 15:40:10" itemprop="dateModified" datetime="2024-01-06T15:40:10+08:00">2024-01-06</time>
+                <time title="修改时间：2024-01-08 21:45:09" itemprop="dateModified" datetime="2024-01-08T21:45:09+08:00">2024-01-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1169,101 +1138,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/02/Redis/implementation/database/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/02/Redis/implementation/database/" class="post-title-link" itemprop="url">database</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-11-02 23:33:43" itemprop="dateCreated datePublished" datetime="2023-11-02T23:33:43+08:00">2023-11-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-16 09:22:58" itemprop="dateModified" datetime="2023-11-16T09:22:58+08:00">2023-11-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="单机数据库的实现"><a href="#单机数据库的实现" class="headerlink" title="单机数据库的实现"></a>单机数据库的实现</h1><h2 id="总述"><a href="#总述" class="headerlink" title="总述"></a>总述</h2><p>这篇博客记录学习redis的单机数据库实现的原理，包括：</p>
-<ol>
-<li>数据库的保存方式</li>
-<li>客户端的目标数据库切换</li>
-<li>键值对的保存方式</li>
-</ol>
-<ul>
-<li>增删改查的实现方式</li>
-<li>键的过期时间</li>
-<li>服务器自动删除键</li>
-<li>AOF RDB 复制功能对过期键的处理</li>
-</ul>
-<ol start="4">
-<li>数据库通知</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/11/02/Redis/implementation/database/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1333,7 +1207,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-count">61</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
