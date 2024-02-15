@@ -165,7 +165,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/30/C++/enum/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/23/QT/QTMethod/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -179,7 +179,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/12/30/C++/enum/" class="post-title-link" itemprop="url">enum</a>
+            <a href="/2024/01/23/QT/QTMethod/" class="post-title-link" itemprop="url">QT的常用类和方法</a>
         </h2>
 
         <div class="post-meta">
@@ -189,15 +189,434 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2023-12-30 02:16:32" itemprop="dateCreated datePublished" datetime="2023-12-30T02:16:32+08:00">2023-12-30</time>
+              <time title="创建时间：2024-01-23 14:11:53" itemprop="dateCreated datePublished" datetime="2024-01-23T14:11:53+08:00">2024-01-23</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-08 02:50:21" itemprop="dateModified" datetime="2024-01-08T02:50:21+08:00">2024-01-08</time>
+                <time title="修改时间：2024-02-15 02:10:11" itemprop="dateModified" datetime="2024-02-15T02:10:11+08:00">2024-02-15</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/QT/" itemprop="url" rel="index"><span itemprop="name">QT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="QT"><a href="#QT" class="headerlink" title="QT"></a>QT</h1><p>Qt 是一个功能强大且广泛应用的 C++ 框架，提供了丰富的类库和函数来简化和加速 C++ 程序的开发。</p>
+<h2 id="一、QObject-connect"><a href="#一、QObject-connect" class="headerlink" title="一、QObject::connect()"></a>一、QObject::connect()</h2><h2 id="二、FontMetricsF"><a href="#二、FontMetricsF" class="headerlink" title="二、FontMetricsF"></a>二、FontMetricsF</h2><p><code>QFontMetricsF</code> 类是 Qt 中用于获取字体度量信息（metrics）的类，其中的 “F” 表示浮点数（floating-point）。这个类主要用于获取与字体相关的度量信息，如字符宽度、高度、行间距等，支持浮点数的精度。</p>
+<h4 id="1、构造函数"><a href="#1、构造函数" class="headerlink" title="1、构造函数"></a>1、构造函数</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">QFontMetricsF</span>(<span class="type">const</span> QFont &amp;font);</span><br></pre></td></tr></table></figure>
+
+<h4 id="2、获取字符宽度"><a href="#2、获取字符宽度" class="headerlink" title="2、获取字符宽度"></a>2、获取字符宽度</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QRectF <span class="title">boundingRect</span><span class="params">(<span class="type">const</span> QString &amp;text)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3、获取文本矩形"><a href="#3、获取文本矩形" class="headerlink" title="3、获取文本矩形"></a>3、获取文本矩形</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">QRectF <span class="title">boundingRect</span><span class="params">(<span class="type">const</span> QString &amp;text)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="4、获取行间距"><a href="#4、获取行间距" class="headerlink" title="4、获取行间距"></a>4、获取行间距</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">qreal <span class="title">lineSpacing</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="三、QPlainTextEdit"><a href="#三、QPlainTextEdit" class="headerlink" title="三、QPlainTextEdit"></a>三、QPlainTextEdit</h2><p><code>QPlainTextEdit</code> 是 Qt 中用于显示和编辑纯文本的控件，相比 <code>QTextEdit</code>，它更适合处理大量的纯文本数据，因为不支持丰富的文本格式和图像等内容。</p>
+<h3 id="1、SIGNAL-textChanged"><a href="#1、SIGNAL-textChanged" class="headerlink" title="1、SIGNAL:textChanged"></a>1、SIGNAL:textChanged</h3><p><code>textChanged</code> 是 <code>QPlainTextEdit</code> 类的信号，表示文本内容发生变化时发出的信号。当用户在 <code>QPlainTextEdit</code> 中编辑文本并保存后，如果文本内容发生了变化，就会触发这个信号。通常情况下，可以利用 <code>textChanged</code> 信号连接到一个槽函数来实现在文本发生变化时执行特定的操作</p>
+<h3 id="2、setPlaceholderText"><a href="#2、setPlaceholderText" class="headerlink" title="2、setPlaceholderText"></a>2、setPlaceholderText</h3><p><code>setPlaceholderText()</code> 是用于设置输入框（如 QLineEdit、QPlainTextEdit 等）的占位符文本的函数。占位符文本是在用户未输入任何内容时显示在输入框中的文本，通常用于提供输入提示或说明。</p>
+<h3 id="3、setPlainText"><a href="#3、setPlainText" class="headerlink" title="3、setPlainText"></a>3、setPlainText</h3><p>用于设置纯文本编辑器中的文本内容。该函数会清除当前文本并替换为新的纯文本。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">QPlainTextEdit::setPlainText</span><span class="params">(<span class="type">const</span> QString &amp;text)</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4、toPlainText"><a href="#4、toPlainText" class="headerlink" title="4、toPlainText"></a>4、toPlainText</h3><p><code>toPlainText()</code> 是 <code>QPlainTextEdit</code> 类的一个函数，用于获取纯文本编辑器中当前显示的文本内容，并以纯文本的形式返回。</p>
+<h2 id="四、QTextCursor"><a href="#四、QTextCursor" class="headerlink" title="四、QTextCursor"></a>四、QTextCursor</h2><p><code>QTextCursor</code> 是 Qt 中用于操作文本的一个重要类，它提供了对文本内容进行定位、选择和编辑的功能。通过 <code>QTextCursor</code>，可以轻松地在文本中移动光标、选择文本、插入、删除和修改文本内容等。</p>
+<p><code>QTextCursor</code> 可以用于操作各种支持文本编辑的控件，如 <code>QTextEdit</code>、<code>QPlainTextEdit</code> 等。通过 <code>QTextCursor</code> 类，可以实现文本编辑器、富文本编辑器、代码编辑器等功能。</p>
+<h2 id="五、Completer"><a href="#五、Completer" class="headerlink" title="五、Completer"></a>五、Completer</h2><p><code>Completer</code> 是一个用于自动补全的控件或工具。在 Qt 中，<code>QCompleter</code> 类提供了自动补全功能的实现，它通常与输入框（如 <code>QLineEdit</code>、<code>QTextEdit</code> 等）结合使用，用于在用户输入时提供候选项的建议。<code>QCompleter</code> 可以根据用户的输入内容，在预定义的列表中查找匹配项，并在输入框下方显示匹配的建议。用户可以通过键盘上下箭头键或鼠标点击来选择建议中的某一项，从而完成输入。</p>
+<h3 id="1、SIGNAL-activated"><a href="#1、SIGNAL-activated" class="headerlink" title="1、SIGNAL:activated"></a>1、SIGNAL:activated</h3><p><code>activated</code> 是 <code>QCompleter</code> 类的一个信号，当用户从候选项列表中选择了一个项并确认时，就会发出这个信号。通常情况下，我们会将 <code>activated</code> 信号与一个槽函数关联，用于处理用户选择了哪个候选项的操作。</p>
+<h3 id="2、setCompletionPrefix"><a href="#2、setCompletionPrefix" class="headerlink" title="2、setCompletionPrefix"></a>2、setCompletionPrefix</h3><p><code>setCompletionPrefix</code> 是 <code>QCompleter</code> 类的一个函数，用于设置自动补全的前缀。自动补全会根据输入框中的文本前缀来匹配候选项列表中的项，并显示匹配的结果。</p>
+<h3 id="3、popup"><a href="#3、popup" class="headerlink" title="3、popup()"></a>3、popup()</h3><p><code>popup()</code> 是 <code>QCompleter</code> 类中的一个函数，用于获取完成建议框（也称为完成列表）的指针。完成建议框是一个 <code>QAbstractItemView</code> 类的对象，它用于显示完成建议列表。当调用 <code>popup()</code> 函数时，它会返回完成建议框的指针，通过该指针可以对完成建议框进行操作，例如设置当前选中项、设置大小和位置等。</p>
+<h2 id="六、QStringListModel"><a href="#六、QStringListModel" class="headerlink" title="六、QStringListModel"></a>六、QStringListModel</h2><p><code>QStringListModel</code> 是 Qt 中用于管理字符串列表的模型类。它是 <code>QAbstractListModel</code> 的子类，提供了一种简单的方法来管理字符串列表，并可以在视图中显示这些字符串数据。</p>
+<p><code>QStringListModel</code> 主要用于为列表视图（如 <code>QListView</code>、<code>QComboBox</code> 等）提供数据源，它可以将一个 <code>QStringList</code> 中的字符串列表转换为模型数据，供视图进行显示。</p>
+<h2 id="七、QAbstractVideoSurface"><a href="#七、QAbstractVideoSurface" class="headerlink" title="七、QAbstractVideoSurface"></a>七、QAbstractVideoSurface</h2><p><code>QAbstractVideoSurface</code> 是 Qt 中用于视频数据处理的抽象基类。它是一个用于将视频数据渲染到目标设备的基类，可以被子类化以实现特定的视频数据处理逻辑。</p>
+<h3 id="1、present"><a href="#1、present" class="headerlink" title="1、present"></a>1、present</h3><p><code>present</code> 是 <code>QAbstractVideoSurface</code> 类的一个虚函数，用于将接收到的视频帧数据呈现到目标设备上。</p>
+<p>在子类化 <code>QAbstractVideoSurface</code> 并实现视频数据处理逻辑时，通常需要重写 <code>present</code> 函数。当外部源（如摄像头、视频文件等）传输过来新的视频帧数据时，Qt 会调用 <code>present</code> 函数，将接收到的视频帧数据渲染到目标设备上。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">QAbstractVideoSurface::present</span><span class="params">(<span class="type">const</span> QVideoFrame &amp;frame)</span></span>;</span><br><span class="line">    <span class="comment">//`frame`：表示接收到的视频帧数据。</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="八、QCamera"><a href="#八、QCamera" class="headerlink" title="八、QCamera"></a>八、QCamera</h2><p><code>QCamera</code> 是 Qt 中用于访问摄像头设备的类。它提供了一种方便的方式来控制和操作摄像头，包括打开摄像头、设置摄像头参数、捕获图像和视频、控制摄像头状态等。</p>
+<h3 id="1、setViewfinder"><a href="#1、setViewfinder" class="headerlink" title="1、setViewfinder"></a>1、setViewfinder</h3><p><code>setViewfinder</code> 是 <code>QCamera</code> 类的一个成员函数，用于设置摄像头的视图查看器。该函数接受一个 <code>QAbstractVideoSurface</code> 对象作为参数，用于将摄像头输出的视频显示到指定的视图上。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/23/QT/QTcp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/23/QT/QTcp/" class="post-title-link" itemprop="url">QTcp</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-01-23 11:30:35" itemprop="dateCreated datePublished" datetime="2024-01-23T11:30:35+08:00">2024-01-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-02-09 15:44:42" itemprop="dateModified" datetime="2024-02-09T15:44:42+08:00">2024-02-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/QT/" itemprop="url" rel="index"><span itemprop="name">QT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="QTcpSocket"><a href="#QTcpSocket" class="headerlink" title="QTcpSocket"></a>QTcpSocket</h1><p><code>QTcpSocket</code> 是 Qt 中用于进行 TCP（传输控制协议）通信的类。它可以创建一个 TCP 客户端，连接到远程服务器，并在网络上发送和接收数据。</p>
+<h2 id="QAbstractSocket"><a href="#QAbstractSocket" class="headerlink" title="QAbstractSocket"></a>QAbstractSocket</h2><p><code>QAbstractSocket</code> 是 Qt 中用于实现网络通信的抽象基类。它是 <code>QTcpSocket</code> 和 <code>QUdpSocket</code> 的基类，提供了一些共同的接口和功能，用于处理基于 TCP 和 UDP 的网络通信。<code>QAbstractSocket</code> 提供了一些不同的连接状态，以便在处理网络通信时了解套接字的当前状态。</p>
+<p>以下是 <code>QAbstractSocket</code> 类中定义的连接状态枚举值：</p>
+<ul>
+<li><code>QAbstractSocket::UnconnectedState</code>：未连接状态，套接字没有连接到远程主机。</li>
+<li><code>QAbstractSocket::HostLookupState</code>：主机查找状态，套接字正在查找远程主机的 IP 地址。</li>
+<li><code>QAbstractSocket::ConnectingState</code>：连接中状态，套接字正在尝试建立连接。</li>
+<li><code>QAbstractSocket::ConnectedState</code>：已连接状态，套接字已经成功连接到远程主机。</li>
+<li><code>QAbstractSocket::BoundState</code>：已绑定状态，套接字已经绑定到一个本地端口。</li>
+<li><code>QAbstractSocket::ClosingState</code>：关闭中状态，套接字正在关闭连接。</li>
+</ul>
+<h2 id="SIGNAL-readyRead"><a href="#SIGNAL-readyRead" class="headerlink" title="SIGNAL:readyRead()"></a>SIGNAL:readyRead()</h2><p><code>readyRead()</code> 是 <code>QTcpSocket</code> 类中的一个信号，表示当套接字（socket）有可读取的数据时发出的信号。</p>
+<p>用以下代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">connect</span>(socket, &amp;QTcpSocket::readyRead, <span class="keyword">this</span>, &amp;MyServer::readData);</span><br></pre></td></tr></table></figure>
+
+<p>此时当有数据到来时，调用readData槽函数处理。</p>
+<h2 id="bytesAvailable"><a href="#bytesAvailable" class="headerlink" title="bytesAvailable"></a>bytesAvailable</h2><p><code>bytesAvailable()</code> 函数用于获取当前可供读取的字节数。这个函数通常用于检查有多少字节可用于读取，以确保不会尝试在没有足够数据的情况下读取套接字。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">qint64 availableBytes = tcpSocket.<span class="built_in">bytesAvailable</span>();</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (availableBytes &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="comment">// 有数据可供读取</span></span><br><span class="line">    QByteArray data = tcpSocket.<span class="built_in">read</span>(availableBytes);</span><br><span class="line">    <span class="comment">// 处理读取到的数据</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 没有数据可供读取</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/22/QT/QIODevice/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/22/QT/QIODevice/" class="post-title-link" itemprop="url">QIODevice</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-01-22 16:44:19" itemprop="dateCreated datePublished" datetime="2024-01-22T16:44:19+08:00">2024-01-22</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/22/QT/bytearray/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/22/QT/bytearray/" class="post-title-link" itemprop="url">ByteArray</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-01-22 16:30:16 / 修改时间：17:10:18" itemprop="dateCreated datePublished" datetime="2024-01-22T16:30:16+08:00">2024-01-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/QT/" itemprop="url" rel="index"><span itemprop="name">QT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="ByteArray"><a href="#ByteArray" class="headerlink" title="ByteArray"></a>ByteArray</h1><p><code>QByteArray</code> 是 Qt 中用于处理字节数组的类。它提供了一系列方法来对字节数据进行操作，包括读取、写入、拼接、搜索等。</p>
+<h2 id="qCompress"><a href="#qCompress" class="headerlink" title="qCompress()"></a>qCompress()</h2><p><code>qCompress</code> 是 Qt 中用于压缩数据的函数，它位于 <code>QByteArray</code> 命名空间。这个函数主要用于将数据进行压缩，以减小数据的大小，通常用于在网络传输或文件存储时降低数据量。</p>
+<h2 id="toBase64"><a href="#toBase64" class="headerlink" title="toBase64()"></a>toBase64()</h2><p><code>QByteArray::toBase64</code> 是 Qt 中用于将字节数组转换为 Base64 编码的函数。Base64 编码是一种将二进制数据编码成可打印字符的方法，通常用于在文本环境中安全地传输二进制数据，例如在邮件、XML、JSON 中。</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>以下是代码段，将客户端获取的二进制数据压缩然后转为Base64编码，用于传输。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">QByteArray byte;</span><br><span class="line">   <span class="function">QBuffer <span class="title">buf</span><span class="params">(&amp;byte)</span></span>;</span><br><span class="line">   buf.<span class="built_in">open</span>(QIODevice::WriteOnly);</span><br><span class="line">   img.<span class="built_in">save</span>(&amp;buf, <span class="string">&quot;JPEG&quot;</span>); <span class="comment">//img是QImage对象</span></span><br><span class="line">   QByteArray ss = <span class="built_in">qCompress</span>(byte);</span><br><span class="line">   QByteArray vv = ss.<span class="built_in">toBase64</span>();</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/21/QT/concurrent/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/21/QT/concurrent/" class="post-title-link" itemprop="url">QTconcurrent</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-01-21 01:22:13" itemprop="dateCreated datePublished" datetime="2024-01-21T01:22:13+08:00">2024-01-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-01-23 21:41:16" itemprop="dateModified" datetime="2024-01-23T21:41:16+08:00">2024-01-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/QT/" itemprop="url" rel="index"><span itemprop="name">QT</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="QThread"><a href="#QThread" class="headerlink" title="QThread"></a>QThread</h1><p><code>QThread</code> 是 Qt 中用于创建和管理线程的类。它提供了一种方便的方式来在单独的线程中执行代码。以下是 <code>QThread</code> 的基本用法。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;QThread&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;QDebug&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyThread</span> : <span class="keyword">public</span> QThread &#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"><span class="keyword">protected</span>:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">run</span><span class="params">()</span> <span class="keyword">override</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 线程的主要逻辑在这里</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; ++i) &#123;</span><br><span class="line">            <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;Thread running: &quot;</span> &lt;&lt; i;</span><br><span class="line">            <span class="built_in">sleep</span>(<span class="number">1</span>); <span class="comment">// 模拟耗时操作</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当MyThread对象调用了start()方法后，开启了一个线程，该线程的主要逻辑就是执行run()函数。</p>
+<h2 id="SIGNAL-finished"><a href="#SIGNAL-finished" class="headerlink" title="SIGNAL(finished)"></a>SIGNAL(finished)</h2><p><code>QThread</code> 类提供了一个 <code>finished</code> 信号，该信号在线程执行完成后发出。连接到这个信号的槽函数会在线程完成执行后被调用。这个信号通常用于执行一些清理工作，确保在线程完成后资源被正确释放。</p>
+<h1 id="QWaitCondition"><a href="#QWaitCondition" class="headerlink" title="QWaitCondition"></a>QWaitCondition</h1><p><code>QWaitCondition</code> 是 Qt 中用于线程间等待和通知的类，通常与 <code>QMutex</code> 配合使用。它提供了一种方式，允许一个线程等待某个条件的发生，而另一个线程在条件满足时发出信号通知等待的线程。<code>QWaitCondition</code> 可以用于实现线程间的同步和通信。</p>
+<p>主要的函数如下：</p>
+<ul>
+<li><strong><code>wait(QMutex \*mutex, unsigned long time = ULONG_MAX)</code>：</strong> 等待条件的发生。线程将被阻塞，直到另一个线程调用 <code>wakeOne()</code> 或 <code>wakeAll()</code> 来唤醒它。<code>mutex</code> 参数用于在等待期间自动解锁和重新锁定。</li>
+<li><strong><code>wakeOne()</code>：</strong> 唤醒等待在条件上的一个线程。如果没有线程在等待，该调用没有效果。</li>
+<li><strong><code>wakeAll()</code>：</strong> 唤醒等待在条件上的所有线程。</li>
+</ul>
+<h2 id="QMetaObject-invokeMethod"><a href="#QMetaObject-invokeMethod" class="headerlink" title="QMetaObject::invokeMethod()"></a>QMetaObject::invokeMethod()</h2><p><code>QMetaObject::invokeMethod</code> 函数用于在运行时调用对象的方法（函数）。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">bool</span> <span class="title">QMetaObject::invokeMethod</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">    QObject *obj,            <span class="comment">// 被调用方法的对象指针</span></span></span></span><br><span class="line"><span class="params"><span class="function">    <span class="type">const</span> <span class="type">char</span> *method,       <span class="comment">// 方法的名称</span></span></span></span><br><span class="line"><span class="params"><span class="function">    Qt::ConnectionType type,  <span class="comment">// 连接类型</span></span></span></span><br><span class="line"><span class="params"><span class="function">    QGenericReturnArgument ret,</span></span></span><br><span class="line"><span class="params"><span class="function">    QGenericArgument val0 = QGenericArgument(Q_NULLPTR),</span></span></span><br><span class="line"><span class="params"><span class="function">    QGenericArgument val1 = QGenericArgument(),</span></span></span><br><span class="line"><span class="params"><span class="function">    QGenericArgument val2 = QGenericArgument(),</span></span></span><br><span class="line"><span class="params"><span class="function">    QGenericArgument val3 = QGenericArgument(),</span></span></span><br><span class="line"><span class="params"><span class="function">    QGenericArgument val4 = QGenericArgument(),</span></span></span><br><span class="line"><span class="params"><span class="function">    QGenericArgument val5 = QGenericArgument(),</span></span></span><br><span class="line"><span class="params"><span class="function">    QGenericArgument val6 = QGenericArgument(),</span></span></span><br><span class="line"><span class="params"><span class="function">    QGenericArgument val7 = QGenericArgument(),</span></span></span><br><span class="line"><span class="params"><span class="function">    QGenericArgument val8 = QGenericArgument(),</span></span></span><br><span class="line"><span class="params"><span class="function">    QGenericArgument val9 = QGenericArgument()</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>obj</code>：被调用方法的对象指针。</li>
+<li><code>method</code>：被调用方法的名称（字符串形式）。这是一个字符串，指定要调用的方法的名称。</li>
+<li><code>type</code>：连接类型，指定调用的方法是直接调用、队列调用还是其他类型的调用。可以使用 <code>Qt::DirectConnection</code>、<code>Qt::QueuedConnection</code> 等常量来指定连接类型。</li>
+<li><code>ret</code>：返回值的 QGenericReturnArgument。如果被调用的方法有返回值，则传递相应类型的返回值参数。</li>
+<li><code>val0</code> 到 <code>val9</code>：参数列表，指定方法的参数。可以有最多 10 个参数。参数的类型和个数应与实际方法的参数匹配。</li>
+</ul>
+<p>这个函数允许在运行时调用对象的方法，是一种动态调用方法的机制。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/20/C++/function/printAndScan/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/20/C++/function/printAndScan/" class="post-title-link" itemprop="url">printAndScanf</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-01-20 22:17:22 / 修改时间：22:32:23" itemprop="dateCreated datePublished" datetime="2024-01-20T22:17:22+08:00">2024-01-20</time>
+            </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -219,15 +638,28 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="enum"><a href="#enum" class="headerlink" title="enum"></a>enum</h1><p>枚举（enum）是一种数据类型，在编程中用于定义一个有限的、命名的常量集合。它通过使用enum关键字来声明，在声明中列出枚举常量。每个枚举常量具有一个名称和一个关联的值。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/12/30/C++/enum/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <h1 id="vsnprintf"><a href="#vsnprintf" class="headerlink" title="_vsnprintf()"></a>_vsnprintf()</h1><p><code>_vsnprintf()</code> 是 Microsoft Visual Studio C&#x2F;C++ 编译器提供的一个函数，用于格式化输出到一个字符数组中，它是 <code>_snprintf()</code> 函数的变体，支持可变参数列表。在标准 C 中，对应的函数是 <code>vsnprintf()</code>。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> _vsnprintf(</span><br><span class="line">   <span class="type">char</span> *buffer,</span><br><span class="line">   <span class="type">size_t</span> count,</span><br><span class="line">   <span class="type">const</span> <span class="type">char</span> *format,</span><br><span class="line">   va_list argptr</span><br><span class="line">);</span><br><span class="line"><span class="comment">//buffer: 目标字符数组的指针，用于存储格式化后的字符串。</span></span><br><span class="line"><span class="comment">//count: 最大写入字符数，包括终止 null 字符。</span></span><br><span class="line"><span class="comment">//format: 格式字符串，包含格式说明符。</span></span><br><span class="line"><span class="comment">//argptr: va_list 类型的可变参数列表。</span></span><br></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p> 当打印日志时，根据情况的不同生成不同的日志，此时需要在运行时动态构建格式字符串，而不是在编译时就确定好格式，<code>_vsnprintf</code> 是一个合适的选择。</p>
+</blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdarg.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">dynamicFormatPrint</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *prefix, <span class="type">const</span> <span class="type">char</span> *suffix, ...)</span> </span>&#123;</span><br><span class="line">    va_list args;</span><br><span class="line">    <span class="built_in">va_start</span>(args, suffix);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构建格式字符串</span></span><br><span class="line">    <span class="type">char</span> format[<span class="number">256</span>];</span><br><span class="line">    _vsnprintf(format, <span class="built_in">sizeof</span>(format), <span class="string">&quot;%s %s&quot;</span>, prefix, suffix);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用构建好的格式字符串输出</span></span><br><span class="line">    <span class="built_in">vprintf</span>(format, args);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">va_end</span>(args);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">dynamicFormatPrint</span>(<span class="string">&quot;Hello,&quot;</span>, <span class="string">&quot;World!&quot;</span>);</span><br><span class="line">    <span class="built_in">dynamicFormatPrint</span>(<span class="string">&quot;The answer is&quot;</span>, <span class="string">&quot;%d and %f.&quot;</span>, <span class="number">42</span>, <span class="number">3.14</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="snprintf"><a href="#snprintf" class="headerlink" title="snprintf()"></a>snprintf()</h1><p><code>snprintf</code> 是 C 标准库中的一个函数，用于格式化字符串并将结果写入字符数组。它是 <code>sprintf</code> 函数的一个安全版本，可以防止缓冲区溢出。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">snprintf</span><span class="params">(<span class="type">char</span> *str, <span class="type">size_t</span> size, <span class="type">const</span> <span class="type">char</span> *format, ...)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>例子如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="type">char</span> buffer[<span class="number">20</span>];</span><br><span class="line">    <span class="type">int</span> result = <span class="built_in">snprintf</span>(buffer, <span class="built_in">sizeof</span>(buffer), <span class="string">&quot;Hello, %s!&quot;</span>, <span class="string">&quot;World&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (result &gt;= <span class="number">0</span> &amp;&amp; result &lt; <span class="built_in">sizeof</span>(buffer)) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Formatted string: %s\n&quot;</span>, buffer);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Output truncated or error occurred.\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>它们的主要区别在于处理可变参数的方式。<code>_vsnprintf</code> 允许使用 <code>va_list</code> 进行更灵活的可变参数处理，适用于一些特殊场景。</p>
+</blockquote>
+
       
     </div>
 
@@ -246,7 +678,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/30/C++/oriented/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/20/C++/function/Variadic/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -260,7 +692,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/11/30/C++/oriented/" class="post-title-link" itemprop="url">object-oriented</a>
+            <a href="/2024/01/20/C++/function/Variadic/" class="post-title-link" itemprop="url">function</a>
         </h2>
 
         <div class="post-meta">
@@ -269,16 +701,10 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2023-11-30 23:08:20" itemprop="dateCreated datePublished" datetime="2023-11-30T23:08:20+08:00">2023-11-30</time>
+              <time title="创建时间：2024-01-20 18:40:47 / 修改时间：22:19:59" itemprop="dateCreated datePublished" datetime="2024-01-20T18:40:47+08:00">2024-01-20</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-08 21:51:22" itemprop="dateModified" datetime="2024-01-08T21:51:22+08:00">2024-01-08</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -300,16 +726,14 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h1><p>三大特性：复合，委托，继承。</p>
-<p>复合和继承的构造函数都是由里到外的次序构建。析构则是由外到里。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/11/30/C++/oriented/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <h1 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h1><p>可变参数是指在函数的参数列表中，允许传递不定数量的参数。在 C&#x2F;C++ 中，可变参数通常使用标准库中的 <code>stdarg.h</code> 头文件中提供的宏和函数来实现。</p>
+<ul>
+<li><code>va_list</code>: 用于声明一个指向可变参数列表的指针。</li>
+<li><code>va_start</code>: 用于初始化 <code>va_list</code>，使其指向参数列表中的第一个可变参数。</li>
+<li><code>va_arg</code>: 用于获取 <code>va_list</code> 指向的当前可变参数的值，并将指针移动到下一个参数。</li>
+<li><code>va_end</code>: 用于清理 <code>va_list</code>。</li>
+</ul>
+
       
     </div>
 
@@ -328,7 +752,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/24/concurrent/mutiplexing/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/09/webserver/thread/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -342,7 +766,75 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/11/24/concurrent/mutiplexing/" class="post-title-link" itemprop="url">I/O multiplexing</a>
+            <a href="/2024/01/09/webserver/thread/" class="post-title-link" itemprop="url">线程</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-01-09 16:19:50 / 修改时间：21:21:25" itemprop="dateCreated datePublished" datetime="2024-01-09T16:19:50+08:00">2024-01-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index"><span itemprop="name">OS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><p>线程（Thread）是计算机科学中的基本概念，是程序执行的最小单元。一个进程可以包含多个线程，它们共享相同的资源，如内存空间、文件句柄等，但每个线程都有自己的执行路径和局部变量。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/08/concurrent/volatile/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/01/08/concurrent/volatile/" class="post-title-link" itemprop="url">volatile</a>
         </h2>
 
         <div class="post-meta">
@@ -352,14 +844,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2023-11-24 16:10:24" itemprop="dateCreated datePublished" datetime="2023-11-24T16:10:24+08:00">2023-11-24</time>
+              <time title="创建时间：2024-01-08 23:04:14" itemprop="dateCreated datePublished" datetime="2024-01-08T23:04:14+08:00">2024-01-08</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-06 16:39:22" itemprop="dateModified" datetime="2024-01-06T16:39:22+08:00">2024-01-06</time>
+                <time title="修改时间：2024-01-16 14:25:00" itemprop="dateModified" datetime="2024-01-16T14:25:00+08:00">2024-01-16</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -382,363 +874,19 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="I-O-多路复用"><a href="#I-O-多路复用" class="headerlink" title="I&#x2F;O 多路复用"></a>I&#x2F;O 多路复用</h1><p>I&#x2F;O多路复用是一种并发处理的机制，允许单个进程或线程处理多个输入或输出通道，而无需为每个通道创建单独的线程或进程。这样可以有效地提高系统的性能和资源利用率。</p>
-<p>常用的I&#x2F;O多路复用机制有<code>select</code>、<code>poll</code>、<code>epoll</code></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/11/24/concurrent/mutiplexing/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/22/concurrent/thread/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/22/concurrent/thread/" class="post-title-link" itemprop="url">thread</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-11-22 10:58:49" itemprop="dateCreated datePublished" datetime="2023-11-22T10:58:49+08:00">2023-11-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-06 16:29:28" itemprop="dateModified" datetime="2024-01-06T16:29:28+08:00">2024-01-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/thread/" itemprop="url" rel="index"><span itemprop="name">thread</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="POSIX"><a href="#POSIX" class="headerlink" title="POSIX"></a>POSIX</h1><p>POSIX 线程库定义了一套用于创建、同步和管理线程的接口，通常用于在支持 POSIX 标准的操作系统上进行多线程编程。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/11/22/concurrent/thread/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/21/webserver/networkProgramming/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/21/webserver/networkProgramming/" class="post-title-link" itemprop="url">networkProgramming</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-11-21 10:55:22" itemprop="dateCreated datePublished" datetime="2023-11-21T10:55:22+08:00">2023-11-21</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-12-17 02:33:24" itemprop="dateModified" datetime="2023-12-17T02:33:24+08:00">2023-12-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/webserver/" itemprop="url" rel="index"><span itemprop="name">webserver</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">in_addr</span>&#123;</span><br><span class="line">    <span class="type">uint32_t</span> s_addr;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//IP地址结构</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//将点分十进制地址转换为二进制网络字节顺序的IP地址</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">inet_pton</span><span class="params">(AF_INET, <span class="type">const</span> <span class="type">void</span> *src, <span class="type">void</span> *dst)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将二进制地址转换为点分十进制地址</span></span><br><span class="line"><span class="function"><span class="type">const</span> <span class="type">char</span> *<span class="title">inet_ntop</span><span class="params">(AF_INET, <span class="type">const</span> <span class="type">void</span> *src ,<span class="type">char</span> *dst, <span class="type">socklen_t</span> len)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<h1 id="套接字地址结构"><a href="#套接字地址结构" class="headerlink" title="套接字地址结构"></a>套接字地址结构</h1><p>套接字 &#x3D; IP＋端口</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">sockaddr</span> &#123;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> sa_family;  <span class="comment">// 地址族，例如 AF_INET</span></span><br><span class="line">    <span class="type">char</span> sa_data[<span class="number">14</span>];          <span class="comment">// 地址数据</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> &#123;</span><br><span class="line">    <span class="type">short</span> <span class="type">int</span> sin_family;      <span class="comment">// 地址族，通常为 AF_INET</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> <span class="type">int</span> sin_port;  <span class="comment">// 端口号，网络字节序</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">in_addr</span> sin_addr;   <span class="comment">// IPv4 地址结构体</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> sin_zero[<span class="number">8</span>];  <span class="comment">// 填充字段，使结构体大小与 sockaddr 一致</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>sockaddr_in</code> 是用于表示IPv4地址的结构体</li>
-<li><code>sockaddr</code> 是一个通用的套接字地址结构体</li>
-</ul>
-<p>在使用套接字编程时，通常会将 <code>sockaddr_in</code> 转换为 <code>struct sockaddr</code>，以便在函数参数中传递。这是因为很多套接字相关的系统调用（如 <code>bind</code>、<code>connect</code>、<code>accept</code> 等）都接受通用的 <code>struct sockaddr</code> 类型的地址参数。</p>
-<h1 id="地址转换"><a href="#地址转换" class="headerlink" title="地址转换"></a>地址转换</h1><h2 id="getaddrinfo"><a href="#getaddrinfo" class="headerlink" title="getaddrinfo()"></a>getaddrinfo()</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">getaddrinfor</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *host, <span class="type">const</span> <span class="type">char</span> *service,</span></span><br><span class="line"><span class="params">                 <span class="type">const</span> <span class="keyword">struct</span> addrinfo *hints,</span></span><br><span class="line"><span class="params">                 <span class="keyword">struct</span> addrinfo **result)</span>;</span><br><span class="line"><span class="comment">//成功返回0，失败返回错误代码</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">freeaddrinfo</span><span class="params">(stuct addrinfo *result)</span>;</span><br><span class="line"><span class="comment">//释放空间</span></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>node</code>：主机名或 IP 地址字符串，可以为 <code>NULL</code>。</li>
-<li><code>service</code>：服务名或端口号字符串，可以为 <code>NULL</code>。</li>
-<li><code>hints</code>：一个可选的指向 <code>struct addrinfo</code> 结构体的指针，用于提供关于期望返回的地址信息类型的提示。如果不需要特殊的提示，可以将其设置为 <code>NULL</code>。</li>
-<li><code>res</code>：一个指向 <code>struct addrinfo</code> 结构体链表的指针，返回获取到的地址信息。</li>
-</ul>
-<p>在使用 <code>getaddrinfo()</code> 函数获取地址信息之后，需要遍历返回的地址信息链表并调用 <code>socket()</code>，这是因为一个主机名（或服务名）可能对应多个地址，而不同的地址可能代表不同的网络接口或协议。</p>
-<h2 id="struct-addrinfo"><a href="#struct-addrinfo" class="headerlink" title="struct addrinfo"></a>struct addrinfo</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">addrinfo</span> &#123;</span></span><br><span class="line">        <span class="type">int</span> ai_flags;     <span class="comment">// Hints argument flags </span></span><br><span class="line">        <span class="type">int</span> ai_family;    <span class="comment">// First arg to socket function </span></span><br><span class="line">        <span class="type">int</span> ai_socktype; <span class="comment">// Second arg to socket function </span></span><br><span class="line">        <span class="type">int</span> ai_protocol; <span class="comment">// Third arg to socket function </span></span><br><span class="line">        <span class="type">char</span> *ai_canonname; <span class="comment">// Canonical hostname </span></span><br><span class="line">        <span class="type">size_t</span> ai_addrlen;   <span class="comment">// Size of ai_addr struct </span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr</span> *<span class="title">ai_addr</span>;</span></span><br><span class="line">    <span class="comment">// Ptr to socket address structure */</span></span><br><span class="line">    </span><br><span class="line">    	<span class="class"><span class="keyword">struct</span> <span class="title">addrinfo</span> *<span class="title">ai_next</span>;</span>      </span><br><span class="line">    <span class="comment">// Ptr to next item in linked list */</span></span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
-
-<p>以上的结构体就是<strong>地址信息链表</strong>：<code>struct addrinfo</code> 结构体中的字段描述了一个网络地址的各种属性。</p>
-<ul>
-<li><code>ai_flags</code> 控制返回信息的标志，</li>
-<li><code>ai_family</code> 表示地址族，</li>
-<li><code>ai_socktype</code> 表示套接字类型，</li>
-<li><code>ai_protocol</code> 表示协议，</li>
-<li><code>ai_addrlen</code> 表示地址长度，</li>
-<li><code>ai_addr</code> 是一个指向 <code>sockaddr</code> 结构体的指针，包含实际的地址信息。</li>
-<li><code>ai_canonname</code> 存储主机的规范名，</li>
-<li><code>ai_next</code> 指向链表中的下一个 <code>addrinfo</code> 结构体。</li>
-</ul>
-<h2 id="inet-ntop"><a href="#inet-ntop" class="headerlink" title="inet_ntop()"></a>inet_ntop()</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">const</span> <span class="type">char</span> *<span class="title">inet_ntop</span><span class="params">(<span class="type">int</span> af, <span class="type">const</span> <span class="type">void</span> *src, <span class="type">char</span> *dst, <span class="type">socklen_t</span> size)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>af</code>：地址族，可以是 <code>AF_INET</code>（IPv4）或 <code>AF_INET6</code>（IPv6）。</li>
-<li><code>src</code>：指向包含二进制地址的指针，通常是 <code>struct sockaddr</code> 结构体中的 <code>sa_data</code> 字段。</li>
-<li><code>dst</code>：指向存储转换后的字符串的缓冲区。</li>
-<li><code>size</code>：缓冲区的大小。</li>
-</ul>
-<h1 id="套接字选项"><a href="#套接字选项" class="headerlink" title="套接字选项"></a>套接字选项</h1><h2 id="setsockopt"><a href="#setsockopt" class="headerlink" title="setsockopt()"></a>setsockopt()</h2><p>是一个系统调用，用于设置套接字选项。套接字选项是影响套接字行为的参数</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">setsockopt</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">int</span> level, <span class="type">int</span> optname, <span class="type">const</span> <span class="type">void</span> *optval, <span class="type">socklen_t</span> optlen)</span></span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>sockfd</code>：套接字描述符，标识要设置选项的套接字。</li>
-<li><code>level</code>：指定选项的级别，常见的有 <code>SOL_SOCKET</code>（通用套接字选项）、<code>IPPROTO_TCP</code>（TCP 选项）和 <code>IPPROTO_IP</code>（IP 选项）等。</li>
-<li><code>optname</code>：指定要设置的选项的名称，具体取决于 <code>level</code> 的值。</li>
-<li><code>optval</code>：指向包含新选项值的内存块的指针。</li>
-<li><code>optlen</code>：<code>optval</code> 指向的内存块的大小。</li>
-</ul>
-<blockquote>
-<p>当 <code>level</code> 设置为 <code>SOL_SOCKET</code> 时，<code>optname</code> 和 <code>optval</code> 参数的含义会根据具体的选项而变化。</p>
-</blockquote>
-<h1 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h1><h2 id="socket-connect"><a href="#socket-connect" class="headerlink" title="socket() &amp;&amp; connect()"></a>socket() &amp;&amp; connect()</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">socket</span><span class="params">(<span class="type">int</span> domain, <span class="type">int</span> type, <span class="type">int</span> protocol)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">connect</span><span class="params">(<span class="type">int</span> clientfd, <span class="type">const</span> <span class="keyword">struct</span> socketaddr *addr, </span></span><br><span class="line"><span class="params">            <span class="type">socklen_t</span> addrlen)</span>;</span><br><span class="line"><span class="comment">//connect把clientfd的内容发送给服务端，并从clienfd中接收从服务端传来的消息</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h1><h2 id="socket-bind-listen-accept"><a href="#socket-bind-listen-accept" class="headerlink" title="socket() &amp;&amp; bind() &amp;&amp; listen() &amp;&amp; accept()"></a>socket() &amp;&amp; bind() &amp;&amp; listen() &amp;&amp; accept()</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">bind</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="keyword">struct</span> sockaddr *addr,</span></span><br><span class="line"><span class="params">         <span class="type">socklen_t</span> addrlen)</span>;</span><br><span class="line"><span class="comment">//绑定服务器套接字地址和套接字描述符</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">listen</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">int</span> backlog)</span>;</span><br><span class="line"><span class="comment">//将套接字设置为监听状态</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">accept</span><span class="params">(<span class="type">int</span> listenfd, <span class="keyword">struct</span> sockaddr *addr, </span></span><br><span class="line"><span class="params">           <span class="type">int</span> *addrlen)</span>;</span><br><span class="line"><span class="comment">//*等待*客户端的连接请求，返回一个已连接描述符，向描述符写的内容就是传给客户端的内容。</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="getpeername"><a href="#getpeername" class="headerlink" title="getpeername"></a>getpeername</h2><p><code>getpeername()</code> 是一个用于获取已连接套接字对端地址信息的系统调用。它通常用于在服务器端获知与其连接的客户端的地址信息。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">getpeername</span><span class="params">(<span class="type">int</span> sockfd, <span class="keyword">struct</span> sockaddr *addr, <span class="type">socklen_t</span> *addrlen)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+          <h1 id="volatile"><a href="#volatile" class="headerlink" title="volatile"></a>volatile</h1><p><code>volatile</code> 是一个关键字，主要用于告诉编译器，某个变量可能会在程序的不同地方被修改，而且这些修改不是由当前代码引起的。它通常用于多线程、中断服务程序（ISR）等情况，以确保编译器不会对这些变量进行一些优化，以避免意外的行为。</p>
+<p>他的主要作用：</p>
 <ol>
-<li><strong>sockfd：</strong><ul>
-<li><code>sockfd</code> 是已连接套接字的文件描述符，它是通过 <code>socket()</code> 和 <code>accept()</code> 等函数创建的。</li>
-</ul>
-</li>
-<li><strong>addr：</strong><ul>
-<li><code>addr</code> 是一个指向 <code>struct sockaddr</code> 结构体的指针，用于存储对端（远程端）的地址信息。</li>
-</ul>
-</li>
-<li><strong>addrlen：</strong><ul>
-<li><code>addrlen</code> 是一个指向 <code>socklen_t</code> 类型的指针，用于指定 <code>addr</code> 缓冲区的大小。在调用 <code>getpeername()</code> 之前，<code>addrlen</code> 应该被设置为 <code>sizeof(struct sockaddr)</code>。</li>
-</ul>
-</li>
+<li><strong>防止编译器优化：</strong> 编译器在编译时可能会对变量进行优化，将变量的值缓存在寄存器中，而不是每次都从内存中读取。对于 <code>volatile</code> 变量，编译器会确保每次使用都从内存中读取，而不会使用寄存器中的缓存。</li>
+<li><strong>表示变量可能被异步修改：</strong> 当变量的值可能在程序的控制流之外被修改时，比如在中断服务程序（ISR）中，<code>volatile</code> 可以确保编译器不会对这种情况进行优化。这样可以避免由于编译器的优化而导致的意外行为。</li>
 </ol>
-<p><code>getpeername()</code> 在成功时返回 0，失败时返回 -1，并设置全局变量 <code>errno</code> 来指示错误的类型。</p>
-<h1 id="消息"><a href="#消息" class="headerlink" title="消息"></a>消息</h1><h2 id="struct-msghdr"><a href="#struct-msghdr" class="headerlink" title="struct msghdr"></a>struct msghdr</h2><p><code>struct msghdr</code> 是用于描述消息的数据结构，通常在网络编程中的一些系统调用中使用，如 <code>sendmsg()</code> 和 <code>recvmsg()</code>。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">msghdr</span> &#123;</span></span><br><span class="line">    <span class="type">void</span>         *msg_name;       <span class="comment">// 指向目标地址的指针，通常是 struct sockaddr 结构体的指针</span></span><br><span class="line">    <span class="type">socklen_t</span>     msg_namelen;    <span class="comment">// 目标地址的长度</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> *<span class="title">msg_iov</span>;</span>        <span class="comment">// 指向一个或多个数据块的结构体数组，用于指定发送或接收的数据</span></span><br><span class="line">    <span class="type">size_t</span>        msg_iovlen;     <span class="comment">// msg_iov 数组的元素个数</span></span><br><span class="line">    <span class="type">void</span>         *msg_control;    <span class="comment">// 用于传递辅助数据，比如控制信息或文件描述符</span></span><br><span class="line">    <span class="type">size_t</span>        msg_controllen; <span class="comment">// msg_control 的长度</span></span><br><span class="line">    <span class="type">int</span>           msg_flags;      <span class="comment">// 用于传递或接收标志信息</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>为了解释volatile的实际作用，此处举例两个例子：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> x;</span><br><span class="line">x = <span class="number">0</span>;</span><br><span class="line"><span class="comment">//pthread1</span></span><br><span class="line"><span class="function"><span class="type">void</span> *<span class="title">pthread1</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">lock</span>();</span><br><span class="line">    x++;</span><br><span class="line">    unlock;       </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//pthread2</span></span><br><span class="line"><span class="function"><span class="type">void</span> *<span class="title">pthread2</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="built_in">lock</span>();</span><br><span class="line">    x++;</span><br><span class="line">    unlock; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">pthread_create</span>(pthread1);</span><br><span class="line">    <span class="built_in">pthread_create</span>(pthread2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li><strong>msg_name 和 msg_namelen：</strong><ul>
-<li><code>msg_name</code> 和 <code>msg_namelen</code> 用于指定目标地址的信息。通常，<code>msg_name</code> 是一个指向 <code>struct sockaddr</code> 结构体的指针，<code>msg_namelen</code> 是这个结构体的长度。</li>
-</ul>
-</li>
-<li><strong>msg_iov 和 msg_iovlen：</strong><ul>
-<li><code>msg_iov</code> 是一个指向 <code>struct iovec</code> 结构体数组的指针，用于指定发送或接收的数据块。<code>msg_iovlen</code> 是 <code>msg_iov</code> 数组的元素个数。<code>struct iovec</code> 包含了指向数据的指针和数据的长度。</li>
-</ul>
-</li>
-<li><strong>msg_control 和 msg_controllen：</strong><ul>
-<li><code>msg_control</code> 和 <code>msg_controllen</code> 用于传递辅助数据，比如控制信息或文件描述符。这个字段通常用于在消息中传递额外的信息。</li>
-</ul>
-</li>
-<li><strong>msg_flags：</strong><ul>
-<li><code>msg_flags</code> 用于传递或接收标志信息，通常用于设置或获取一些与消息相关的状态。</li>
-</ul>
-</li>
-</ul>
-<h2 id="struct-cmsghdr"><a href="#struct-cmsghdr" class="headerlink" title="struct cmsghdr"></a>struct cmsghdr</h2><p>（Control Message Header）是一个用于描述控制消息的结构体头部，通常在一些套接字相关的系统调用中使用，如 <code>sendmsg()</code> 和 <code>recvmsg()</code>。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cmsghdr</span> &#123;</span></span><br><span class="line">    <span class="type">size_t</span> cmsg_len;   <span class="comment">// 控制消息的总长度</span></span><br><span class="line">    <span class="type">int</span>    cmsg_level; <span class="comment">// 指定协议层，例如 SOL_SOCKET</span></span><br><span class="line">    <span class="type">int</span>    cmsg_type;  <span class="comment">// 指定消息类型</span></span><br><span class="line">    <span class="comment">// 后面跟着实际的数据</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>由于有锁保护，因此<code>x</code>在程序执行完毕后，应当为2，但是</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> x, y, r1, r2;</span><br><span class="line">x = y = <span class="number">0</span>;</span><br><span class="line"><span class="comment">//pthread1</span></span><br><span class="line"><span class="function"><span class="type">void</span> *<span class="title">pthread1</span><span class="params">()</span></span>&#123;</span><br><span class="line">x = <span class="number">1</span>;</span><br><span class="line">r1 = y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//pthread2</span></span><br><span class="line"><span class="function"><span class="type">void</span> *<span class="title">pthread2</span><span class="params">()</span></span>&#123;</span><br><span class="line">y = <span class="number">1</span>;</span><br><span class="line">r2 = x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">pthread_create</span>(pthread1);</span><br><span class="line">    <span class="built_in">pthread_create</span>(pthread2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li><strong>cmsg_len：</strong><ul>
-<li><code>cmsg_len</code> 表示整个控制消息的总长度，包括 <code>cmsghdr</code> 结构体头部以及后续的实际数据。</li>
-</ul>
-</li>
-<li><strong>cmsg_level：</strong><ul>
-<li><code>cmsg_level</code> 指定协议层，例如 <code>SOL_SOCKET</code> 表示套接字层。</li>
-</ul>
-</li>
-<li><strong>cmsg_type：</strong><ul>
-<li><code>cmsg_type</code> 指定消息的类型，表示控制消息的具体含义。</li>
-</ul>
-</li>
-</ul>
-<h3 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h3><p>用于处理和操作控制消息的不同方面。这些宏的命名通常以 <code>CMSG_</code> 为前缀，表示它们属于控制消息处理的一部分</p>
-<ul>
-<li><p><strong><code>CMSG_FIRSTHDR</code>：</strong> 返回与给定 <code>msghdr</code> 结构体相关联的第一个控制消息头的指针。</p>
-  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CMSG_FIRSTHDR(mhdr) </span></span><br><span class="line">((mhdr)-&gt;msg_controllen &gt;= <span class="keyword">sizeof</span>(<span class="keyword">struct</span> cmsghdr) ? (<span class="keyword">struct</span> cmsghdr *)(mhdr)-&gt;msg_control : <span class="literal">NULL</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>CMSG_NXTHDR</code>：</strong> 返回下一个控制消息头的指针，用于在消息头链表中遍历控制消息。</p>
-  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CMSG_NXTHDR(mhdr, cmsg) </span></span><br><span class="line">((<span class="type">char</span> *)cmsg + CMSG_ALIGN((cmsg)-&gt;cmsg_len) + CMSG_ALIGN(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> cmsghdr)) </span><br><span class="line">&lt; </span><br><span class="line"> (<span class="type">char</span> *)(mhdr)-&gt;msg_control + (mhdr)-&gt;msg_controllen </span><br><span class="line">? </span><br><span class="line"> (<span class="keyword">struct</span> cmsghdr *)((<span class="type">char</span> *)cmsg + CMSG_ALIGN((cmsg)-&gt;cmsg_len)) : <span class="literal">NULL</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>CMSG_LEN</code>：</strong> 根据给定数据大小计算控制消息头的总长度。</p>
-  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CMSG_LEN(size) (CMSG_ALIGN(sizeof(struct cmsghdr)) + (size))</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>CMSG_SPACE</code>：</strong> 根据给定数据大小计算整个控制消息的总空间大小，包括头部和数据部分。</p>
-  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CMSG_SPACE(size) (CMSG_ALIGN(sizeof(struct cmsghdr)) + CMSG_ALIGN(size))</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>CMSG_ALIGN</code>：</strong> 对给定大小进行对齐操作，确保满足平台的对齐要求。</p>
-  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CMSG_ALIGN(len) (((len) + sizeof(long) - 1) &amp; ~(sizeof(long) - 1))</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong><code>CMSG_DATA</code>:</strong> 是一个宏，用于获取控制消息头 (<code>struct cmsghdr</code>) 中数据部分的指针。在控制消息中，数据部分紧跟在头部之后，其大小可变。</p>
-  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CMSG_DATA(cmsg) ((unsigned char *)(cmsg) + CMSG_LEN(0))</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<blockquote>
-<p><code>msghdr</code> 用于描述整个消息，包括数据和控制信息，而 <code>cmsghdr</code> 则用于描述控制信息的头部。在实际应用中，<code>msg_control</code> 指向一个或多个 <code>cmsghdr</code> 结构体，后面跟着实际的控制信息数据。这样的结构设计使得在消息中可以携带各种类型的辅助信息，例如文件描述符等。</p>
-</blockquote>
-<h2 id="sendmsg"><a href="#sendmsg" class="headerlink" title="sendmsg()"></a>sendmsg()</h2><p><code>sendmsg()</code> 函数用于通过套接字发送消息，包括数据块和控制信息。它允许在一个系统调用中发送多个数据块，同时可以携带控制信息，比如文件描述符。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">sendmsg</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="keyword">struct</span> msghdr *msg, <span class="type">int</span> flags)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>sockfd：</strong><ul>
-<li>是要发送数据的套接字描述符。</li>
-</ul>
-</li>
-<li><strong>msg：</strong><ul>
-<li>是一个指向 <code>struct msghdr</code> 结构体的指针，用于指定发送的消息的详细信息，包括目标地址、数据块、控制信息等。</li>
-</ul>
-</li>
-<li><strong>flags：</strong><ul>
-<li>是一组标志位，可以为 0 或者通过按位或操作指定多个标志。</li>
-</ul>
-</li>
-<li><strong>返回值：</strong><ul>
-<li>返回实际发送的字节数，发生错误时返回 -1。</li>
-</ul>
-</li>
-</ul>
-<h2 id="recvmsg"><a href="#recvmsg" class="headerlink" title="recvmsg()"></a>recvmsg()</h2><p><code>recvmsg()</code> 函数用于通过套接字接收消息，包括数据块和控制信息。它允许在一个系统调用中接收多个数据块，同时可以携带控制信息，比如文件描述符。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">recvmsg</span><span class="params">(<span class="type">int</span> sockfd, <span class="keyword">struct</span> msghdr *msg, <span class="type">int</span> flags)</span>;</span><br></pre></td></tr></table></figure>
-
-<h2 id="iovec"><a href="#iovec" class="headerlink" title="iovec"></a>iovec</h2><p><code>struct iovec</code> 是一个用于描述分散&#x2F;聚集输入输出的结构体，通常在一些系统调用中使用，如 <code>readv</code>、<code>writev</code>、<code>sendmsg</code> 和 <code>recvmsg</code>。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/uio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> &#123;</span></span><br><span class="line">    <span class="type">void</span>  *iov_base; <span class="comment">// 指向数据的指针</span></span><br><span class="line">    <span class="type">size_t</span> iov_len;  <span class="comment">// 数据的长度</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>示例如下：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/uio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> <span class="title">iov</span>[2];</span></span><br><span class="line">    <span class="type">char</span> buffer1[] = <span class="string">&quot;Hello, &quot;</span>;</span><br><span class="line">    <span class="type">char</span> buffer2[] = <span class="string">&quot;world!\n&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置第一个缓冲区</span></span><br><span class="line">    iov[<span class="number">0</span>].iov_base = buffer1;</span><br><span class="line">    iov[<span class="number">0</span>].iov_len = <span class="keyword">sizeof</span>(buffer1) - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置第二个缓冲区</span></span><br><span class="line">    iov[<span class="number">1</span>].iov_base = buffer2;</span><br><span class="line">    iov[<span class="number">1</span>].iov_len = <span class="keyword">sizeof</span>(buffer2) - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用 writev 函数将两个缓冲区的数据写入到文件描述符</span></span><br><span class="line">    <span class="type">ssize_t</span> bytes_written = writev(STDOUT_FILENO, iov, <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (bytes_written == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;writev&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> BUF_SIZE 1024</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> sv[<span class="number">2</span>];</span><br><span class="line">    <span class="type">char</span> buffer[BUF_SIZE];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (socketpair(AF_UNIX, SOCK_STREAM, <span class="number">0</span>, sv) == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;socketpair&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">pid_t</span> pid = fork();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (pid == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;fork&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (pid == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 子进程</span></span><br><span class="line">        close(sv[<span class="number">0</span>]); <span class="comment">// 关闭不使用的一端</span></span><br><span class="line"></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> <span class="title">iov</span>[2];</span></span><br><span class="line">        iov[<span class="number">0</span>].iov_base = <span class="string">&quot;Hello, &quot;</span>;</span><br><span class="line">        iov[<span class="number">0</span>].iov_len = <span class="built_in">strlen</span>(<span class="string">&quot;Hello, &quot;</span>);</span><br><span class="line">        iov[<span class="number">1</span>].iov_base = <span class="string">&quot;world!&quot;</span>;</span><br><span class="line">        iov[<span class="number">1</span>].iov_len = <span class="built_in">strlen</span>(<span class="string">&quot;world!&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">msghdr</span> <span class="title">msg</span> =</span> &#123;</span><br><span class="line">            .msg_iov = iov,</span><br><span class="line">            .msg_iovlen = <span class="number">2</span>,</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (sendmsg(sv[<span class="number">1</span>], &amp;msg, <span class="number">0</span>) == <span class="number">-1</span>) &#123;</span><br><span class="line">            perror(<span class="string">&quot;sendmsg&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        close(sv[<span class="number">1</span>]); <span class="comment">// 关闭写入端</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 父进程</span></span><br><span class="line">        close(sv[<span class="number">1</span>]); <span class="comment">// 关闭不使用的一端</span></span><br><span class="line"></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> <span class="title">iov</span>[2];</span></span><br><span class="line">        iov[<span class="number">0</span>].iov_base = buffer;</span><br><span class="line">        iov[<span class="number">0</span>].iov_len = BUF_SIZE;</span><br><span class="line"></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">cmsghdr</span> *<span class="title">cmsg</span>;</span></span><br><span class="line">        <span class="type">size_t</span> cmsg_size = CMSG_SPACE(<span class="keyword">sizeof</span>(<span class="type">int</span>));</span><br><span class="line">        cmsg = <span class="built_in">malloc</span>(cmsg_size);</span><br><span class="line"></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">msghdr</span> <span class="title">msg</span> =</span> &#123;</span><br><span class="line">            .msg_iov = iov,</span><br><span class="line">            .msg_iovlen = <span class="number">1</span>,</span><br><span class="line">            .msg_control = cmsg,</span><br><span class="line">            .msg_controllen = cmsg_size,</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (recvmsg(sv[<span class="number">0</span>], &amp;msg, <span class="number">0</span>) == <span class="number">-1</span>) &#123;</span><br><span class="line">            perror(<span class="string">&quot;recvmsg&quot;</span>);</span><br><span class="line">            close(sv[<span class="number">0</span>]);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 提取控制信息</span></span><br><span class="line">        <span class="type">int</span> received_fd = *((<span class="type">int</span> *)CMSG_DATA(cmsg));</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Received file descriptor: %d\n&quot;</span>, received_fd);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 提取数据</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Received message: %s\n&quot;</span>, buffer);</span><br><span class="line"></span><br><span class="line">        close(sv[<span class="number">0</span>]); <span class="comment">// 关闭读取端</span></span><br><span class="line">        close(received_fd); <span class="comment">// 关闭文件描述符</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<h1 id="socket通信"><a href="#socket通信" class="headerlink" title="socket通信"></a>socket通信</h1><h2 id="socketpair"><a href="#socketpair" class="headerlink" title="socketpair()"></a>socketpair()</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">socketpair</span><span class="params">(<span class="type">int</span> domai</span></span><br><span class="line"><span class="params">               n, <span class="type">int</span> type, <span class="type">int</span> protocol, <span class="type">int</span> sv[<span class="number">2</span>])</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>domain：</strong><ul>
-<li>指定协议族，通常使用 <code>AF_UNIX</code> 表示本地通信。</li>
-</ul>
-</li>
-<li><strong>type：</strong><ul>
-<li>指定套接字类型，通常使用 <code>SOCK_STREAM</code> 或 <code>SOCK_DGRAM</code>。</li>
-</ul>
-</li>
-<li><strong>protocol：</strong><ul>
-<li>指定协议，通常为 0。</li>
-</ul>
-</li>
-<li><strong>sv[2]：</strong><ul>
-<li>一个整型数组，用于存储创建的套接字对的文件描述符。<code>sv[0]</code> 表示一端，<code>sv[1]</code> 表示另一端。</li>
-</ul>
-</li>
-</ul>
+<p>逻辑上程序执行完毕后，<code>r1</code> 和<code>r2</code>至少有一个为1，但是</p>
 
       
     </div>
@@ -758,7 +906,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/20/concurrent/threadPool/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/08/C++11/raii/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -772,7 +920,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/11/20/concurrent/threadPool/" class="post-title-link" itemprop="url">threadPool</a>
+            <a href="/2024/01/08/C++11/raii/" class="post-title-link" itemprop="url">raii</a>
         </h2>
 
         <div class="post-meta">
@@ -783,7 +931,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2023-11-20 11:05:54 / 修改时间：15:00:25" itemprop="dateCreated datePublished" datetime="2023-11-20T11:05:54+08:00">2023-11-20</time>
+              <time title="创建时间：2024-01-08 22:41:50 / 修改时间：22:56:53" itemprop="dateCreated datePublished" datetime="2024-01-08T22:41:50+08:00">2024-01-08</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -791,7 +939,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/thread/" itemprop="url" rel="index"><span itemprop="name">thread</span></a>
+                  <a href="/categories/C-11/" itemprop="url" rel="index"><span itemprop="name">C++11</span></a>
                 </span>
             </span>
 
@@ -806,324 +954,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="x"><a href="#x" class="headerlink" title="x"></a>x</h1>
-      
-    </div>
+          <h1 id="RAII"><a href="#RAII" class="headerlink" title="RAII"></a>RAII</h1><p><strong>RAII（Resource Acquisition Is Initialization）</strong>是一种 C++ 编程中的设计模式，它将资源的获取与对象的生命周期绑定在一起。这种模式的核心思想是，通过在对象的构造函数中获取资源，而在析构函数中释放资源，来确保资源的正确管理。</p>
+<p>RAII 的关键在于对象的生命周期管理资源的获取和释放。当对象被创建时，它负责获取资源；当对象离开作用域、被删除或者被显式销毁时，它负责释放资源。这样可以确保在对象存在期间资源一直被正确地管理，从而避免了资源泄漏的问题。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;memory&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">MyResource</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">MyResource</span>() &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Resource acquired.&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">        data = <span class="keyword">new</span> <span class="type">int</span>[<span class="number">10</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~<span class="built_in">MyResource</span>() &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Resource released.&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">        <span class="keyword">delete</span>[] data;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">performOperation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 模拟使用资源的操作</span></span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;Performing operation.&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span>* data;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#123;</span><br><span class="line">        std::shared_ptr&lt;MyResource&gt; resource = std::<span class="built_in">make_shared</span>&lt;MyResource&gt;();</span><br><span class="line">        resource-&gt;<span class="built_in">performOperation</span>();</span><br><span class="line">    &#125; <span class="comment">// 在这个作用域结束时，资源会被自动释放</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+<p>在这个例子中，<code>MyResource</code> 类负责管理一个动态分配的整数数组。当创建 <code>std::shared_ptr&lt;MyResource&gt;</code> 对象时，<code>MyResource</code> 类的构造函数会被调用来获取资源，而当 <code>std::shared_ptr</code> 超出作用域时，它会自动调用 <code>MyResource</code> 类的析构函数来释放资源。这就确保了资源的正确获取和释放，符合 RAII 的设计理念。</p>
+<blockquote>
+<p>共享指针：<a target="_blank" rel="noopener" href="https://anan-liu.github.io/2023/10/01/C++11/smartPoint/">smartPoint | 任我行 (anan-liu.github.io)</a></p>
+</blockquote>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/16/Redis/implementation/rdb/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/16/Redis/implementation/rdb/" class="post-title-link" itemprop="url">RDB</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-11-16 09:38:51" itemprop="dateCreated datePublished" datetime="2023-11-16T09:38:51+08:00">2023-11-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-08 02:51:18" itemprop="dateModified" datetime="2024-01-08T02:51:18+08:00">2024-01-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h1><p><strong>数据库状态</strong>：非空数据库和其键值对统称为数据库状态</p>
-<p>由于Redis是内存数据库，当关机后数据将不存在，因此需要将其存储在硬盘上。RDB持久化将数据存储在硬盘上，可以手动或服务器定期执行。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/11/16/Redis/implementation/rdb/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/11/webserver/ECF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/11/webserver/ECF/" class="post-title-link" itemprop="url">Exceptional Control Flow</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-11-11 16:41:55" itemprop="dateCreated datePublished" datetime="2023-11-11T16:41:55+08:00">2023-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-08 21:45:09" itemprop="dateModified" datetime="2024-01-08T21:45:09+08:00">2024-01-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/webserver/" itemprop="url" rel="index"><span itemprop="name">webserver</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="异常控制流"><a href="#异常控制流" class="headerlink" title="异常控制流"></a>异常控制流</h1><p>在程序执行过程中由于出现异常情况而引发的控制流变化，涉及异常，进程，系统调用，进程控制，信号等</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/11/11/webserver/ECF/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/11/Git/remote/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/11/Git/remote/" class="post-title-link" itemprop="url">remote</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-11-11 02:13:47" itemprop="dateCreated datePublished" datetime="2023-11-11T02:13:47+08:00">2023-11-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-16 09:23:56" itemprop="dateModified" datetime="2023-11-16T09:23:56+08:00">2023-11-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/07/C++/string/strFunc/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/11/07/C++/string/strFunc/" class="post-title-link" itemprop="url">strFunc</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-11-07 15:07:23" itemprop="dateCreated datePublished" datetime="2023-11-07T15:07:23+08:00">2023-11-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-13 00:15:02" itemprop="dateModified" datetime="2023-11-13T00:15:02+08:00">2023-11-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h1><h2 id="strlen"><a href="#strlen" class="headerlink" title="strlen()"></a>strlen()</h2><p>传入参数是一个字符串，返回值是该字符串的长度</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/11/07/C++/string/strFunc/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
       
     </div>
 
@@ -1141,7 +980,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1207,20 +1046,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">71</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">48</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

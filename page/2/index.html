@@ -165,7 +165,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/02/Redis/implementation/database/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/30/C++/enum/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -179,7 +179,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/11/02/Redis/implementation/database/" class="post-title-link" itemprop="url">database</a>
+            <a href="/2023/12/30/C++/enum/" class="post-title-link" itemprop="url">enum</a>
         </h2>
 
         <div class="post-meta">
@@ -189,14 +189,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2023-11-02 23:33:43" itemprop="dateCreated datePublished" datetime="2023-11-02T23:33:43+08:00">2023-11-02</time>
+              <time title="创建时间：2023-12-30 02:16:32" itemprop="dateCreated datePublished" datetime="2023-12-30T02:16:32+08:00">2023-12-30</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-16 09:22:58" itemprop="dateModified" datetime="2023-11-16T09:22:58+08:00">2023-11-16</time>
+                <time title="修改时间：2024-01-08 02:50:21" itemprop="dateModified" datetime="2024-01-08T02:50:21+08:00">2024-01-08</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -204,7 +204,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
                 </span>
             </span>
 
@@ -219,602 +219,678 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="单机数据库的实现"><a href="#单机数据库的实现" class="headerlink" title="单机数据库的实现"></a>单机数据库的实现</h1><h2 id="总述"><a href="#总述" class="headerlink" title="总述"></a>总述</h2><p>这篇博客记录学习redis的单机数据库实现的原理，包括：</p>
-<ol>
-<li>数据库的保存方式</li>
-<li>客户端的目标数据库切换</li>
-<li>键值对的保存方式</li>
-</ol>
+          <h1 id="enum"><a href="#enum" class="headerlink" title="enum"></a>enum</h1><p>枚举（enum）是一种数据类型，在编程中用于定义一个有限的、命名的常量集合。它通过使用enum关键字来声明，在声明中列出枚举常量。每个枚举常量具有一个名称和一个关联的值。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/12/30/C++/enum/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/30/C++/oriented/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/30/C++/oriented/" class="post-title-link" itemprop="url">object-oriented</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-30 23:08:20" itemprop="dateCreated datePublished" datetime="2023-11-30T23:08:20+08:00">2023-11-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-01-08 21:51:22" itemprop="dateModified" datetime="2024-01-08T21:51:22+08:00">2024-01-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="面向对象"><a href="#面向对象" class="headerlink" title="面向对象"></a>面向对象</h1><p>三大特性：复合，委托，继承。</p>
+<p>复合和继承的构造函数都是由里到外的次序构建。析构则是由外到里。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/11/30/C++/oriented/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/24/concurrent/mutiplexing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/24/concurrent/mutiplexing/" class="post-title-link" itemprop="url">I/O multiplexing</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-24 16:10:24" itemprop="dateCreated datePublished" datetime="2023-11-24T16:10:24+08:00">2023-11-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-01-06 16:39:22" itemprop="dateModified" datetime="2024-01-06T16:39:22+08:00">2024-01-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/concurrent/" itemprop="url" rel="index"><span itemprop="name">concurrent</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="I-O-多路复用"><a href="#I-O-多路复用" class="headerlink" title="I&#x2F;O 多路复用"></a>I&#x2F;O 多路复用</h1><p>I&#x2F;O多路复用是一种并发处理的机制，允许单个进程或线程处理多个输入或输出通道，而无需为每个通道创建单独的线程或进程。这样可以有效地提高系统的性能和资源利用率。</p>
+<p>常用的I&#x2F;O多路复用机制有<code>select</code>、<code>poll</code>、<code>epoll</code></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/11/24/concurrent/mutiplexing/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/22/concurrent/thread/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/22/concurrent/thread/" class="post-title-link" itemprop="url">thread</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-22 10:58:49" itemprop="dateCreated datePublished" datetime="2023-11-22T10:58:49+08:00">2023-11-22</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-01-06 16:29:28" itemprop="dateModified" datetime="2024-01-06T16:29:28+08:00">2024-01-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/thread/" itemprop="url" rel="index"><span itemprop="name">thread</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="POSIX"><a href="#POSIX" class="headerlink" title="POSIX"></a>POSIX</h1><p>POSIX 线程库定义了一套用于创建、同步和管理线程的接口，通常用于在支持 POSIX 标准的操作系统上进行多线程编程。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/11/22/concurrent/thread/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/21/webserver/networkProgramming/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/21/webserver/networkProgramming/" class="post-title-link" itemprop="url">networkProgramming</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-21 10:55:22" itemprop="dateCreated datePublished" datetime="2023-11-21T10:55:22+08:00">2023-11-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-12-17 02:33:24" itemprop="dateModified" datetime="2023-12-17T02:33:24+08:00">2023-12-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/webserver/" itemprop="url" rel="index"><span itemprop="name">webserver</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="IP地址"><a href="#IP地址" class="headerlink" title="IP地址"></a>IP地址</h1><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">in_addr</span>&#123;</span><br><span class="line">    <span class="type">uint32_t</span> s_addr;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//IP地址结构</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//将点分十进制地址转换为二进制网络字节顺序的IP地址</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">inet_pton</span><span class="params">(AF_INET, <span class="type">const</span> <span class="type">void</span> *src, <span class="type">void</span> *dst)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将二进制地址转换为点分十进制地址</span></span><br><span class="line"><span class="function"><span class="type">const</span> <span class="type">char</span> *<span class="title">inet_ntop</span><span class="params">(AF_INET, <span class="type">const</span> <span class="type">void</span> *src ,<span class="type">char</span> *dst, <span class="type">socklen_t</span> len)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="套接字地址结构"><a href="#套接字地址结构" class="headerlink" title="套接字地址结构"></a>套接字地址结构</h1><p>套接字 &#x3D; IP＋端口</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">sockaddr</span> &#123;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> sa_family;  <span class="comment">// 地址族，例如 AF_INET</span></span><br><span class="line">    <span class="type">char</span> sa_data[<span class="number">14</span>];          <span class="comment">// 地址数据</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">sockaddr_in</span> &#123;</span><br><span class="line">    <span class="type">short</span> <span class="type">int</span> sin_family;      <span class="comment">// 地址族，通常为 AF_INET</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">short</span> <span class="type">int</span> sin_port;  <span class="comment">// 端口号，网络字节序</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">in_addr</span> sin_addr;   <span class="comment">// IPv4 地址结构体</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">char</span> sin_zero[<span class="number">8</span>];  <span class="comment">// 填充字段，使结构体大小与 sockaddr 一致</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>增删改查的实现方式</li>
-<li>键的过期时间</li>
-<li>服务器自动删除键</li>
-<li>AOF RDB 复制功能对过期键的处理</li>
+<li><code>sockaddr_in</code> 是用于表示IPv4地址的结构体</li>
+<li><code>sockaddr</code> 是一个通用的套接字地址结构体</li>
 </ul>
-<ol start="4">
-<li>数据库通知</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/11/02/Redis/implementation/database/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/26/Git/undoing/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/26/Git/undoing/" class="post-title-link" itemprop="url">undoing</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-26 00:05:49" itemprop="dateCreated datePublished" datetime="2023-10-26T00:05:49+08:00">2023-10-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-16 09:28:56" itemprop="dateModified" datetime="2023-11-16T09:28:56+08:00">2023-11-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="撤销操作"><a href="#撤销操作" class="headerlink" title="撤销操作"></a>撤销操作</h1><ol>
-<li>撤销暂存操作</li>
-<li>撤销提交操作</li>
-<li>撤销修改文件操作</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/26/Git/undoing/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/24/Git/log/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/24/Git/log/" class="post-title-link" itemprop="url">log</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-24 16:45:34" itemprop="dateCreated datePublished" datetime="2023-10-24T16:45:34+08:00">2023-10-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-10 23:17:48" itemprop="dateModified" datetime="2023-11-10T23:17:48+08:00">2023-11-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="git-日志"><a href="#git-日志" class="headerlink" title="git 日志"></a>git 日志</h1><p>使用<code>git log</code>命令以及一些选项打印日志信息,如下表：</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/24/Git/log/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/22/glob/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/22/glob/" class="post-title-link" itemprop="url">glob</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-22 15:43:17" itemprop="dateCreated datePublished" datetime="2023-10-22T15:43:17+08:00">2023-10-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-24 16:44:09" itemprop="dateModified" datetime="2023-10-24T16:44:09+08:00">2023-10-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/glob/" itemprop="url" rel="index"><span itemprop="name">glob</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="模式匹配"><a href="#模式匹配" class="headerlink" title="模式匹配"></a>模式匹配</h1><p>可以使用一些规则用以匹配特定的文件</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/22/glob/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/13/Redis/object/memory/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/13/Redis/object/memory/" class="post-title-link" itemprop="url">memory</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-13 01:33:48" itemprop="dateCreated datePublished" datetime="2023-10-13T01:33:48+08:00">2023-10-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-16 09:29:36" itemprop="dateModified" datetime="2023-11-16T09:29:36+08:00">2023-11-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="内存回收"><a href="#内存回收" class="headerlink" title="内存回收"></a>内存回收</h1><p>当共享对象的<strong>引用次数</strong>为0时，Redis服务器会自动回收共享对象。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/13/Redis/object/memory/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/12/Redis/object/typeAndCmd/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/12/Redis/object/typeAndCmd/" class="post-title-link" itemprop="url">typeAndCmd</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-12 22:17:17" itemprop="dateCreated datePublished" datetime="2023-10-12T22:17:17+08:00">2023-10-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-07 15:09:43" itemprop="dateModified" datetime="2023-11-07T15:09:43+08:00">2023-11-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="类型检查"><a href="#类型检查" class="headerlink" title="类型检查"></a>类型检查</h1><p>操作键的命令类型有两种：1、通用类型；2、特定类型。</p>
-<p>执行一个特定类型的命令时，先检查给定的键是否符合要求，再考虑是否执行这个命令。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/12/Redis/object/typeAndCmd/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/09/C++/function/functionType/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/09/C++/function/functionType/" class="post-title-link" itemprop="url">functionType</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-09 03:48:20" itemprop="dateCreated datePublished" datetime="2023-10-09T03:48:20+08:00">2023-10-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-16 09:30:00" itemprop="dateModified" datetime="2023-11-16T09:30:00+08:00">2023-11-16</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index"><span itemprop="name">C++</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="函数类型"><a href="#函数类型" class="headerlink" title="函数类型"></a>函数类型</h1><p>函数的类型由返回类型和形参类型共同决定，例如，由如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">bol <span class="title">lengthCompare</span><span class="params">(<span class="type">const</span> string &amp;, <span class="type">const</span> string &amp;)</span></span>;</span><br></pre></td></tr></table></figure>
-
-<p>则它的函数类型为<code>bool(const string &amp;, const string &amp;)</code></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/10/09/C++/function/functionType/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/07/Redis/object/setObject/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/07/Redis/object/setObject/" class="post-title-link" itemprop="url">setObject</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-07 23:17:45" itemprop="dateCreated datePublished" datetime="2023-10-07T23:17:45+08:00">2023-10-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-08 02:54:51" itemprop="dateModified" datetime="2023-10-08T02:54:51+08:00">2023-10-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="集合对象"><a href="#集合对象" class="headerlink" title="集合对象"></a>集合对象</h1><blockquote>
-<p>Redis对象有三个主要属性：type、encoding、ptr。集合对象type的类型就是集合：REDIS_SET</p>
+<p>在使用套接字编程时，通常会将 <code>sockaddr_in</code> 转换为 <code>struct sockaddr</code>，以便在函数参数中传递。这是因为很多套接字相关的系统调用（如 <code>bind</code>、<code>connect</code>、<code>accept</code> 等）都接受通用的 <code>struct sockaddr</code> 类型的地址参数。</p>
+<h1 id="地址转换"><a href="#地址转换" class="headerlink" title="地址转换"></a>地址转换</h1><h2 id="getaddrinfo"><a href="#getaddrinfo" class="headerlink" title="getaddrinfo()"></a>getaddrinfo()</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">getaddrinfor</span><span class="params">(<span class="type">const</span> <span class="type">char</span> *host, <span class="type">const</span> <span class="type">char</span> *service,</span></span><br><span class="line"><span class="params">                 <span class="type">const</span> <span class="keyword">struct</span> addrinfo *hints,</span></span><br><span class="line"><span class="params">                 <span class="keyword">struct</span> addrinfo **result)</span>;</span><br><span class="line"><span class="comment">//成功返回0，失败返回错误代码</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">freeaddrinfo</span><span class="params">(stuct addrinfo *result)</span>;</span><br><span class="line"><span class="comment">//释放空间</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>node</code>：主机名或 IP 地址字符串，可以为 <code>NULL</code>。</li>
+<li><code>service</code>：服务名或端口号字符串，可以为 <code>NULL</code>。</li>
+<li><code>hints</code>：一个可选的指向 <code>struct addrinfo</code> 结构体的指针，用于提供关于期望返回的地址信息类型的提示。如果不需要特殊的提示，可以将其设置为 <code>NULL</code>。</li>
+<li><code>res</code>：一个指向 <code>struct addrinfo</code> 结构体链表的指针，返回获取到的地址信息。</li>
+</ul>
+<p>在使用 <code>getaddrinfo()</code> 函数获取地址信息之后，需要遍历返回的地址信息链表并调用 <code>socket()</code>，这是因为一个主机名（或服务名）可能对应多个地址，而不同的地址可能代表不同的网络接口或协议。</p>
+<h2 id="struct-addrinfo"><a href="#struct-addrinfo" class="headerlink" title="struct addrinfo"></a>struct addrinfo</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">addrinfo</span> &#123;</span></span><br><span class="line">        <span class="type">int</span> ai_flags;     <span class="comment">// Hints argument flags </span></span><br><span class="line">        <span class="type">int</span> ai_family;    <span class="comment">// First arg to socket function </span></span><br><span class="line">        <span class="type">int</span> ai_socktype; <span class="comment">// Second arg to socket function </span></span><br><span class="line">        <span class="type">int</span> ai_protocol; <span class="comment">// Third arg to socket function </span></span><br><span class="line">        <span class="type">char</span> *ai_canonname; <span class="comment">// Canonical hostname </span></span><br><span class="line">        <span class="type">size_t</span> ai_addrlen;   <span class="comment">// Size of ai_addr struct </span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr</span> *<span class="title">ai_addr</span>;</span></span><br><span class="line">    <span class="comment">// Ptr to socket address structure */</span></span><br><span class="line">    </span><br><span class="line">    	<span class="class"><span class="keyword">struct</span> <span class="title">addrinfo</span> *<span class="title">ai_next</span>;</span>      </span><br><span class="line">    <span class="comment">// Ptr to next item in linked list */</span></span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
+
+<p>以上的结构体就是<strong>地址信息链表</strong>：<code>struct addrinfo</code> 结构体中的字段描述了一个网络地址的各种属性。</p>
+<ul>
+<li><code>ai_flags</code> 控制返回信息的标志，</li>
+<li><code>ai_family</code> 表示地址族，</li>
+<li><code>ai_socktype</code> 表示套接字类型，</li>
+<li><code>ai_protocol</code> 表示协议，</li>
+<li><code>ai_addrlen</code> 表示地址长度，</li>
+<li><code>ai_addr</code> 是一个指向 <code>sockaddr</code> 结构体的指针，包含实际的地址信息。</li>
+<li><code>ai_canonname</code> 存储主机的规范名，</li>
+<li><code>ai_next</code> 指向链表中的下一个 <code>addrinfo</code> 结构体。</li>
+</ul>
+<h2 id="inet-ntop"><a href="#inet-ntop" class="headerlink" title="inet_ntop()"></a>inet_ntop()</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">const</span> <span class="type">char</span> *<span class="title">inet_ntop</span><span class="params">(<span class="type">int</span> af, <span class="type">const</span> <span class="type">void</span> *src, <span class="type">char</span> *dst, <span class="type">socklen_t</span> size)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>af</code>：地址族，可以是 <code>AF_INET</code>（IPv4）或 <code>AF_INET6</code>（IPv6）。</li>
+<li><code>src</code>：指向包含二进制地址的指针，通常是 <code>struct sockaddr</code> 结构体中的 <code>sa_data</code> 字段。</li>
+<li><code>dst</code>：指向存储转换后的字符串的缓冲区。</li>
+<li><code>size</code>：缓冲区的大小。</li>
+</ul>
+<h1 id="套接字选项"><a href="#套接字选项" class="headerlink" title="套接字选项"></a>套接字选项</h1><h2 id="setsockopt"><a href="#setsockopt" class="headerlink" title="setsockopt()"></a>setsockopt()</h2><p>是一个系统调用，用于设置套接字选项。套接字选项是影响套接字行为的参数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">setsockopt</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">int</span> level, <span class="type">int</span> optname, <span class="type">const</span> <span class="type">void</span> *optval, <span class="type">socklen_t</span> optlen)</span></span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>sockfd</code>：套接字描述符，标识要设置选项的套接字。</li>
+<li><code>level</code>：指定选项的级别，常见的有 <code>SOL_SOCKET</code>（通用套接字选项）、<code>IPPROTO_TCP</code>（TCP 选项）和 <code>IPPROTO_IP</code>（IP 选项）等。</li>
+<li><code>optname</code>：指定要设置的选项的名称，具体取决于 <code>level</code> 的值。</li>
+<li><code>optval</code>：指向包含新选项值的内存块的指针。</li>
+<li><code>optlen</code>：<code>optval</code> 指向的内存块的大小。</li>
+</ul>
+<blockquote>
+<p>当 <code>level</code> 设置为 <code>SOL_SOCKET</code> 时，<code>optname</code> 和 <code>optval</code> 参数的含义会根据具体的选项而变化。</p>
 </blockquote>
-<p>集合的编码有：1、inset；2、hashtable</p>
+<h1 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h1><h2 id="socket-connect"><a href="#socket-connect" class="headerlink" title="socket() &amp;&amp; connect()"></a>socket() &amp;&amp; connect()</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">socket</span><span class="params">(<span class="type">int</span> domain, <span class="type">int</span> type, <span class="type">int</span> protocol)</span>;</span><br><span class="line"><span class="type">int</span> <span class="title function_">connect</span><span class="params">(<span class="type">int</span> clientfd, <span class="type">const</span> <span class="keyword">struct</span> socketaddr *addr, </span></span><br><span class="line"><span class="params">            <span class="type">socklen_t</span> addrlen)</span>;</span><br><span class="line"><span class="comment">//connect把clientfd的内容发送给服务端，并从clienfd中接收从服务端传来的消息</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h1><h2 id="socket-bind-listen-accept"><a href="#socket-bind-listen-accept" class="headerlink" title="socket() &amp;&amp; bind() &amp;&amp; listen() &amp;&amp; accept()"></a>socket() &amp;&amp; bind() &amp;&amp; listen() &amp;&amp; accept()</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">bind</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="keyword">struct</span> sockaddr *addr,</span></span><br><span class="line"><span class="params">         <span class="type">socklen_t</span> addrlen)</span>;</span><br><span class="line"><span class="comment">//绑定服务器套接字地址和套接字描述符</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">listen</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">int</span> backlog)</span>;</span><br><span class="line"><span class="comment">//将套接字设置为监听状态</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">accept</span><span class="params">(<span class="type">int</span> listenfd, <span class="keyword">struct</span> sockaddr *addr, </span></span><br><span class="line"><span class="params">           <span class="type">int</span> *addrlen)</span>;</span><br><span class="line"><span class="comment">//*等待*客户端的连接请求，返回一个已连接描述符，向描述符写的内容就是传给客户端的内容。</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="getpeername"><a href="#getpeername" class="headerlink" title="getpeername"></a>getpeername</h2><p><code>getpeername()</code> 是一个用于获取已连接套接字对端地址信息的系统调用。它通常用于在服务器端获知与其连接的客户端的地址信息。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">getpeername</span><span class="params">(<span class="type">int</span> sockfd, <span class="keyword">struct</span> sockaddr *addr, <span class="type">socklen_t</span> *addrlen)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><strong>sockfd：</strong><ul>
+<li><code>sockfd</code> 是已连接套接字的文件描述符，它是通过 <code>socket()</code> 和 <code>accept()</code> 等函数创建的。</li>
+</ul>
+</li>
+<li><strong>addr：</strong><ul>
+<li><code>addr</code> 是一个指向 <code>struct sockaddr</code> 结构体的指针，用于存储对端（远程端）的地址信息。</li>
+</ul>
+</li>
+<li><strong>addrlen：</strong><ul>
+<li><code>addrlen</code> 是一个指向 <code>socklen_t</code> 类型的指针，用于指定 <code>addr</code> 缓冲区的大小。在调用 <code>getpeername()</code> 之前，<code>addrlen</code> 应该被设置为 <code>sizeof(struct sockaddr)</code>。</li>
+</ul>
+</li>
+</ol>
+<p><code>getpeername()</code> 在成功时返回 0，失败时返回 -1，并设置全局变量 <code>errno</code> 来指示错误的类型。</p>
+<h1 id="消息"><a href="#消息" class="headerlink" title="消息"></a>消息</h1><h2 id="struct-msghdr"><a href="#struct-msghdr" class="headerlink" title="struct msghdr"></a>struct msghdr</h2><p><code>struct msghdr</code> 是用于描述消息的数据结构，通常在网络编程中的一些系统调用中使用，如 <code>sendmsg()</code> 和 <code>recvmsg()</code>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">msghdr</span> &#123;</span></span><br><span class="line">    <span class="type">void</span>         *msg_name;       <span class="comment">// 指向目标地址的指针，通常是 struct sockaddr 结构体的指针</span></span><br><span class="line">    <span class="type">socklen_t</span>     msg_namelen;    <span class="comment">// 目标地址的长度</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> *<span class="title">msg_iov</span>;</span>        <span class="comment">// 指向一个或多个数据块的结构体数组，用于指定发送或接收的数据</span></span><br><span class="line">    <span class="type">size_t</span>        msg_iovlen;     <span class="comment">// msg_iov 数组的元素个数</span></span><br><span class="line">    <span class="type">void</span>         *msg_control;    <span class="comment">// 用于传递辅助数据，比如控制信息或文件描述符</span></span><br><span class="line">    <span class="type">size_t</span>        msg_controllen; <span class="comment">// msg_control 的长度</span></span><br><span class="line">    <span class="type">int</span>           msg_flags;      <span class="comment">// 用于传递或接收标志信息</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>msg_name 和 msg_namelen：</strong><ul>
+<li><code>msg_name</code> 和 <code>msg_namelen</code> 用于指定目标地址的信息。通常，<code>msg_name</code> 是一个指向 <code>struct sockaddr</code> 结构体的指针，<code>msg_namelen</code> 是这个结构体的长度。</li>
+</ul>
+</li>
+<li><strong>msg_iov 和 msg_iovlen：</strong><ul>
+<li><code>msg_iov</code> 是一个指向 <code>struct iovec</code> 结构体数组的指针，用于指定发送或接收的数据块。<code>msg_iovlen</code> 是 <code>msg_iov</code> 数组的元素个数。<code>struct iovec</code> 包含了指向数据的指针和数据的长度。</li>
+</ul>
+</li>
+<li><strong>msg_control 和 msg_controllen：</strong><ul>
+<li><code>msg_control</code> 和 <code>msg_controllen</code> 用于传递辅助数据，比如控制信息或文件描述符。这个字段通常用于在消息中传递额外的信息。</li>
+</ul>
+</li>
+<li><strong>msg_flags：</strong><ul>
+<li><code>msg_flags</code> 用于传递或接收标志信息，通常用于设置或获取一些与消息相关的状态。</li>
+</ul>
+</li>
+</ul>
+<h2 id="struct-cmsghdr"><a href="#struct-cmsghdr" class="headerlink" title="struct cmsghdr"></a>struct cmsghdr</h2><p>（Control Message Header）是一个用于描述控制消息的结构体头部，通常在一些套接字相关的系统调用中使用，如 <code>sendmsg()</code> 和 <code>recvmsg()</code>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cmsghdr</span> &#123;</span></span><br><span class="line">    <span class="type">size_t</span> cmsg_len;   <span class="comment">// 控制消息的总长度</span></span><br><span class="line">    <span class="type">int</span>    cmsg_level; <span class="comment">// 指定协议层，例如 SOL_SOCKET</span></span><br><span class="line">    <span class="type">int</span>    cmsg_type;  <span class="comment">// 指定消息类型</span></span><br><span class="line">    <span class="comment">// 后面跟着实际的数据</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>cmsg_len：</strong><ul>
+<li><code>cmsg_len</code> 表示整个控制消息的总长度，包括 <code>cmsghdr</code> 结构体头部以及后续的实际数据。</li>
+</ul>
+</li>
+<li><strong>cmsg_level：</strong><ul>
+<li><code>cmsg_level</code> 指定协议层，例如 <code>SOL_SOCKET</code> 表示套接字层。</li>
+</ul>
+</li>
+<li><strong>cmsg_type：</strong><ul>
+<li><code>cmsg_type</code> 指定消息的类型，表示控制消息的具体含义。</li>
+</ul>
+</li>
+</ul>
+<h3 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h3><p>用于处理和操作控制消息的不同方面。这些宏的命名通常以 <code>CMSG_</code> 为前缀，表示它们属于控制消息处理的一部分</p>
+<ul>
+<li><p><strong><code>CMSG_FIRSTHDR</code>：</strong> 返回与给定 <code>msghdr</code> 结构体相关联的第一个控制消息头的指针。</p>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CMSG_FIRSTHDR(mhdr) </span></span><br><span class="line">((mhdr)-&gt;msg_controllen &gt;= <span class="keyword">sizeof</span>(<span class="keyword">struct</span> cmsghdr) ? (<span class="keyword">struct</span> cmsghdr *)(mhdr)-&gt;msg_control : <span class="literal">NULL</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>CMSG_NXTHDR</code>：</strong> 返回下一个控制消息头的指针，用于在消息头链表中遍历控制消息。</p>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CMSG_NXTHDR(mhdr, cmsg) </span></span><br><span class="line">((<span class="type">char</span> *)cmsg + CMSG_ALIGN((cmsg)-&gt;cmsg_len) + CMSG_ALIGN(<span class="keyword">sizeof</span>(<span class="keyword">struct</span> cmsghdr)) </span><br><span class="line">&lt; </span><br><span class="line"> (<span class="type">char</span> *)(mhdr)-&gt;msg_control + (mhdr)-&gt;msg_controllen </span><br><span class="line">? </span><br><span class="line"> (<span class="keyword">struct</span> cmsghdr *)((<span class="type">char</span> *)cmsg + CMSG_ALIGN((cmsg)-&gt;cmsg_len)) : <span class="literal">NULL</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>CMSG_LEN</code>：</strong> 根据给定数据大小计算控制消息头的总长度。</p>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CMSG_LEN(size) (CMSG_ALIGN(sizeof(struct cmsghdr)) + (size))</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>CMSG_SPACE</code>：</strong> 根据给定数据大小计算整个控制消息的总空间大小，包括头部和数据部分。</p>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CMSG_SPACE(size) (CMSG_ALIGN(sizeof(struct cmsghdr)) + CMSG_ALIGN(size))</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>CMSG_ALIGN</code>：</strong> 对给定大小进行对齐操作，确保满足平台的对齐要求。</p>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CMSG_ALIGN(len) (((len) + sizeof(long) - 1) &amp; ~(sizeof(long) - 1))</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>CMSG_DATA</code>:</strong> 是一个宏，用于获取控制消息头 (<code>struct cmsghdr</code>) 中数据部分的指针。在控制消息中，数据部分紧跟在头部之后，其大小可变。</p>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> CMSG_DATA(cmsg) ((unsigned char *)(cmsg) + CMSG_LEN(0))</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p><code>msghdr</code> 用于描述整个消息，包括数据和控制信息，而 <code>cmsghdr</code> 则用于描述控制信息的头部。在实际应用中，<code>msg_control</code> 指向一个或多个 <code>cmsghdr</code> 结构体，后面跟着实际的控制信息数据。这样的结构设计使得在消息中可以携带各种类型的辅助信息，例如文件描述符等。</p>
+</blockquote>
+<h2 id="sendmsg"><a href="#sendmsg" class="headerlink" title="sendmsg()"></a>sendmsg()</h2><p><code>sendmsg()</code> 函数用于通过套接字发送消息，包括数据块和控制信息。它允许在一个系统调用中发送多个数据块，同时可以携带控制信息，比如文件描述符。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">sendmsg</span><span class="params">(<span class="type">int</span> sockfd, <span class="type">const</span> <span class="keyword">struct</span> msghdr *msg, <span class="type">int</span> flags)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>sockfd：</strong><ul>
+<li>是要发送数据的套接字描述符。</li>
+</ul>
+</li>
+<li><strong>msg：</strong><ul>
+<li>是一个指向 <code>struct msghdr</code> 结构体的指针，用于指定发送的消息的详细信息，包括目标地址、数据块、控制信息等。</li>
+</ul>
+</li>
+<li><strong>flags：</strong><ul>
+<li>是一组标志位，可以为 0 或者通过按位或操作指定多个标志。</li>
+</ul>
+</li>
+<li><strong>返回值：</strong><ul>
+<li>返回实际发送的字节数，发生错误时返回 -1。</li>
+</ul>
+</li>
+</ul>
+<h2 id="recvmsg"><a href="#recvmsg" class="headerlink" title="recvmsg()"></a>recvmsg()</h2><p><code>recvmsg()</code> 函数用于通过套接字接收消息，包括数据块和控制信息。它允许在一个系统调用中接收多个数据块，同时可以携带控制信息，比如文件描述符。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">ssize_t</span> <span class="title function_">recvmsg</span><span class="params">(<span class="type">int</span> sockfd, <span class="keyword">struct</span> msghdr *msg, <span class="type">int</span> flags)</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="iovec"><a href="#iovec" class="headerlink" title="iovec"></a>iovec</h2><p><code>struct iovec</code> 是一个用于描述分散&#x2F;聚集输入输出的结构体，通常在一些系统调用中使用，如 <code>readv</code>、<code>writev</code>、<code>sendmsg</code> 和 <code>recvmsg</code>。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/uio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> &#123;</span></span><br><span class="line">    <span class="type">void</span>  *iov_base; <span class="comment">// 指向数据的指针</span></span><br><span class="line">    <span class="type">size_t</span> iov_len;  <span class="comment">// 数据的长度</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<p>示例如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/uio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> <span class="title">iov</span>[2];</span></span><br><span class="line">    <span class="type">char</span> buffer1[] = <span class="string">&quot;Hello, &quot;</span>;</span><br><span class="line">    <span class="type">char</span> buffer2[] = <span class="string">&quot;world!\n&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置第一个缓冲区</span></span><br><span class="line">    iov[<span class="number">0</span>].iov_base = buffer1;</span><br><span class="line">    iov[<span class="number">0</span>].iov_len = <span class="keyword">sizeof</span>(buffer1) - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置第二个缓冲区</span></span><br><span class="line">    iov[<span class="number">1</span>].iov_base = buffer2;</span><br><span class="line">    iov[<span class="number">1</span>].iov_len = <span class="keyword">sizeof</span>(buffer2) - <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 使用 writev 函数将两个缓冲区的数据写入到文件描述符</span></span><br><span class="line">    <span class="type">ssize_t</span> bytes_written = writev(STDOUT_FILENO, iov, <span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (bytes_written == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;writev&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> BUF_SIZE 1024</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">int</span> sv[<span class="number">2</span>];</span><br><span class="line">    <span class="type">char</span> buffer[BUF_SIZE];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (socketpair(AF_UNIX, SOCK_STREAM, <span class="number">0</span>, sv) == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;socketpair&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">pid_t</span> pid = fork();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (pid == <span class="number">-1</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;fork&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (pid == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="comment">// 子进程</span></span><br><span class="line">        close(sv[<span class="number">0</span>]); <span class="comment">// 关闭不使用的一端</span></span><br><span class="line"></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> <span class="title">iov</span>[2];</span></span><br><span class="line">        iov[<span class="number">0</span>].iov_base = <span class="string">&quot;Hello, &quot;</span>;</span><br><span class="line">        iov[<span class="number">0</span>].iov_len = <span class="built_in">strlen</span>(<span class="string">&quot;Hello, &quot;</span>);</span><br><span class="line">        iov[<span class="number">1</span>].iov_base = <span class="string">&quot;world!&quot;</span>;</span><br><span class="line">        iov[<span class="number">1</span>].iov_len = <span class="built_in">strlen</span>(<span class="string">&quot;world!&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">msghdr</span> <span class="title">msg</span> =</span> &#123;</span><br><span class="line">            .msg_iov = iov,</span><br><span class="line">            .msg_iovlen = <span class="number">2</span>,</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (sendmsg(sv[<span class="number">1</span>], &amp;msg, <span class="number">0</span>) == <span class="number">-1</span>) &#123;</span><br><span class="line">            perror(<span class="string">&quot;sendmsg&quot;</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        close(sv[<span class="number">1</span>]); <span class="comment">// 关闭写入端</span></span><br><span class="line"></span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 父进程</span></span><br><span class="line">        close(sv[<span class="number">1</span>]); <span class="comment">// 关闭不使用的一端</span></span><br><span class="line"></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">iovec</span> <span class="title">iov</span>[2];</span></span><br><span class="line">        iov[<span class="number">0</span>].iov_base = buffer;</span><br><span class="line">        iov[<span class="number">0</span>].iov_len = BUF_SIZE;</span><br><span class="line"></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">cmsghdr</span> *<span class="title">cmsg</span>;</span></span><br><span class="line">        <span class="type">size_t</span> cmsg_size = CMSG_SPACE(<span class="keyword">sizeof</span>(<span class="type">int</span>));</span><br><span class="line">        cmsg = <span class="built_in">malloc</span>(cmsg_size);</span><br><span class="line"></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">msghdr</span> <span class="title">msg</span> =</span> &#123;</span><br><span class="line">            .msg_iov = iov,</span><br><span class="line">            .msg_iovlen = <span class="number">1</span>,</span><br><span class="line">            .msg_control = cmsg,</span><br><span class="line">            .msg_controllen = cmsg_size,</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (recvmsg(sv[<span class="number">0</span>], &amp;msg, <span class="number">0</span>) == <span class="number">-1</span>) &#123;</span><br><span class="line">            perror(<span class="string">&quot;recvmsg&quot;</span>);</span><br><span class="line">            close(sv[<span class="number">0</span>]);</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 提取控制信息</span></span><br><span class="line">        <span class="type">int</span> received_fd = *((<span class="type">int</span> *)CMSG_DATA(cmsg));</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Received file descriptor: %d\n&quot;</span>, received_fd);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 提取数据</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Received message: %s\n&quot;</span>, buffer);</span><br><span class="line"></span><br><span class="line">        close(sv[<span class="number">0</span>]); <span class="comment">// 关闭读取端</span></span><br><span class="line">        close(received_fd); <span class="comment">// 关闭文件描述符</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="socket通信"><a href="#socket通信" class="headerlink" title="socket通信"></a>socket通信</h1><h2 id="socketpair"><a href="#socketpair" class="headerlink" title="socketpair()"></a>socketpair()</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">socketpair</span><span class="params">(<span class="type">int</span> domai</span></span><br><span class="line"><span class="params">               n, <span class="type">int</span> type, <span class="type">int</span> protocol, <span class="type">int</span> sv[<span class="number">2</span>])</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>domain：</strong><ul>
+<li>指定协议族，通常使用 <code>AF_UNIX</code> 表示本地通信。</li>
+</ul>
+</li>
+<li><strong>type：</strong><ul>
+<li>指定套接字类型，通常使用 <code>SOCK_STREAM</code> 或 <code>SOCK_DGRAM</code>。</li>
+</ul>
+</li>
+<li><strong>protocol：</strong><ul>
+<li>指定协议，通常为 0。</li>
+</ul>
+</li>
+<li><strong>sv[2]：</strong><ul>
+<li>一个整型数组，用于存储创建的套接字对的文件描述符。<code>sv[0]</code> 表示一端，<code>sv[1]</code> 表示另一端。</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/20/concurrent/threadPool/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/20/concurrent/threadPool/" class="post-title-link" itemprop="url">threadPool</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-20 11:05:54" itemprop="dateCreated datePublished" datetime="2023-11-20T11:05:54+08:00">2023-11-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-01-09 22:02:07" itemprop="dateModified" datetime="2024-01-09T22:02:07+08:00">2024-01-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/thread/" itemprop="url" rel="index"><span itemprop="name">thread</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h1><p>&#x2F;&#x2F;TODO</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/16/Redis/implementation/rdb/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/16/Redis/implementation/rdb/" class="post-title-link" itemprop="url">RDB</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-16 09:38:51" itemprop="dateCreated datePublished" datetime="2023-11-16T09:38:51+08:00">2023-11-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-01-08 02:51:18" itemprop="dateModified" datetime="2024-01-08T02:51:18+08:00">2024-01-08</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h1><p><strong>数据库状态</strong>：非空数据库和其键值对统称为数据库状态</p>
+<p>由于Redis是内存数据库，当关机后数据将不存在，因此需要将其存储在硬盘上。RDB持久化将数据存储在硬盘上，可以手动或服务器定期执行。</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/10/07/Redis/object/setObject/#more" rel="contents">
+              <a class="btn" href="/2023/11/16/Redis/implementation/rdb/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -838,7 +914,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/05/C++17/structuredBingding/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/11/webserver/ECF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -852,7 +928,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2023/10/05/C++17/structuredBingding/" class="post-title-link" itemprop="url">structuredBinding</a>
+            <a href="/2023/11/11/webserver/ECF/" class="post-title-link" itemprop="url">Exceptional Control Flow</a>
         </h2>
 
         <div class="post-meta">
@@ -862,14 +938,168 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2023-10-05 23:23:35" itemprop="dateCreated datePublished" datetime="2023-10-05T23:23:35+08:00">2023-10-05</time>
+              <time title="创建时间：2023-11-11 16:41:55" itemprop="dateCreated datePublished" datetime="2023-11-11T16:41:55+08:00">2023-11-11</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-10 09:10:36" itemprop="dateModified" datetime="2023-11-10T09:10:36+08:00">2023-11-10</time>
+                <time title="修改时间：2024-01-09 16:19:00" itemprop="dateModified" datetime="2024-01-09T16:19:00+08:00">2024-01-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/OS/" itemprop="url" rel="index"><span itemprop="name">OS</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="异常控制流"><a href="#异常控制流" class="headerlink" title="异常控制流"></a>异常控制流</h1><p>在程序执行过程中由于出现异常情况而引发的控制流变化，涉及异常，进程，系统调用，进程控制，信号等</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2023/11/11/webserver/ECF/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/11/Git/remote/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/11/Git/remote/" class="post-title-link" itemprop="url">remote</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-11 02:13:47" itemprop="dateCreated datePublished" datetime="2023-11-11T02:13:47+08:00">2023-11-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-16 09:23:56" itemprop="dateModified" datetime="2023-11-16T09:23:56+08:00">2023-11-16</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/11/07/C++/string/strFunc/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="阿怪">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="任我行">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/11/07/C++/string/strFunc/" class="post-title-link" itemprop="url">strFunc</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-11-07 15:07:23" itemprop="dateCreated datePublished" datetime="2023-11-07T15:07:23+08:00">2023-11-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-11-13 00:15:02" itemprop="dateModified" datetime="2023-11-13T00:15:02+08:00">2023-11-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -892,93 +1122,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="结构化绑定"><a href="#结构化绑定" class="headerlink" title="结构化绑定"></a>结构化绑定</h1><p>结构化绑定是C++17的特性。将左值指定的变量名绑定到初始化项的子对象或元素中去。</p>
-<p>类似引用，结构化绑定是一个别名；区别于引用，结构化绑定不用是一个引用类型。</p>
+          <h1 id="字符串函数"><a href="#字符串函数" class="headerlink" title="字符串函数"></a>字符串函数</h1><h2 id="strlen"><a href="#strlen" class="headerlink" title="strlen()"></a>strlen()</h2><p>传入参数是一个字符串，返回值是该字符串的长度</p>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2023/10/05/C++17/structuredBingding/#more" rel="contents">
+              <a class="btn" href="/2023/11/07/C++/string/strFunc/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
           <!--/noindex-->
         
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/10/05/C++11/explicit/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="阿怪">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="任我行">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/05/C++11/explicit/" class="post-title-link" itemprop="url">explicit</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-05 00:02:33" itemprop="dateCreated datePublished" datetime="2023-10-05T00:02:33+08:00">2023-10-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-01-06 15:55:19" itemprop="dateModified" datetime="2024-01-06T15:55:19+08:00">2024-01-06</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C-11/" itemprop="url" rel="index"><span itemprop="name">C++11</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="explicit"><a href="#explicit" class="headerlink" title="explicit"></a>explicit</h1><p><code>explicit</code> 是 C++ 中的一个关键字，主要用于修饰类构造函数。使用 <code>explicit</code> 关键字可以防止隐式类型转换，强制要求显式地调用构造函数。</p>
-<p>默认情况下，如果一个构造函数可以用作隐式转换，那么它可能会导致一些不直观的行为。<code>explicit</code> 关键字的使用可以帮助避免这种情况。</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="comment">// 通常的构造函数</span></span><br><span class="line">    <span class="built_in">MyClass</span>(<span class="type">int</span> x) : <span class="built_in">value</span>(x) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造函数使用 explicit 关键字</span></span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">MyClass</span><span class="params">(<span class="type">double</span> y)</span> : value(static_cast&lt;int&gt;(y)) &#123;</span>&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="type">int</span> <span class="title">getValue</span><span class="params">()</span> <span class="type">const</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="type">int</span> value;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    MyClass obj1 = <span class="number">42</span>;       <span class="comment">// 隐式调用 int 构造函数</span></span><br><span class="line">    MyClass obj2 = <span class="number">3.14</span>;     <span class="comment">// 显式调用 double 构造函数</span></span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; obj1.<span class="built_in">getValue</span>() &lt;&lt; std::endl;  <span class="comment">// 输出 42</span></span><br><span class="line">    std::cout &lt;&lt; obj2.<span class="built_in">getValue</span>() &lt;&lt; std::endl;  <span class="comment">// 输出 3，因为使用了 static_cast</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
       
     </div>
 
@@ -996,7 +1148,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1062,20 +1214,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">71</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">43</span>
+        <span class="site-state-item-count">48</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
